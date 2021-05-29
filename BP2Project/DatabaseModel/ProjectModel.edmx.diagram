@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="ProjectModel.Zaposleni" Width="1.5" PointX="3.375" PointY="0.625" />
         <EntityTypeShape EntityType="ProjectModel.PoslovniProstor" Width="1.5" PointX="3.25" PointY="4.125" />
         <EntityTypeShape EntityType="ProjectModel.Hardver" Width="1.5" PointX="6.25" PointY="1.875" />
+        <EntityTypeShape EntityType="ProjectModel.Tim" Width="1.5" PointX="10.875" PointY="1.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,6 +16,7 @@
           <EntitySet Name="Zaposleni" EntityType="ProjectModel.Zaposleni" />
           <EntitySet Name="PoslovniProstori" EntityType="ProjectModel.PoslovniProstor" />
           <EntitySet Name="Hardveri" EntityType="ProjectModel.Hardver" />
+          <EntitySet Name="Timovi" EntityType="ProjectModel.Tim" />
         </EntityContainer>
         <EntityType Name="Zaposleni">
           <Key>
@@ -41,6 +42,13 @@
           <Property Name="CPU" Type="String" Nullable="true" />
           <Property Name="RAM" Type="Int32" Nullable="true" />
           <Property Name="HDD" Type="Int32" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Tim">
+          <Key>
+            <PropertyRef Name="ST" />
+          </Key>
+          <Property Name="ST" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="PR" Type="String" Nullable="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
