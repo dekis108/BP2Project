@@ -12,18 +12,19 @@ namespace DatabaseModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Tim
+    public partial class TimRadiNaProjektu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tim()
+        public TimRadiNaProjektu()
         {
-            this.TimRadiNaProjektu = new HashSet<TimRadiNaProjektu>();
+            this.ST = new HashSet<Tim>();
         }
     
-        public string ST { get; set; }
-        public string PR { get; set; }
+        public decimal OZ { get; set; }
+        public string Id { get; set; }
     
+        public virtual Projekat SP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TimRadiNaProjektu> TimRadiNaProjektu { get; set; }
+        public virtual ICollection<Tim> ST { get; set; }
     }
 }

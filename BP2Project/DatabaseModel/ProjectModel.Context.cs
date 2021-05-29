@@ -30,5 +30,6 @@ namespace DatabaseModel
         public virtual DbSet<Hardver> Hardveri { get; set; }
         public virtual DbSet<Tim> Timovi { get; set; }
         public virtual DbSet<Projekat> Projekati { get; set; }
+        public virtual DbSet<TimRadiNaProjektu> TimRadiNaProjektu { get; set; }
     }
 }

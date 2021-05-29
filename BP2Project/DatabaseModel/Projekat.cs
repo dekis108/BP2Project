@@ -20,5 +20,7 @@ namespace DatabaseModel
         public Nullable<System.DateTime> RI { get; set; }
         public Nullable<int> KI { get; set; }
         public string SZ { get; set; }
+    
+        public virtual TimRadiNaProjektu TimRadiNaProjektus { get; set; }
     }
 }

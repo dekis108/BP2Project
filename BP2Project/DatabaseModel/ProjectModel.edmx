@@ -11,12 +11,26 @@
     <EntitySet Name="Hardveri" EntityType="ProjectModel.Store.Hardveri" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Timovi" EntityType="ProjectModel.Store.Timovi" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Projekati" EntityType="ProjectModel.Store.Projekati" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TimRadiNaProjektu" EntityType="ProjectModel.Store.TimRadiNaProjektu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Admin" EntityType="ProjectModel.Store.Zaposleni_Admin" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Dispecer" EntityType="ProjectModel.Store.Zaposleni_Dispecer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Programer" EntityType="ProjectModel.Store.Zaposleni_Programer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Menadzer" EntityType="ProjectModel.Store.Zaposleni_Menadzer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Hardveri_Racunar" EntityType="ProjectModel.Store.Hardveri_Racunar" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Hardveri_Mobilni" EntityType="ProjectModel.Store.Hardveri_Mobilni" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TimRadiNaProjektuTim" EntityType="ProjectModel.Store.TimRadiNaProjektuTim" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ProjekatTimRadiNaProjektu" Association="ProjectModel.Store.ProjekatTimRadiNaProjektu">
+      <End Role="Projekat" EntitySet="Projekati" />
+      <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimRadiNaProjektuTim_TimRadiNaProjektu" Association="ProjectModel.Store.FK_TimRadiNaProjektuTim_TimRadiNaProjektu">
+      <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
+      <End Role="TimRadiNaProjektuTim" EntitySet="TimRadiNaProjektuTim" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimRadiNaProjektuTim_Tim" Association="ProjectModel.Store.FK_TimRadiNaProjektuTim_Tim">
+      <End Role="Tim" EntitySet="Timovi" />
+      <End Role="TimRadiNaProjektuTim" EntitySet="TimRadiNaProjektuTim" />
+    </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_Zaposleni" Association="ProjectModel.Store.FK_Admin_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Admin" EntitySet="Zaposleni_Admin" />
@@ -84,6 +98,14 @@
     <Property Name="RI" Type="datetime" Nullable="true" />
     <Property Name="KI" Type="int" Nullable="true" />
     <Property Name="SZ" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TimRadiNaProjektus_Id" Type="nchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TimRadiNaProjektu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="OZ" Type="decimal" Nullable="false" />
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <EntityType Name="Zaposleni_Admin">
     <Key>
@@ -126,6 +148,50 @@
     <Property Name="OS" Type="nvarchar(max)" Nullable="true" />
     <Property Name="SH" Type="nchar" Nullable="false" MaxLength="100" />
   </EntityType>
+  <EntityType Name="TimRadiNaProjektuTim">
+    <Key>
+      <PropertyRef Name="TimRadiNaProjektu_Id" />
+      <PropertyRef Name="ST_ST" />
+    </Key>
+    <Property Name="TimRadiNaProjektu_Id" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="ST_ST" Type="nchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <Association Name="ProjekatTimRadiNaProjektu">
+    <End Role="Projekat" Type="ProjectModel.Store.Projekati" Multiplicity="*" />
+    <End Role="TimRadiNaProjektu" Type="ProjectModel.Store.TimRadiNaProjektu" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TimRadiNaProjektu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Projekat">
+        <PropertyRef Name="TimRadiNaProjektus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimRadiNaProjektuTim_TimRadiNaProjektu">
+    <End Role="TimRadiNaProjektu" Type="ProjectModel.Store.TimRadiNaProjektu" Multiplicity="1" />
+    <End Role="TimRadiNaProjektuTim" Type="ProjectModel.Store.TimRadiNaProjektuTim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimRadiNaProjektu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TimRadiNaProjektuTim">
+        <PropertyRef Name="TimRadiNaProjektu_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimRadiNaProjektuTim_Tim">
+    <End Role="TimRadiNaProjektuTim" Type="ProjectModel.Store.TimRadiNaProjektuTim" Multiplicity="*" />
+    <End Role="Tim" Type="ProjectModel.Store.Timovi" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Tim">
+        <PropertyRef Name="ST" />
+      </Principal>
+      <Dependent Role="TimRadiNaProjektuTim">
+        <PropertyRef Name="ST_ST" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Admin_inherits_Zaposleni">
     <End Role="Zaposleni" Type="ProjectModel.Store.Zaposleni" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -220,6 +286,15 @@
           <EntitySet Name="Hardveri" EntityType="ProjectModel.Hardver" />
           <EntitySet Name="Timovi" EntityType="ProjectModel.Tim" />
           <EntitySet Name="Projekati" EntityType="ProjectModel.Projekat" />
+          <EntitySet Name="TimRadiNaProjektu" EntityType="ProjectModel.TimRadiNaProjektu" />
+          <AssociationSet Name="ProjekatTimRadiNaProjektu" Association="ProjectModel.ProjekatTimRadiNaProjektu">
+            <End Role="Projekat" EntitySet="Projekati" />
+            <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
+          </AssociationSet>
+          <AssociationSet Name="TimRadiNaProjektuTim" Association="ProjectModel.TimRadiNaProjektuTim">
+            <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
+            <End Role="Tim" EntitySet="Timovi" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Zaposleni">
           <Key>
@@ -252,6 +327,7 @@
           </Key>
           <Property Name="ST" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" FixedLength="true" MaxLength="100" />
           <Property Name="PR" Type="String" Nullable="true" />
+          <NavigationProperty Name="TimRadiNaProjektu" Relationship="ProjectModel.TimRadiNaProjektuTim" FromRole="Tim" ToRole="TimRadiNaProjektu" />
         </EntityType>
         <EntityType Name="Projekat">
           <Key>
@@ -263,6 +339,7 @@
           <Property Name="RI" Type="DateTime" Nullable="true" />
           <Property Name="KI" Type="Int32" Nullable="true" />
           <Property Name="SZ" Type="String" Nullable="true" />
+          <NavigationProperty Name="TimRadiNaProjektus" Relationship="ProjectModel.ProjekatTimRadiNaProjektu" FromRole="Projekat" ToRole="TimRadiNaProjektu" />
         </EntityType>
         <EntityType Name="Admin" BaseType="ProjectModel.Zaposleni">
           <Property Name="NPR" Type="String" Nullable="true" />
@@ -279,6 +356,23 @@
           <Property Name="MDIM" Type="Decimal" Nullable="false" />
           <Property Name="OS" Type="String" Nullable="true" />
         </EntityType>
+        <EntityType Name="TimRadiNaProjektu" >
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="OZ" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="SP" Relationship="ProjectModel.ProjekatTimRadiNaProjektu" FromRole="TimRadiNaProjektu" ToRole="Projekat" />
+          <NavigationProperty Name="ST" Relationship="ProjectModel.TimRadiNaProjektuTim" FromRole="TimRadiNaProjektu" ToRole="Tim" />
+          <Property Name="Id" Type="String" Nullable="false" FixedLength="true" MaxLength="100" />
+        </EntityType>
+        <Association Name="ProjekatTimRadiNaProjektu">
+          <End Type="ProjectModel.Projekat" Role="Projekat" Multiplicity="1" />
+          <End Type="ProjectModel.TimRadiNaProjektu" Role="TimRadiNaProjektu" Multiplicity="1" />
+        </Association>
+        <Association Name="TimRadiNaProjektuTim">
+          <End Type="ProjectModel.TimRadiNaProjektu" Role="TimRadiNaProjektu" Multiplicity="*" />
+          <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -368,6 +462,30 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TimRadiNaProjektu">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.TimRadiNaProjektu)">
+        <MappingFragment StoreEntitySet="TimRadiNaProjektu">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OZ" ColumnName="OZ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ProjekatTimRadiNaProjektu" TypeName="ProjectModel.ProjekatTimRadiNaProjektu" StoreEntitySet="Projekati">
+      <EndProperty Name="TimRadiNaProjektu">
+        <ScalarProperty Name="Id" ColumnName="TimRadiNaProjektus_Id" />
+      </EndProperty>
+      <EndProperty Name="Projekat">
+        <ScalarProperty Name="SP" ColumnName="SP" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TimRadiNaProjektuTim" TypeName="ProjectModel.TimRadiNaProjektuTim" StoreEntitySet="TimRadiNaProjektuTim">
+      <EndProperty Name="TimRadiNaProjektu">
+        <ScalarProperty Name="Id" ColumnName="TimRadiNaProjektu_Id" />
+      </EndProperty>
+      <EndProperty Name="Tim">
+        <ScalarProperty Name="ST" ColumnName="ST_ST" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

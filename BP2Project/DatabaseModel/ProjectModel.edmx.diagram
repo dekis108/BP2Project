@@ -8,8 +8,8 @@
         <EntityTypeShape EntityType="ProjectModel.Zaposleni" Width="1.5" PointX="4.5" PointY="4.625" />
         <EntityTypeShape EntityType="ProjectModel.PoslovniProstor" Width="1.5" PointX="3.125" PointY="8" />
         <EntityTypeShape EntityType="ProjectModel.Hardver" Width="1.5" PointX="6.25" PointY="9.875" />
-        <EntityTypeShape EntityType="ProjectModel.Tim" Width="1.5" PointX="14.125" PointY="5" />
-        <EntityTypeShape EntityType="ProjectModel.Projekat" Width="1.5" PointX="13.625" PointY="2.25" />
+        <EntityTypeShape EntityType="ProjectModel.Tim" Width="1.5" PointX="11.625" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Projekat" Width="1.5" PointX="11.375" PointY="1.125" />
         <EntityTypeShape EntityType="ProjectModel.Admin" Width="1.5" PointX="7.375" PointY="5.125" />
         <InheritanceConnector EntityType="ProjectModel.Admin" />
         <EntityTypeShape EntityType="ProjectModel.Dispecer" Width="1.5" PointX="7.375" PointY="6.5" />
@@ -22,6 +22,9 @@
         <InheritanceConnector EntityType="ProjectModel.Racunar" />
         <EntityTypeShape EntityType="ProjectModel.Mobilni" Width="1.5" PointX="8.75" PointY="11.125" />
         <InheritanceConnector EntityType="ProjectModel.Mobilni" />
+        <EntityTypeShape EntityType="ProjectModel.TimRadiNaProjektu" Width="1.5" PointX="11.5" PointY="4.625" />
+        <AssociationConnector Association="ProjectModel.ProjekatTimRadiNaProjektu" />
+        <AssociationConnector Association="ProjectModel.TimRadiNaProjektuTim" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

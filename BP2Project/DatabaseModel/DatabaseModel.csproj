@@ -96,6 +96,9 @@
     <Compile Include="Tim.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TimRadiNaProjektu.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Zaposleni.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
