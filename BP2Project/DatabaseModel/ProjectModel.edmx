@@ -4,11 +4,58 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="ProjectModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="ProjectModelTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="ProjectModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ProjectModelStoreContainer">
+    <EntitySet Name="Zaposleni" EntityType="ProjectModel.Store.Zaposleni" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PoslovniProstori" EntityType="ProjectModel.Store.PoslovniProstori" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Hardveri" EntityType="ProjectModel.Store.Hardveri" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Timovi" EntityType="ProjectModel.Store.Timovi" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Projekati" EntityType="ProjectModel.Store.Projekati" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Zaposleni">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="D_ZAP" Type="datetime" Nullable="true" />
+    <Property Name="PLAT" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PoslovniProstori">
+    <Key>
+      <PropertyRef Name="SP" />
+    </Key>
+    <Property Name="SP" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="DIM" Type="decimal" Nullable="false" />
+    <Property Name="BRM" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Hardveri">
+    <Key>
+      <PropertyRef Name="SH" />
+    </Key>
+    <Property Name="SH" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="CPU" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="RAM" Type="int" Nullable="true" />
+    <Property Name="HDD" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Timovi">
+    <Key>
+      <PropertyRef Name="ST" />
+    </Key>
+    <Property Name="ST" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="PR" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Projekati">
+    <Key>
+      <PropertyRef Name="SP" />
+    </Key>
+    <Property Name="SP" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="DD" Type="datetime" Nullable="false" />
+    <Property Name="DP" Type="datetime" Nullable="true" />
+    <Property Name="RI" Type="datetime" Nullable="true" />
+    <Property Name="KI" Type="int" Nullable="true" />
+    <Property Name="SZ" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ProjectModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -23,7 +70,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="100" FixedLength="true" />
           <Property Name="D_ZAP" Type="DateTime" Nullable="true" />
           <Property Name="PLAT" Type="Int32" Nullable="false" />
         </EntityType>
@@ -31,7 +78,7 @@
           <Key>
             <PropertyRef Name="SP" />
           </Key>
-          <Property Name="SP" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="SP" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" FixedLength="true" MaxLength="100" />
           <Property Name="DIM" Type="Decimal" Nullable="false" />
           <Property Name="BRM" Type="Int32" Nullable="true" />
         </EntityType>
@@ -39,7 +86,7 @@
           <Key>
             <PropertyRef Name="SH" />
           </Key>
-          <Property Name="SH" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="SH" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" FixedLength="true" MaxLength="100" />
           <Property Name="CPU" Type="String" Nullable="true" />
           <Property Name="RAM" Type="Int32" Nullable="true" />
           <Property Name="HDD" Type="Int32" Nullable="true" />
@@ -48,14 +95,14 @@
           <Key>
             <PropertyRef Name="ST" />
           </Key>
-          <Property Name="ST" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="ST" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" FixedLength="true" MaxLength="100" />
           <Property Name="PR" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="Projekat">
           <Key>
             <PropertyRef Name="SP" />
           </Key>
-          <Property Name="SP" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="SP" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" FixedLength="true" MaxLength="100" />
           <Property Name="DD" Type="DateTime" Nullable="false" />
           <Property Name="DP" Type="DateTime" Nullable="true" />
           <Property Name="RI" Type="DateTime" Nullable="true" />
@@ -66,13 +113,58 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="ProjectModel" />
-        <Alias Key="Target" Value="ProjectModel.Store" />
-        <EntityContainerMapping CdmEntityContainer="ProjectModelContainer" StorageEntityContainer="ProjectModelTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectModelContainer">
+    <EntitySetMapping Name="Zaposleni">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Zaposleni)">
+        <MappingFragment StoreEntitySet="Zaposleni">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="D_ZAP" ColumnName="D_ZAP" />
+          <ScalarProperty Name="PLAT" ColumnName="PLAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PoslovniProstori">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.PoslovniProstor)">
+        <MappingFragment StoreEntitySet="PoslovniProstori">
+          <ScalarProperty Name="SP" ColumnName="SP" />
+          <ScalarProperty Name="DIM" ColumnName="DIM" />
+          <ScalarProperty Name="BRM" ColumnName="BRM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hardveri">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Hardver)">
+        <MappingFragment StoreEntitySet="Hardveri">
+          <ScalarProperty Name="SH" ColumnName="SH" />
+          <ScalarProperty Name="CPU" ColumnName="CPU" />
+          <ScalarProperty Name="RAM" ColumnName="RAM" />
+          <ScalarProperty Name="HDD" ColumnName="HDD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Timovi">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Tim)">
+        <MappingFragment StoreEntitySet="Timovi">
+          <ScalarProperty Name="ST" ColumnName="ST" />
+          <ScalarProperty Name="PR" ColumnName="PR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projekati">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Projekat)">
+        <MappingFragment StoreEntitySet="Projekati">
+          <ScalarProperty Name="SP" ColumnName="SP" />
+          <ScalarProperty Name="DD" ColumnName="DD" />
+          <ScalarProperty Name="DP" ColumnName="DP" />
+          <ScalarProperty Name="RI" ColumnName="RI" />
+          <ScalarProperty Name="KI" ColumnName="KI" />
+          <ScalarProperty Name="SZ" ColumnName="SZ" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -86,6 +178,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

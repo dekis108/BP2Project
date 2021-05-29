@@ -7,7 +7,7 @@
       <Diagram DiagramId="292fcf9f67e7473296b3eb7876d351e3" Name="Diagram1" >
         <EntityTypeShape EntityType="ProjectModel.Zaposleni" Width="1.5" PointX="3.375" PointY="0.625" />
         <EntityTypeShape EntityType="ProjectModel.PoslovniProstor" Width="1.5" PointX="2.5" PointY="2.875" />
-        <EntityTypeShape EntityType="ProjectModel.Hardver" Width="1.5" PointX="5" PointY="5.625" />
+        <EntityTypeShape EntityType="ProjectModel.Hardver" Width="1.5" PointX="5" PointY="5" />
         <EntityTypeShape EntityType="ProjectModel.Tim" Width="1.5" PointX="8.5" PointY="3.875" />
         <EntityTypeShape EntityType="ProjectModel.Projekat" Width="1.5" PointX="8.625" PointY="0.5" />
       </Diagram>
