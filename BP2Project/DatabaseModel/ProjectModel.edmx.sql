@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/29/2021 16:40:45
+-- Date Created: 05/29/2021 17:31:06
 -- Generated from EDMX file: C:\Users\Dejan\Desktop\Karantin\4.2 godina\Baze2\Projekat\Projekat\BP2Project\DatabaseModel\ProjectModel.edmx
 -- --------------------------------------------------
 
@@ -17,6 +17,9 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_Zaposleni]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Zaposleni_Admin] DROP CONSTRAINT [FK_Admin_inherits_Zaposleni];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -36,6 +39,9 @@ IF OBJECT_ID(N'[dbo].[Timovi]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Projekati]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Projekati];
+GO
+IF OBJECT_ID(N'[dbo].[Zaposleni_Admin]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Zaposleni_Admin];
 GO
 
 -- --------------------------------------------------
@@ -85,6 +91,47 @@ CREATE TABLE [dbo].[Projekati] (
 );
 GO
 
+-- Creating table 'Zaposleni_Admin'
+CREATE TABLE [dbo].[Zaposleni_Admin] (
+    [NPR] nvarchar(max)  NULL,
+    [Id] nchar(100)  NOT NULL
+);
+GO
+
+-- Creating table 'Zaposleni_Dispecer'
+CREATE TABLE [dbo].[Zaposleni_Dispecer] (
+    [Id] nchar(100)  NOT NULL
+);
+GO
+
+-- Creating table 'Zaposleni_Programer'
+CREATE TABLE [dbo].[Zaposleni_Programer] (
+    [O_PROD] int  NULL,
+    [Id] nchar(100)  NOT NULL
+);
+GO
+
+-- Creating table 'Zaposleni_Menadzer'
+CREATE TABLE [dbo].[Zaposleni_Menadzer] (
+    [Id] nchar(100)  NOT NULL
+);
+GO
+
+-- Creating table 'Hardveri_Racunar'
+CREATE TABLE [dbo].[Hardveri_Racunar] (
+    [VM] nvarchar(max)  NULL,
+    [SH] nchar(100)  NOT NULL
+);
+GO
+
+-- Creating table 'Hardveri_Mobilni'
+CREATE TABLE [dbo].[Hardveri_Mobilni] (
+    [MDIM] decimal(18,0)  NOT NULL,
+    [OS] nvarchar(max)  NULL,
+    [SH] nchar(100)  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -119,9 +166,99 @@ ADD CONSTRAINT [PK_Projekati]
     PRIMARY KEY CLUSTERED ([SP] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'Zaposleni_Admin'
+ALTER TABLE [dbo].[Zaposleni_Admin]
+ADD CONSTRAINT [PK_Zaposleni_Admin]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Zaposleni_Dispecer'
+ALTER TABLE [dbo].[Zaposleni_Dispecer]
+ADD CONSTRAINT [PK_Zaposleni_Dispecer]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Zaposleni_Programer'
+ALTER TABLE [dbo].[Zaposleni_Programer]
+ADD CONSTRAINT [PK_Zaposleni_Programer]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Zaposleni_Menadzer'
+ALTER TABLE [dbo].[Zaposleni_Menadzer]
+ADD CONSTRAINT [PK_Zaposleni_Menadzer]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [SH] in table 'Hardveri_Racunar'
+ALTER TABLE [dbo].[Hardveri_Racunar]
+ADD CONSTRAINT [PK_Hardveri_Racunar]
+    PRIMARY KEY CLUSTERED ([SH] ASC);
+GO
+
+-- Creating primary key on [SH] in table 'Hardveri_Mobilni'
+ALTER TABLE [dbo].[Hardveri_Mobilni]
+ADD CONSTRAINT [PK_Hardveri_Mobilni]
+    PRIMARY KEY CLUSTERED ([SH] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
+
+-- Creating foreign key on [Id] in table 'Zaposleni_Admin'
+ALTER TABLE [dbo].[Zaposleni_Admin]
+ADD CONSTRAINT [FK_Admin_inherits_Zaposleni]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[Zaposleni]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'Zaposleni_Dispecer'
+ALTER TABLE [dbo].[Zaposleni_Dispecer]
+ADD CONSTRAINT [FK_Dispecer_inherits_Zaposleni]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[Zaposleni]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'Zaposleni_Programer'
+ALTER TABLE [dbo].[Zaposleni_Programer]
+ADD CONSTRAINT [FK_Programer_inherits_Zaposleni]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[Zaposleni]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'Zaposleni_Menadzer'
+ALTER TABLE [dbo].[Zaposleni_Menadzer]
+ADD CONSTRAINT [FK_Menadzer_inherits_Zaposleni]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[Zaposleni]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [SH] in table 'Hardveri_Racunar'
+ALTER TABLE [dbo].[Hardveri_Racunar]
+ADD CONSTRAINT [FK_Racunar_inherits_Hardver]
+    FOREIGN KEY ([SH])
+    REFERENCES [dbo].[Hardveri]
+        ([SH])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [SH] in table 'Hardveri_Mobilni'
+ALTER TABLE [dbo].[Hardveri_Mobilni]
+ADD CONSTRAINT [FK_Mobilni_inherits_Hardver]
+    FOREIGN KEY ([SH])
+    REFERENCES [dbo].[Hardveri]
+        ([SH])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
 
 -- --------------------------------------------------
 -- Script has ended
