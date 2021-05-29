@@ -17,14 +17,14 @@ namespace DatabaseModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TimRadiNaProjektu()
         {
-            this.ST = new HashSet<Tim>();
+            this.Tim = new HashSet<Tim>();
         }
     
         public decimal OZ { get; set; }
         public string Id { get; set; }
     
-        public virtual Projekat SP { get; set; }
+        public virtual Projekat Projekat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tim> ST { get; set; }
+        public virtual ICollection<Tim> Tim { get; set; }
     }
 }

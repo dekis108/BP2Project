@@ -18,6 +18,6 @@ namespace DatabaseModel
         public Nullable<System.DateTime> D_ZAP { get; set; }
         public int PLAT { get; set; }
     
-        public virtual PoslovniProstor SP { get; set; }
+        public virtual PoslovniProstor PoslovniProstor { get; set; }
     }
 }

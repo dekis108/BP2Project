@@ -14,10 +14,17 @@ namespace DatabaseModel
     
     public partial class PoslovniProstor
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PoslovniProstor()
+        {
+            this.Zaposleni = new HashSet<Zaposleni>();
+        }
+    
         public string SP { get; set; }
         public decimal DIM { get; set; }
         public Nullable<int> BRM { get; set; }
     
-        public virtual Zaposleni Zaposleni { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Zaposleni> Zaposleni { get; set; }
     }
 }

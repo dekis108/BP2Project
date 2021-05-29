@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/29/2021 19:39:35
+-- Date Created: 05/29/2021 19:46:39
 -- Generated from EDMX file: C:\Users\Dejan\Desktop\Karantin\4.2 godina\Baze2\Projekat\Projekat\BP2Project\DatabaseModel\ProjectModel.edmx
 -- --------------------------------------------------
 
@@ -25,6 +25,9 @@ IF OBJECT_ID(N'[dbo].[FK_TimRadiNaProjektuTim_TimRadiNaProjektu]', 'F') IS NOT N
 GO
 IF OBJECT_ID(N'[dbo].[FK_TimRadiNaProjektuTim_Tim]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TimRadiNaProjektuTim] DROP CONSTRAINT [FK_TimRadiNaProjektuTim_Tim];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ZaposleniPoslovniProstor]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Zaposleni] DROP CONSTRAINT [FK_ZaposleniPoslovniProstor];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Admin] DROP CONSTRAINT [FK_Admin_inherits_Zaposleni];
@@ -98,7 +101,7 @@ CREATE TABLE [dbo].[Zaposleni] (
     [Id] nchar(100)  NOT NULL,
     [D_ZAP] datetime  NULL,
     [PLAT] int  NOT NULL,
-    [SP_SP] nchar(100)  NOT NULL
+    [PoslovniProstor_SP] nchar(100)  NOT NULL
 );
 GO
 
@@ -189,7 +192,7 @@ GO
 -- Creating table 'TimRadiNaProjektuTim'
 CREATE TABLE [dbo].[TimRadiNaProjektuTim] (
     [TimRadiNaProjektu_Id] nchar(100)  NOT NULL,
-    [ST_ST] nchar(100)  NOT NULL
+    [Tim_ST] nchar(100)  NOT NULL
 );
 GO
 
@@ -269,10 +272,10 @@ ADD CONSTRAINT [PK_Hardveri_Mobilni]
     PRIMARY KEY CLUSTERED ([SH] ASC);
 GO
 
--- Creating primary key on [TimRadiNaProjektu_Id], [ST_ST] in table 'TimRadiNaProjektuTim'
+-- Creating primary key on [TimRadiNaProjektu_Id], [Tim_ST] in table 'TimRadiNaProjektuTim'
 ALTER TABLE [dbo].[TimRadiNaProjektuTim]
 ADD CONSTRAINT [PK_TimRadiNaProjektuTim]
-    PRIMARY KEY CLUSTERED ([TimRadiNaProjektu_Id], [ST_ST] ASC);
+    PRIMARY KEY CLUSTERED ([TimRadiNaProjektu_Id], [Tim_ST] ASC);
 GO
 
 -- --------------------------------------------------
@@ -303,10 +306,10 @@ ADD CONSTRAINT [FK_TimRadiNaProjektuTim_TimRadiNaProjektu]
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [ST_ST] in table 'TimRadiNaProjektuTim'
+-- Creating foreign key on [Tim_ST] in table 'TimRadiNaProjektuTim'
 ALTER TABLE [dbo].[TimRadiNaProjektuTim]
 ADD CONSTRAINT [FK_TimRadiNaProjektuTim_Tim]
-    FOREIGN KEY ([ST_ST])
+    FOREIGN KEY ([Tim_ST])
     REFERENCES [dbo].[Timovi]
         ([ST])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -315,13 +318,13 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_TimRadiNaProjektuTim_Tim'
 CREATE INDEX [IX_FK_TimRadiNaProjektuTim_Tim]
 ON [dbo].[TimRadiNaProjektuTim]
-    ([ST_ST]);
+    ([Tim_ST]);
 GO
 
--- Creating foreign key on [SP_SP] in table 'Zaposleni'
+-- Creating foreign key on [PoslovniProstor_SP] in table 'Zaposleni'
 ALTER TABLE [dbo].[Zaposleni]
 ADD CONSTRAINT [FK_ZaposleniPoslovniProstor]
-    FOREIGN KEY ([SP_SP])
+    FOREIGN KEY ([PoslovniProstor_SP])
     REFERENCES [dbo].[PoslovniProstori]
         ([SP])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -330,7 +333,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_ZaposleniPoslovniProstor'
 CREATE INDEX [IX_FK_ZaposleniPoslovniProstor]
 ON [dbo].[Zaposleni]
-    ([SP_SP]);
+    ([PoslovniProstor_SP]);
 GO
 
 -- Creating foreign key on [Id] in table 'Zaposleni_Admin'

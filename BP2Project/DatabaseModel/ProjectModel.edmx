@@ -67,7 +67,7 @@
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
     <Property Name="D_ZAP" Type="datetime" Nullable="true" />
     <Property Name="PLAT" Type="int" Nullable="false" />
-    <Property Name="SP_SP" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="PoslovniProstor_SP" Type="nchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="PoslovniProstori">
     <Key>
@@ -156,10 +156,10 @@
   <EntityType Name="TimRadiNaProjektuTim">
     <Key>
       <PropertyRef Name="TimRadiNaProjektu_Id" />
-      <PropertyRef Name="ST_ST" />
+      <PropertyRef Name="Tim_ST" />
     </Key>
     <Property Name="TimRadiNaProjektu_Id" Type="nchar" Nullable="false" MaxLength="100" />
-    <Property Name="ST_ST" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="Tim_ST" Type="nchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <Association Name="ProjekatTimRadiNaProjektu">
     <End Role="Projekat" Type="ProjectModel.Store.Projekati" Multiplicity="*" />
@@ -181,7 +181,7 @@
         <PropertyRef Name="SP" />
       </Principal>
       <Dependent Role="Zaposleni">
-        <PropertyRef Name="SP_SP" />
+        <PropertyRef Name="PoslovniProstor_SP" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -205,7 +205,7 @@
         <PropertyRef Name="ST" />
       </Principal>
       <Dependent Role="TimRadiNaProjektuTim">
-        <PropertyRef Name="ST_ST" />
+        <PropertyRef Name="Tim_ST" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -324,7 +324,7 @@
           <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="100" FixedLength="true" />
           <Property Name="D_ZAP" Type="DateTime" Nullable="true" />
           <Property Name="PLAT" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="SP" Relationship="ProjectModel.ZaposleniPoslovniProstor" FromRole="Zaposleni" ToRole="PoslovniProstor" />
+          <NavigationProperty Name="PoslovniProstor" Relationship="ProjectModel.ZaposleniPoslovniProstor" FromRole="Zaposleni" ToRole="PoslovniProstor" />
         </EntityType>
         <EntityType Name="PoslovniProstor">
           <Key>
@@ -384,8 +384,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="OZ" Type="Decimal" Nullable="false" />
-          <NavigationProperty Name="SP" Relationship="ProjectModel.ProjekatTimRadiNaProjektu" FromRole="TimRadiNaProjektu" ToRole="Projekat" />
-          <NavigationProperty Name="ST" Relationship="ProjectModel.TimRadiNaProjektuTim" FromRole="TimRadiNaProjektu" ToRole="Tim" />
+          <NavigationProperty Name="Projekat" Relationship="ProjectModel.ProjekatTimRadiNaProjektu" FromRole="TimRadiNaProjektu" ToRole="Projekat" />
+          <NavigationProperty Name="Tim" Relationship="ProjectModel.TimRadiNaProjektuTim" FromRole="TimRadiNaProjektu" ToRole="Tim" />
           <Property Name="Id" Type="String" Nullable="false" FixedLength="true" MaxLength="100" />
         </EntityType>
         <Association Name="ProjekatTimRadiNaProjektu">
@@ -397,7 +397,7 @@
           <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="*" />
         </Association>
         <Association Name="ZaposleniPoslovniProstor">
-          <End Type="ProjectModel.Zaposleni" Role="Zaposleni" Multiplicity="1" />
+          <End Type="ProjectModel.Zaposleni" Role="Zaposleni" Multiplicity="*" />
           <End Type="ProjectModel.PoslovniProstor" Role="PoslovniProstor" Multiplicity="1" />
         </Association>
         </Schema>
@@ -510,12 +510,12 @@
         <ScalarProperty Name="Id" ColumnName="TimRadiNaProjektu_Id" />
       </EndProperty>
       <EndProperty Name="Tim">
-        <ScalarProperty Name="ST" ColumnName="ST_ST" />
+        <ScalarProperty Name="ST" ColumnName="Tim_ST" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="ZaposleniPoslovniProstor" TypeName="ProjectModel.ZaposleniPoslovniProstor" StoreEntitySet="Zaposleni">
       <EndProperty Name="PoslovniProstor">
-        <ScalarProperty Name="SP" ColumnName="SP_SP" />
+        <ScalarProperty Name="SP" ColumnName="PoslovniProstor_SP" />
       </EndProperty>
       <EndProperty Name="Zaposleni">
         <ScalarProperty Name="Id" ColumnName="Id" />
