@@ -17,5 +17,7 @@ namespace DatabaseModel
         public string SP { get; set; }
         public decimal DIM { get; set; }
         public Nullable<int> BRM { get; set; }
+    
+        public virtual Zaposleni Zaposleni { get; set; }
     }
 }

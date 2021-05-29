@@ -17,5 +17,7 @@ namespace DatabaseModel
         public string Id { get; set; }
         public Nullable<System.DateTime> D_ZAP { get; set; }
         public int PLAT { get; set; }
+    
+        public virtual PoslovniProstor SP { get; set; }
     }
 }

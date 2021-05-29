@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/29/2021 19:34:22
+-- Date Created: 05/29/2021 19:39:35
 -- Generated from EDMX file: C:\Users\Dejan\Desktop\Karantin\4.2 godina\Baze2\Projekat\Projekat\BP2Project\DatabaseModel\ProjectModel.edmx
 -- --------------------------------------------------
 
@@ -97,7 +97,8 @@ GO
 CREATE TABLE [dbo].[Zaposleni] (
     [Id] nchar(100)  NOT NULL,
     [D_ZAP] datetime  NULL,
-    [PLAT] int  NOT NULL
+    [PLAT] int  NOT NULL,
+    [SP_SP] nchar(100)  NOT NULL
 );
 GO
 
@@ -315,6 +316,21 @@ GO
 CREATE INDEX [IX_FK_TimRadiNaProjektuTim_Tim]
 ON [dbo].[TimRadiNaProjektuTim]
     ([ST_ST]);
+GO
+
+-- Creating foreign key on [SP_SP] in table 'Zaposleni'
+ALTER TABLE [dbo].[Zaposleni]
+ADD CONSTRAINT [FK_ZaposleniPoslovniProstor]
+    FOREIGN KEY ([SP_SP])
+    REFERENCES [dbo].[PoslovniProstori]
+        ([SP])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ZaposleniPoslovniProstor'
+CREATE INDEX [IX_FK_ZaposleniPoslovniProstor]
+ON [dbo].[Zaposleni]
+    ([SP_SP]);
 GO
 
 -- Creating foreign key on [Id] in table 'Zaposleni_Admin'

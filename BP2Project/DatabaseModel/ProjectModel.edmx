@@ -31,6 +31,10 @@
       <End Role="Tim" EntitySet="Timovi" />
       <End Role="TimRadiNaProjektuTim" EntitySet="TimRadiNaProjektuTim" />
     </AssociationSet>
+    <AssociationSet Name="ZaposleniPoslovniProstor" Association="ProjectModel.Store.ZaposleniPoslovniProstor">
+      <End Role="Zaposleni" EntitySet="Zaposleni" />
+      <End Role="PoslovniProstor" EntitySet="PoslovniProstori" />
+    </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_Zaposleni" Association="ProjectModel.Store.FK_Admin_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Admin" EntitySet="Zaposleni_Admin" />
@@ -63,6 +67,7 @@
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
     <Property Name="D_ZAP" Type="datetime" Nullable="true" />
     <Property Name="PLAT" Type="int" Nullable="false" />
+    <Property Name="SP_SP" Type="nchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="PoslovniProstori">
     <Key>
@@ -165,6 +170,18 @@
       </Principal>
       <Dependent Role="Projekat">
         <PropertyRef Name="TimRadiNaProjektus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ZaposleniPoslovniProstor">
+    <End Role="Zaposleni" Type="ProjectModel.Store.Zaposleni" Multiplicity="*" />
+    <End Role="PoslovniProstor" Type="ProjectModel.Store.PoslovniProstori" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="PoslovniProstor">
+        <PropertyRef Name="SP" />
+      </Principal>
+      <Dependent Role="Zaposleni">
+        <PropertyRef Name="SP_SP" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -295,6 +312,10 @@
             <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
             <End Role="Tim" EntitySet="Timovi" />
           </AssociationSet>
+          <AssociationSet Name="ZaposleniPoslovniProstor" Association="ProjectModel.ZaposleniPoslovniProstor">
+            <End Role="Zaposleni" EntitySet="Zaposleni" />
+            <End Role="PoslovniProstor" EntitySet="PoslovniProstori" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Zaposleni">
           <Key>
@@ -303,6 +324,7 @@
           <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="100" FixedLength="true" />
           <Property Name="D_ZAP" Type="DateTime" Nullable="true" />
           <Property Name="PLAT" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SP" Relationship="ProjectModel.ZaposleniPoslovniProstor" FromRole="Zaposleni" ToRole="PoslovniProstor" />
         </EntityType>
         <EntityType Name="PoslovniProstor">
           <Key>
@@ -311,6 +333,7 @@
           <Property Name="SP" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" FixedLength="true" MaxLength="100" />
           <Property Name="DIM" Type="Decimal" Nullable="false" />
           <Property Name="BRM" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Zaposleni" Relationship="ProjectModel.ZaposleniPoslovniProstor" FromRole="PoslovniProstor" ToRole="Zaposleni" />
         </EntityType>
         <EntityType Name="Hardver">
           <Key>
@@ -372,6 +395,10 @@
         <Association Name="TimRadiNaProjektuTim">
           <End Type="ProjectModel.TimRadiNaProjektu" Role="TimRadiNaProjektu" Multiplicity="*" />
           <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="*" />
+        </Association>
+        <Association Name="ZaposleniPoslovniProstor">
+          <End Type="ProjectModel.Zaposleni" Role="Zaposleni" Multiplicity="1" />
+          <End Type="ProjectModel.PoslovniProstor" Role="PoslovniProstor" Multiplicity="1" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -484,6 +511,14 @@
       </EndProperty>
       <EndProperty Name="Tim">
         <ScalarProperty Name="ST" ColumnName="ST_ST" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ZaposleniPoslovniProstor" TypeName="ProjectModel.ZaposleniPoslovniProstor" StoreEntitySet="Zaposleni">
+      <EndProperty Name="PoslovniProstor">
+        <ScalarProperty Name="SP" ColumnName="SP_SP" />
+      </EndProperty>
+      <EndProperty Name="Zaposleni">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
