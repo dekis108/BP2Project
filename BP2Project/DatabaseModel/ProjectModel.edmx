@@ -17,6 +17,7 @@
           <EntitySet Name="PoslovniProstori" EntityType="ProjectModel.PoslovniProstor" />
           <EntitySet Name="Hardveri" EntityType="ProjectModel.Hardver" />
           <EntitySet Name="Timovi" EntityType="ProjectModel.Tim" />
+          <EntitySet Name="Projekati" EntityType="ProjectModel.Projekat" />
         </EntityContainer>
         <EntityType Name="Zaposleni">
           <Key>
@@ -49,6 +50,17 @@
           </Key>
           <Property Name="ST" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="PR" Type="String" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Projekat">
+          <Key>
+            <PropertyRef Name="SP" />
+          </Key>
+          <Property Name="SP" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="DD" Type="DateTime" Nullable="false" />
+          <Property Name="DP" Type="DateTime" Nullable="true" />
+          <Property Name="RI" Type="DateTime" Nullable="true" />
+          <Property Name="KI" Type="Int32" Nullable="true" />
+          <Property Name="SZ" Type="String" Nullable="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
