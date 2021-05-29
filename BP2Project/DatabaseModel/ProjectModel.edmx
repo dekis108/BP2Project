@@ -15,6 +15,7 @@
         <EntityContainer Name="ProjectModelContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Zaposleni" EntityType="ProjectModel.Zaposleni" />
           <EntitySet Name="PoslovniProstori" EntityType="ProjectModel.PoslovniProstor" />
+          <EntitySet Name="Hardveri" EntityType="ProjectModel.Hardver" />
         </EntityContainer>
         <EntityType Name="Zaposleni">
           <Key>
@@ -30,7 +31,16 @@
           </Key>
           <Property Name="SP" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="DIM" Type="Decimal" Nullable="false" />
-          <Property Name="BRM" Type="Int32" Nullable="false" />
+          <Property Name="BRM" Type="Int32" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Hardver">
+          <Key>
+            <PropertyRef Name="SH" />
+          </Key>
+          <Property Name="SH" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="CPU" Type="String" Nullable="true" />
+          <Property Name="RAM" Type="Int32" Nullable="true" />
+          <Property Name="HDD" Type="Int32" Nullable="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
