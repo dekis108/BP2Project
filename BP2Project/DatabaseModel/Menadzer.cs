@@ -14,5 +14,14 @@ namespace DatabaseModel
     
     public partial class Menadzer : Zaposleni
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Menadzer()
+        {
+            this.TimRadiNaProjektus = new HashSet<TimRadiNaProjektu>();
+        }
+    
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TimRadiNaProjektu> TimRadiNaProjektus { get; set; }
     }
 }

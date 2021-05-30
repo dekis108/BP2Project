@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/30/2021 12:39:41
+-- Date Created: 05/30/2021 12:43:53
 -- Generated from EDMX file: C:\Users\Dejan\Desktop\Karantin\4.2 godina\Baze2\Projekat\Projekat\BP2Project\DatabaseModel\ProjectModel.edmx
 -- --------------------------------------------------
 
@@ -29,14 +29,20 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ZaposleniPoslovniProstor]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni] DROP CONSTRAINT [FK_ZaposleniPoslovniProstor];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ProgramerJeClanTima]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Timovi] DROP CONSTRAINT [FK_ProgramerJeClanTima];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PogramerVodiTim]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Zaposleni_Programer] DROP CONSTRAINT [FK_PogramerVodiTim];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Programer_inherits_Zaposleni]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Zaposleni_Programer] DROP CONSTRAINT [FK_Programer_inherits_Zaposleni];
+GO
 IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Admin] DROP CONSTRAINT [FK_Admin_inherits_Zaposleni];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Dispecer_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Dispecer] DROP CONSTRAINT [FK_Dispecer_inherits_Zaposleni];
-GO
-IF OBJECT_ID(N'[dbo].[FK_Programer_inherits_Zaposleni]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Zaposleni_Programer] DROP CONSTRAINT [FK_Programer_inherits_Zaposleni];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Menadzer_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Menadzer] DROP CONSTRAINT [FK_Menadzer_inherits_Zaposleni];
@@ -70,14 +76,14 @@ GO
 IF OBJECT_ID(N'[dbo].[TimRadiNaProjektu]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TimRadiNaProjektu];
 GO
+IF OBJECT_ID(N'[dbo].[Zaposleni_Programer]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Zaposleni_Programer];
+GO
 IF OBJECT_ID(N'[dbo].[Zaposleni_Admin]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Zaposleni_Admin];
 GO
 IF OBJECT_ID(N'[dbo].[Zaposleni_Dispecer]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Zaposleni_Dispecer];
-GO
-IF OBJECT_ID(N'[dbo].[Zaposleni_Programer]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Zaposleni_Programer];
 GO
 IF OBJECT_ID(N'[dbo].[Zaposleni_Menadzer]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Zaposleni_Menadzer];
@@ -157,6 +163,12 @@ CREATE TABLE [dbo].[Zaposleni_Programer] (
 );
 GO
 
+-- Creating table 'Zaposleni_Menadzer'
+CREATE TABLE [dbo].[Zaposleni_Menadzer] (
+    [Id] nchar(100)  NOT NULL
+);
+GO
+
 -- Creating table 'Zaposleni_Admin'
 CREATE TABLE [dbo].[Zaposleni_Admin] (
     [NPR] nvarchar(max)  NULL,
@@ -166,12 +178,6 @@ GO
 
 -- Creating table 'Zaposleni_Dispecer'
 CREATE TABLE [dbo].[Zaposleni_Dispecer] (
-    [Id] nchar(100)  NOT NULL
-);
-GO
-
--- Creating table 'Zaposleni_Menadzer'
-CREATE TABLE [dbo].[Zaposleni_Menadzer] (
     [Id] nchar(100)  NOT NULL
 );
 GO
@@ -195,6 +201,13 @@ GO
 CREATE TABLE [dbo].[TimRadiNaProjektuTim] (
     [TimRadiNaProjektu_Id] nchar(100)  NOT NULL,
     [Tim_ST] nchar(100)  NOT NULL
+);
+GO
+
+-- Creating table 'MenadzerTimRadiNaProjektu'
+CREATE TABLE [dbo].[MenadzerTimRadiNaProjektu] (
+    [Menadzer_Id] nchar(100)  NOT NULL,
+    [TimRadiNaProjektus_Id] nchar(100)  NOT NULL
 );
 GO
 
@@ -244,6 +257,12 @@ ADD CONSTRAINT [PK_Zaposleni_Programer]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'Zaposleni_Menadzer'
+ALTER TABLE [dbo].[Zaposleni_Menadzer]
+ADD CONSTRAINT [PK_Zaposleni_Menadzer]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [Id] in table 'Zaposleni_Admin'
 ALTER TABLE [dbo].[Zaposleni_Admin]
 ADD CONSTRAINT [PK_Zaposleni_Admin]
@@ -253,12 +272,6 @@ GO
 -- Creating primary key on [Id] in table 'Zaposleni_Dispecer'
 ALTER TABLE [dbo].[Zaposleni_Dispecer]
 ADD CONSTRAINT [PK_Zaposleni_Dispecer]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'Zaposleni_Menadzer'
-ALTER TABLE [dbo].[Zaposleni_Menadzer]
-ADD CONSTRAINT [PK_Zaposleni_Menadzer]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -278,6 +291,12 @@ GO
 ALTER TABLE [dbo].[TimRadiNaProjektuTim]
 ADD CONSTRAINT [PK_TimRadiNaProjektuTim]
     PRIMARY KEY CLUSTERED ([TimRadiNaProjektu_Id], [Tim_ST] ASC);
+GO
+
+-- Creating primary key on [Menadzer_Id], [TimRadiNaProjektus_Id] in table 'MenadzerTimRadiNaProjektu'
+ALTER TABLE [dbo].[MenadzerTimRadiNaProjektu]
+ADD CONSTRAINT [PK_MenadzerTimRadiNaProjektu]
+    PRIMARY KEY CLUSTERED ([Menadzer_Id], [TimRadiNaProjektus_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -368,9 +387,42 @@ ON [dbo].[Zaposleni_Programer]
     ([Tims1_ST]);
 GO
 
+-- Creating foreign key on [Menadzer_Id] in table 'MenadzerTimRadiNaProjektu'
+ALTER TABLE [dbo].[MenadzerTimRadiNaProjektu]
+ADD CONSTRAINT [FK_MenadzerNadgledaRad_Menadzer]
+    FOREIGN KEY ([Menadzer_Id])
+    REFERENCES [dbo].[Zaposleni_Menadzer]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [TimRadiNaProjektus_Id] in table 'MenadzerTimRadiNaProjektu'
+ALTER TABLE [dbo].[MenadzerTimRadiNaProjektu]
+ADD CONSTRAINT [FK_MenadzerNadgledaRad_TimRadiNaProjektu]
+    FOREIGN KEY ([TimRadiNaProjektus_Id])
+    REFERENCES [dbo].[TimRadiNaProjektu]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_MenadzerNadgledaRad_TimRadiNaProjektu'
+CREATE INDEX [IX_FK_MenadzerNadgledaRad_TimRadiNaProjektu]
+ON [dbo].[MenadzerTimRadiNaProjektu]
+    ([TimRadiNaProjektus_Id]);
+GO
+
 -- Creating foreign key on [Id] in table 'Zaposleni_Programer'
 ALTER TABLE [dbo].[Zaposleni_Programer]
 ADD CONSTRAINT [FK_Programer_inherits_Zaposleni]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[Zaposleni]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'Zaposleni_Menadzer'
+ALTER TABLE [dbo].[Zaposleni_Menadzer]
+ADD CONSTRAINT [FK_Menadzer_inherits_Zaposleni]
     FOREIGN KEY ([Id])
     REFERENCES [dbo].[Zaposleni]
         ([Id])
@@ -389,15 +441,6 @@ GO
 -- Creating foreign key on [Id] in table 'Zaposleni_Dispecer'
 ALTER TABLE [dbo].[Zaposleni_Dispecer]
 ADD CONSTRAINT [FK_Dispecer_inherits_Zaposleni]
-    FOREIGN KEY ([Id])
-    REFERENCES [dbo].[Zaposleni]
-        ([Id])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Id] in table 'Zaposleni_Menadzer'
-ALTER TABLE [dbo].[Zaposleni_Menadzer]
-ADD CONSTRAINT [FK_Menadzer_inherits_Zaposleni]
     FOREIGN KEY ([Id])
     REFERENCES [dbo].[Zaposleni]
         ([Id])

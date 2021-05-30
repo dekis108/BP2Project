@@ -18,6 +18,7 @@ namespace DatabaseModel
         public TimRadiNaProjektu()
         {
             this.Tim = new HashSet<Tim>();
+            this.Menadzer = new HashSet<Menadzer>();
         }
     
         public decimal OZ { get; set; }
@@ -26,5 +27,7 @@ namespace DatabaseModel
         public virtual Projekat Projekat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tim> Tim { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Menadzer> Menadzer { get; set; }
     }
 }

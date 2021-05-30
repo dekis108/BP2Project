@@ -13,12 +13,13 @@
     <EntitySet Name="Projekati" EntityType="ProjectModel.Store.Projekati" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TimRadiNaProjektu" EntityType="ProjectModel.Store.TimRadiNaProjektu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Programer" EntityType="ProjectModel.Store.Zaposleni_Programer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Zaposleni_Menadzer" EntityType="ProjectModel.Store.Zaposleni_Menadzer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Admin" EntityType="ProjectModel.Store.Zaposleni_Admin" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Dispecer" EntityType="ProjectModel.Store.Zaposleni_Dispecer" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Zaposleni_Menadzer" EntityType="ProjectModel.Store.Zaposleni_Menadzer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Hardveri_Racunar" EntityType="ProjectModel.Store.Hardveri_Racunar" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Hardveri_Mobilni" EntityType="ProjectModel.Store.Hardveri_Mobilni" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TimRadiNaProjektuTim" EntityType="ProjectModel.Store.TimRadiNaProjektuTim" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MenadzerTimRadiNaProjektu" EntityType="ProjectModel.Store.MenadzerNadgledaRad" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="ProjekatTimRadiNaProjektu" Association="ProjectModel.Store.ProjekatTimRadiNaProjektu">
       <End Role="Projekat" EntitySet="Projekati" />
       <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
@@ -43,9 +44,21 @@
       <End Role="Programer" EntitySet="Zaposleni_Programer" />
       <End Role="Tim" EntitySet="Timovi" />
     </AssociationSet>
+    <AssociationSet Name="FK_MenadzerTimRadiNaProjektu_Menadzer" Association="ProjectModel.Store.FK_MenadzerNadgledaRad_Menadzer">
+      <End Role="Menadzer" EntitySet="Zaposleni_Menadzer" />
+      <End Role="MenadzerNadgledaRad" EntitySet="MenadzerTimRadiNaProjektu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MenadzerTimRadiNaProjektu_TimRadiNaProjektu" Association="ProjectModel.Store.FK_MenadzerNadgledaRad_TimRadiNaProjektu">
+      <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
+      <End Role="MenadzerNadgledaRad" EntitySet="MenadzerTimRadiNaProjektu" />
+    </AssociationSet>
     <AssociationSet Name="FK_Programer_inherits_Zaposleni" Association="ProjectModel.Store.FK_Programer_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Programer" EntitySet="Zaposleni_Programer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Menadzer_inherits_Zaposleni" Association="ProjectModel.Store.FK_Menadzer_inherits_Zaposleni">
+      <End Role="Zaposleni" EntitySet="Zaposleni" />
+      <End Role="Menadzer" EntitySet="Zaposleni_Menadzer" />
     </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_Zaposleni" Association="ProjectModel.Store.FK_Admin_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
@@ -54,10 +67,6 @@
     <AssociationSet Name="FK_Dispecer_inherits_Zaposleni" Association="ProjectModel.Store.FK_Dispecer_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Dispecer" EntitySet="Zaposleni_Dispecer" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Menadzer_inherits_Zaposleni" Association="ProjectModel.Store.FK_Menadzer_inherits_Zaposleni">
-      <End Role="Zaposleni" EntitySet="Zaposleni" />
-      <End Role="Menadzer" EntitySet="Zaposleni_Menadzer" />
     </AssociationSet>
     <AssociationSet Name="FK_Racunar_inherits_Hardver" Association="ProjectModel.Store.FK_Racunar_inherits_Hardver">
       <End Role="Hardver" EntitySet="Hardveri" />
@@ -129,6 +138,12 @@
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
     <Property Name="Tims1_ST" Type="nchar" MaxLength="100" Nullable="false" />
   </EntityType>
+  <EntityType Name="Zaposleni_Menadzer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
+  </EntityType>
   <EntityType Name="Zaposleni_Admin">
     <Key>
       <PropertyRef Name="Id" />
@@ -137,12 +152,6 @@
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <EntityType Name="Zaposleni_Dispecer">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="Zaposleni_Menadzer">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -170,6 +179,14 @@
     </Key>
     <Property Name="TimRadiNaProjektu_Id" Type="nchar" Nullable="false" MaxLength="100" />
     <Property Name="Tim_ST" Type="nchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MenadzerNadgledaRad">
+    <Key>
+      <PropertyRef Name="Menadzer_Id" />
+      <PropertyRef Name="TimRadiNaProjektus_Id" />
+    </Key>
+    <Property Name="Menadzer_Id" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="TimRadiNaProjektus_Id" Type="nchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <Association Name="ProjekatTimRadiNaProjektu">
     <End Role="Projekat" Type="ProjectModel.Store.Projekati" Multiplicity="*" />
@@ -243,6 +260,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_MenadzerNadgledaRad_Menadzer">
+    <End Role="Menadzer" Type="ProjectModel.Store.Zaposleni_Menadzer" Multiplicity="1" />
+    <End Role="MenadzerNadgledaRad" Type="ProjectModel.Store.MenadzerNadgledaRad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menadzer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MenadzerNadgledaRad">
+        <PropertyRef Name="Menadzer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MenadzerNadgledaRad_TimRadiNaProjektu">
+    <End Role="MenadzerNadgledaRad" Type="ProjectModel.Store.MenadzerNadgledaRad" Multiplicity="*" />
+    <End Role="TimRadiNaProjektu" Type="ProjectModel.Store.TimRadiNaProjektu" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TimRadiNaProjektu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MenadzerNadgledaRad">
+        <PropertyRef Name="TimRadiNaProjektus_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Programer_inherits_Zaposleni">
     <End Role="Zaposleni" Type="ProjectModel.Store.Zaposleni" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -253,6 +294,20 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Programer">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Menadzer_inherits_Zaposleni">
+    <End Role="Zaposleni" Type="ProjectModel.Store.Zaposleni" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Menadzer" Type="ProjectModel.Store.Zaposleni_Menadzer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Zaposleni">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Menadzer">
         <PropertyRef Name="Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -281,20 +336,6 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Dispecer">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Menadzer_inherits_Zaposleni">
-    <End Role="Zaposleni" Type="ProjectModel.Store.Zaposleni" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Menadzer" Type="ProjectModel.Store.Zaposleni_Menadzer" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Zaposleni">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Menadzer">
         <PropertyRef Name="Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -358,6 +399,10 @@
             <End Role="Programer" EntitySet="Zaposleni" />
             <End Role="Tim" EntitySet="Timovi" />
           </AssociationSet>
+          <AssociationSet Name="MenadzerTimRadiNaProjektu" Association="ProjectModel.MenadzerNadgledaRad">
+            <End Role="Menadzer" EntitySet="Zaposleni" />
+            <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Zaposleni">
           <Key>
@@ -417,7 +462,9 @@
           <NavigationProperty Name="Tims" Relationship="ProjectModel.ProgramerJeClanTima" FromRole="Programer" ToRole="Tim" />
           <NavigationProperty Name="Tims1" Relationship="ProjectModel.PogramerVodiTim" FromRole="Programer" ToRole="Tim" />
         </EntityType>
-        <EntityType Name="Menadzer" BaseType="ProjectModel.Zaposleni" />
+        <EntityType Name="Menadzer" BaseType="ProjectModel.Zaposleni" >
+          <NavigationProperty Name="TimRadiNaProjektus" Relationship="ProjectModel.MenadzerNadgledaRad" FromRole="Menadzer" ToRole="TimRadiNaProjektu" />
+        </EntityType>
         <EntityType Name="Racunar" BaseType="ProjectModel.Hardver" >
           <Property Name="VM" Type="String" Nullable="true" />
         </EntityType>
@@ -433,6 +480,7 @@
           <NavigationProperty Name="Projekat" Relationship="ProjectModel.ProjekatTimRadiNaProjektu" FromRole="TimRadiNaProjektu" ToRole="Projekat" />
           <NavigationProperty Name="Tim" Relationship="ProjectModel.TimRadiNaProjektuTim" FromRole="TimRadiNaProjektu" ToRole="Tim" />
           <Property Name="Id" Type="String" Nullable="false" FixedLength="true" MaxLength="100" />
+          <NavigationProperty Name="Menadzer" Relationship="ProjectModel.MenadzerNadgledaRad" FromRole="TimRadiNaProjektu" ToRole="Menadzer" />
         </EntityType>
         <Association Name="ProjekatTimRadiNaProjektu">
           <End Type="ProjectModel.Projekat" Role="Projekat" Multiplicity="1" />
@@ -454,6 +502,10 @@
           <End Type="ProjectModel.Programer" Role="Programer" Multiplicity="0..1" />
           <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="1" />
         </Association>
+        <Association Name="MenadzerNadgledaRad">
+          <End Type="ProjectModel.Menadzer" Role="Menadzer" Multiplicity="*" />
+          <End Type="ProjectModel.TimRadiNaProjektu" Role="TimRadiNaProjektu" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -474,6 +526,11 @@
           <ScalarProperty Name="O_PROD" ColumnName="O_PROD" />
         </MappingFragment>
       </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Menadzer)">
+        <MappingFragment StoreEntitySet="Zaposleni_Menadzer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Admin)">
         <MappingFragment StoreEntitySet="Zaposleni_Admin">
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -482,11 +539,6 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Dispecer)">
         <MappingFragment StoreEntitySet="Zaposleni_Dispecer">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Menadzer)">
-        <MappingFragment StoreEntitySet="Zaposleni_Menadzer">
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -589,6 +641,14 @@
       </EndProperty>
       <EndProperty Name="Programer">
         <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MenadzerTimRadiNaProjektu" TypeName="ProjectModel.MenadzerNadgledaRad" StoreEntitySet="MenadzerTimRadiNaProjektu">
+      <EndProperty Name="Menadzer">
+        <ScalarProperty Name="Id" ColumnName="Menadzer_Id" />
+      </EndProperty>
+      <EndProperty Name="TimRadiNaProjektu">
+        <ScalarProperty Name="Id" ColumnName="TimRadiNaProjektus_Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
