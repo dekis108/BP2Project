@@ -22,8 +22,6 @@ namespace DatabaseModel.Model
                     PLAT = 10000
                 };
 
-                db.Zaposleni.Add(newProgramer);
-
                 PoslovniProstor poslovniProstor = new PoslovniProstor
                 {
                     SP = "Prostor1",
@@ -31,14 +29,20 @@ namespace DatabaseModel.Model
                     BRM = 10
                 };
 
-                db.PoslovniProstori.Add(poslovniProstor);
-
                 newProgramer.PoslovniProstor = poslovniProstor;
 
                 Tim tim = new Tim();
                 tim.ST = "Tim1";
                 tim.PR = "Research&Development";
+                tim.VodjaTima = newProgramer;
 
+                newProgramer.ClanTima = tim;
+                newProgramer.VodiTim = tim;
+
+
+                db.PoslovniProstori.Add(poslovniProstor);
+                db.Zaposleni.Add(newProgramer);
+                db.Timovi.Add(tim);
 
                 db.SaveChanges();
                 Console.WriteLine("Success");

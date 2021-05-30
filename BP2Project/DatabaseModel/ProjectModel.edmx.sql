@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/30/2021 13:24:28
+-- Date Created: 05/30/2021 13:43:45
 -- Generated from EDMX file: C:\Users\Dejan\Desktop\Karantin\4.2 godina\Baze2\Projekat\Projekat\BP2Project\DatabaseModel\ProjectModel.edmx
 -- --------------------------------------------------
 
@@ -18,7 +18,7 @@ GO
 -- --------------------------------------------------
 
 IF OBJECT_ID(N'[dbo].[FK_ProjekatTimRadiNaProjektu]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Projekati] DROP CONSTRAINT [FK_ProjekatTimRadiNaProjektu];
+    ALTER TABLE [dbo].[Projekti] DROP CONSTRAINT [FK_ProjekatTimRadiNaProjektu];
 GO
 IF OBJECT_ID(N'[dbo].[FK_TimRadiNaProjektuTim_TimRadiNaProjektu]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TimRadiNaProjektuTim] DROP CONSTRAINT [FK_TimRadiNaProjektuTim_TimRadiNaProjektu];
@@ -30,10 +30,10 @@ IF OBJECT_ID(N'[dbo].[FK_ZaposleniPoslovniProstor]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni] DROP CONSTRAINT [FK_ZaposleniPoslovniProstor];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ProgramerJeClanTima]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Timovi] DROP CONSTRAINT [FK_ProgramerJeClanTima];
+    ALTER TABLE [dbo].[Zaposleni_Programer] DROP CONSTRAINT [FK_ProgramerJeClanTima];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PogramerVodiTim]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Zaposleni_Programer] DROP CONSTRAINT [FK_PogramerVodiTim];
+    ALTER TABLE [dbo].[Timovi] DROP CONSTRAINT [FK_PogramerVodiTim];
 GO
 IF OBJECT_ID(N'[dbo].[FK_MenadzerNadgledaRad_Menadzer]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[MenadzerTimRadiNaProjektu] DROP CONSTRAINT [FK_MenadzerNadgledaRad_Menadzer];
@@ -42,10 +42,13 @@ IF OBJECT_ID(N'[dbo].[FK_MenadzerNadgledaRad_TimRadiNaProjektu]', 'F') IS NOT NU
     ALTER TABLE [dbo].[MenadzerTimRadiNaProjektu] DROP CONSTRAINT [FK_MenadzerNadgledaRad_TimRadiNaProjektu];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PoslovniProstorRacunar]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PoslovniProstori] DROP CONSTRAINT [FK_PoslovniProstorRacunar];
+    ALTER TABLE [dbo].[Hardveri_Racunar] DROP CONSTRAINT [FK_PoslovniProstorRacunar];
 GO
 IF OBJECT_ID(N'[dbo].[FK_DispecerMobilni]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Zaposleni_Dispecer] DROP CONSTRAINT [FK_DispecerMobilni];
+    ALTER TABLE [dbo].[Hardveri_Mobilni] DROP CONSTRAINT [FK_DispecerMobilni];
+GO
+IF OBJECT_ID(N'[dbo].[FK_NadredjenNad]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Timovi] DROP CONSTRAINT [FK_NadredjenNad];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Programer_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Programer] DROP CONSTRAINT [FK_Programer_inherits_Zaposleni];
@@ -82,8 +85,8 @@ GO
 IF OBJECT_ID(N'[dbo].[Timovi]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Timovi];
 GO
-IF OBJECT_ID(N'[dbo].[Projekati]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Projekati];
+IF OBJECT_ID(N'[dbo].[Projekti]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Projekti];
 GO
 IF OBJECT_ID(N'[dbo].[TimRadiNaProjektu]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TimRadiNaProjektu];
@@ -152,8 +155,8 @@ CREATE TABLE [dbo].[Timovi] (
 );
 GO
 
--- Creating table 'Projekati'
-CREATE TABLE [dbo].[Projekati] (
+-- Creating table 'Projekti'
+CREATE TABLE [dbo].[Projekti] (
     [SP] nchar(100)  NOT NULL,
     [DD] datetime  NOT NULL,
     [DP] datetime  NULL,
@@ -175,7 +178,7 @@ GO
 CREATE TABLE [dbo].[Zaposleni_Programer] (
     [O_PROD] int  NULL,
     [Id] nchar(100)  NOT NULL,
-    [ClanTima_ST] nchar(100)  NOT NULL
+    [ClanTima_ST] nchar(100)  NULL
 );
 GO
 
@@ -257,9 +260,9 @@ ADD CONSTRAINT [PK_Timovi]
     PRIMARY KEY CLUSTERED ([ST] ASC);
 GO
 
--- Creating primary key on [SP] in table 'Projekati'
-ALTER TABLE [dbo].[Projekati]
-ADD CONSTRAINT [PK_Projekati]
+-- Creating primary key on [SP] in table 'Projekti'
+ALTER TABLE [dbo].[Projekti]
+ADD CONSTRAINT [PK_Projekti]
     PRIMARY KEY CLUSTERED ([SP] ASC);
 GO
 
@@ -321,8 +324,8 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [TimRadiNaProjektus_Id] in table 'Projekati'
-ALTER TABLE [dbo].[Projekati]
+-- Creating foreign key on [TimRadiNaProjektus_Id] in table 'Projekti'
+ALTER TABLE [dbo].[Projekti]
 ADD CONSTRAINT [FK_ProjekatTimRadiNaProjektu]
     FOREIGN KEY ([TimRadiNaProjektus_Id])
     REFERENCES [dbo].[TimRadiNaProjektu]
@@ -332,7 +335,7 @@ GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_ProjekatTimRadiNaProjektu'
 CREATE INDEX [IX_FK_ProjekatTimRadiNaProjektu]
-ON [dbo].[Projekati]
+ON [dbo].[Projekti]
     ([TimRadiNaProjektus_Id]);
 GO
 

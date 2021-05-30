@@ -29,7 +29,7 @@ namespace DatabaseModel
         public virtual DbSet<PoslovniProstor> PoslovniProstori { get; set; }
         public virtual DbSet<Hardver> Hardveri { get; set; }
         public virtual DbSet<Tim> Timovi { get; set; }
-        public virtual DbSet<Projekat> Projekati { get; set; }
+        public virtual DbSet<Projekat> Projekti { get; set; }
         public virtual DbSet<TimRadiNaProjektu> TimRadiNaProjektu { get; set; }
     }
 }

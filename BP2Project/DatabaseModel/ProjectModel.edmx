@@ -10,7 +10,7 @@
     <EntitySet Name="PoslovniProstori" EntityType="ProjectModel.Store.PoslovniProstori" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Hardveri" EntityType="ProjectModel.Store.Hardveri" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Timovi" EntityType="ProjectModel.Store.Timovi" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Projekati" EntityType="ProjectModel.Store.Projekati" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Projekti" EntityType="ProjectModel.Store.Projekti" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TimRadiNaProjektu" EntityType="ProjectModel.Store.TimRadiNaProjektu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Programer" EntityType="ProjectModel.Store.Zaposleni_Programer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Menadzer" EntityType="ProjectModel.Store.Zaposleni_Menadzer" store:Type="Tables" Schema="dbo" />
@@ -21,7 +21,7 @@
     <EntitySet Name="TimRadiNaProjektuTim" EntityType="ProjectModel.Store.TimRadiNaProjektuTim" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MenadzerTimRadiNaProjektu" EntityType="ProjectModel.Store.MenadzerNadgledaRad" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="ProjekatTimRadiNaProjektu" Association="ProjectModel.Store.ProjekatTimRadiNaProjektu">
-      <End Role="Projekat" EntitySet="Projekati" />
+      <End Role="Projekat" EntitySet="Projekti" />
       <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
     </AssociationSet>
     <AssociationSet Name="FK_TimRadiNaProjektuTim_TimRadiNaProjektu" Association="ProjectModel.Store.FK_TimRadiNaProjektuTim_TimRadiNaProjektu">
@@ -124,7 +124,7 @@
     <Property Name="VodjaTima_Id" Type="nchar" MaxLength="100" Nullable="false" />
     <Property Name="Nadredjeni_ST" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
-  <EntityType Name="Projekati">
+  <EntityType Name="Projekti">
     <Key>
       <PropertyRef Name="SP" />
     </Key>
@@ -149,7 +149,7 @@
     </Key>
     <Property Name="O_PROD" Type="int" Nullable="true" />
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
-    <Property Name="ClanTima_ST" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="ClanTima_ST" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
   <EntityType Name="Zaposleni_Menadzer">
     <Key>
@@ -204,7 +204,7 @@
     <Property Name="TimRadiNaProjektus_Id" Type="nchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <Association Name="ProjekatTimRadiNaProjektu">
-    <End Role="Projekat" Type="ProjectModel.Store.Projekati" Multiplicity="*" />
+    <End Role="Projekat" Type="ProjectModel.Store.Projekti" Multiplicity="*" />
     <End Role="TimRadiNaProjektu" Type="ProjectModel.Store.TimRadiNaProjektu" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="TimRadiNaProjektu">
@@ -229,7 +229,7 @@
   </Association>
   <Association Name="ProgramerJeClanTima">
     <End Role="Programer" Type="ProjectModel.Store.Zaposleni_Programer" Multiplicity="*" />
-    <End Role="Tim" Type="ProjectModel.Store.Timovi" Multiplicity="1" />
+    <End Role="Tim" Type="ProjectModel.Store.Timovi" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Tim">
         <PropertyRef Name="ST" />
@@ -428,10 +428,10 @@
           <EntitySet Name="PoslovniProstori" EntityType="ProjectModel.PoslovniProstor" />
           <EntitySet Name="Hardveri" EntityType="ProjectModel.Hardver" />
           <EntitySet Name="Timovi" EntityType="ProjectModel.Tim" />
-          <EntitySet Name="Projekati" EntityType="ProjectModel.Projekat" />
+          <EntitySet Name="Projekti" EntityType="ProjectModel.Projekat" />
           <EntitySet Name="TimRadiNaProjektu" EntityType="ProjectModel.TimRadiNaProjektu" />
           <AssociationSet Name="ProjekatTimRadiNaProjektu" Association="ProjectModel.ProjekatTimRadiNaProjektu">
-            <End Role="Projekat" EntitySet="Projekati" />
+            <End Role="Projekat" EntitySet="Projekti" />
             <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
           </AssociationSet>
           <AssociationSet Name="TimRadiNaProjektuTim" Association="ProjectModel.TimRadiNaProjektuTim">
@@ -566,7 +566,7 @@
         </Association>
         <Association Name="ProgramerJeClanTima">
           <End Type="ProjectModel.Programer" Role="Programer" Multiplicity="*" />
-          <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="1" />
+          <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="0..1" />
         </Association>
         <Association Name="PogramerVodiTim">
           <End Type="ProjectModel.Programer" Role="Programer" Multiplicity="1" />
@@ -665,9 +665,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Projekati">
+    <EntitySetMapping Name="Projekti">
       <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Projekat)">
-        <MappingFragment StoreEntitySet="Projekati">
+        <MappingFragment StoreEntitySet="Projekti">
           <ScalarProperty Name="SP" ColumnName="SP" />
           <ScalarProperty Name="DD" ColumnName="DD" />
           <ScalarProperty Name="DP" ColumnName="DP" />
@@ -685,7 +685,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="ProjekatTimRadiNaProjektu" TypeName="ProjectModel.ProjekatTimRadiNaProjektu" StoreEntitySet="Projekati">
+    <AssociationSetMapping Name="ProjekatTimRadiNaProjektu" TypeName="ProjectModel.ProjekatTimRadiNaProjektu" StoreEntitySet="Projekti">
       <EndProperty Name="TimRadiNaProjektu">
         <ScalarProperty Name="Id" ColumnName="TimRadiNaProjektus_Id" />
       </EndProperty>
@@ -716,6 +716,7 @@
       <EndProperty Name="Programer">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+      <Condition ColumnName="ClanTima_ST" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="ProgramerTim1" TypeName="ProjectModel.PogramerVodiTim" StoreEntitySet="Timovi">
       <EndProperty Name="Programer">
