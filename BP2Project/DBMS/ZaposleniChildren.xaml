@@ -1,0 +1,54 @@
+﻿<Window x:Class="DBMS.ZaposleniChildren"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DBMS"
+        mc:Ignorable="d"
+        Title="ZaposleniChildren" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Name="tabProgrameri">
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="Programer" MouseLeftButtonDown="tabProgramer_Clicked" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid Name="GridProgramer" Height="250" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="Admin" MouseLeftButtonDown="tabAdmin_Clicked" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid Name="GridAdmin" Height="250" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="Menadzer" MouseLeftButtonDown="tabMenadzer_Clicked" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid Name="GridMenadzer" Height="250" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="Dispecer" MouseLeftButtonDown="tabDispecer_Clicked" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid Name="GridDispecer" Height="250" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>

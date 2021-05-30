@@ -45,5 +45,11 @@ namespace DBMS
         {
             LoadZaposleni();
         }
+
+        private void zaposleniChildButton_Click(object sender, RoutedEventArgs e)
+        {
+            ZaposleniChildren children = new ZaposleniChildren();
+            children.Show();
+        }
     }
 }
