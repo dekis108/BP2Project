@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/30/2021 13:43:45
+-- Date Created: 05/30/2021 15:08:52
 -- Generated from EDMX file: C:\Users\Dejan\Desktop\Karantin\4.2 godina\Baze2\Projekat\Projekat\BP2Project\DatabaseModel\ProjectModel.edmx
 -- --------------------------------------------------
 
@@ -125,7 +125,7 @@ CREATE TABLE [dbo].[Zaposleni] (
     [Id] nchar(100)  NOT NULL,
     [D_ZAP] datetime  NULL,
     [PLAT] int  NOT NULL,
-    [PoslovniProstor_SP] nchar(100)  NOT NULL
+    [PoslovniProstor_SP] nchar(100)  NULL
 );
 GO
 
@@ -150,7 +150,7 @@ GO
 CREATE TABLE [dbo].[Timovi] (
     [ST] nchar(100)  NOT NULL,
     [PR] nvarchar(max)  NULL,
-    [VodjaTima_Id] nchar(100)  NOT NULL,
+    [VodjaTima_Id] nchar(100)  NULL,
     [Nadredjeni_ST] nchar(100)  NULL
 );
 GO

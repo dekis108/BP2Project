@@ -96,7 +96,7 @@
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
     <Property Name="D_ZAP" Type="datetime" Nullable="true" />
     <Property Name="PLAT" Type="int" Nullable="false" />
-    <Property Name="PoslovniProstor_SP" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="PoslovniProstor_SP" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
   <EntityType Name="PoslovniProstori">
     <Key>
@@ -121,7 +121,7 @@
     </Key>
     <Property Name="ST" Type="nchar" Nullable="false" MaxLength="100" />
     <Property Name="PR" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="VodjaTima_Id" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="VodjaTima_Id" Type="nchar" MaxLength="100" Nullable="true" />
     <Property Name="Nadredjeni_ST" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
   <EntityType Name="Projekti">
@@ -217,7 +217,7 @@
   </Association>
   <Association Name="ZaposleniPoslovniProstor">
     <End Role="Zaposleni" Type="ProjectModel.Store.Zaposleni" Multiplicity="*" />
-    <End Role="PoslovniProstor" Type="ProjectModel.Store.PoslovniProstori" Multiplicity="1" />
+    <End Role="PoslovniProstor" Type="ProjectModel.Store.PoslovniProstori" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="PoslovniProstor">
         <PropertyRef Name="SP" />
@@ -240,7 +240,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="PogramerVodiTim">
-    <End Role="Programer" Type="ProjectModel.Store.Zaposleni_Programer" Multiplicity="1" />
+    <End Role="Programer" Type="ProjectModel.Store.Zaposleni_Programer" Multiplicity="0..1" />
     <End Role="Tim" Type="ProjectModel.Store.Timovi" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Programer">
@@ -562,14 +562,14 @@
         </Association>
         <Association Name="ZaposleniPoslovniProstor">
           <End Type="ProjectModel.Zaposleni" Role="Zaposleni" Multiplicity="*" />
-          <End Type="ProjectModel.PoslovniProstor" Role="PoslovniProstor" Multiplicity="1" />
+          <End Type="ProjectModel.PoslovniProstor" Role="PoslovniProstor" Multiplicity="0..1" />
         </Association>
         <Association Name="ProgramerJeClanTima">
           <End Type="ProjectModel.Programer" Role="Programer" Multiplicity="*" />
           <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="0..1" />
         </Association>
         <Association Name="PogramerVodiTim">
-          <End Type="ProjectModel.Programer" Role="Programer" Multiplicity="1" />
+          <End Type="ProjectModel.Programer" Role="Programer" Multiplicity="0..1" />
           <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="0..1" />
         </Association>
         <Association Name="MenadzerNadgledaRad">
@@ -708,6 +708,7 @@
       <EndProperty Name="Zaposleni">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+      <Condition ColumnName="PoslovniProstor_SP" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="ProgramerTim" TypeName="ProjectModel.ProgramerJeClanTima" StoreEntitySet="Zaposleni_Programer">
       <EndProperty Name="Tim">
@@ -725,6 +726,7 @@
       <EndProperty Name="Tim">
         <ScalarProperty Name="ST" ColumnName="ST" />
       </EndProperty>
+      <Condition ColumnName="VodjaTima_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="MenadzerTimRadiNaProjektu" TypeName="ProjectModel.MenadzerNadgledaRad" StoreEntitySet="MenadzerTimRadiNaProjektu">
       <EndProperty Name="Menadzer">

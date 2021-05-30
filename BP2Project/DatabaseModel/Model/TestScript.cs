@@ -8,45 +8,91 @@ namespace DatabaseModel.Model
 {
     public class TestScript
     {
+        Random rand = new Random(Guid.NewGuid().GetHashCode());
+
         public TestScript() {}
 
-        public void GenerateProgramer()
+        public void Run()
         {
             using (var db = new ProjectModelContainer())
             {
-                Programer newProgramer = new Programer
+                //generate 10 of each
+                for (int i = 0; i < 10; ++i)
                 {
-                    Id = "Prog1",
-                    D_ZAP = DateTime.Now,
-                    O_PROD = 13,
-                    PLAT = 10000
-                };
+                    GeneratePoslovniProstor(db, "PP" + i);
+                    GenerateTim(db, "T" + i);
+                    GenerateProgramer(db, "PR" + i);
+                }
 
-                PoslovniProstor poslovniProstor = new PoslovniProstor
+
+                //assign all programers to random teams
+                for (int i = 0; i < 10; ++i)
                 {
-                    SP = "Prostor1",
-                    DIM = 80.0M,
-                    BRM = 10
-                };
+                    AddProgramerToTeam(db, "PR" + i, "T" + rand.Next(0,10));
+                }
 
-                newProgramer.PoslovniProstor = poslovniProstor;
-
-                Tim tim = new Tim();
-                tim.ST = "Tim1";
-                tim.PR = "Research&Development";
-                tim.VodjaTima = newProgramer;
-
-                newProgramer.ClanTima = tim;
-                newProgramer.VodiTim = tim;
-
-
-                db.PoslovniProstori.Add(poslovniProstor);
-                db.Zaposleni.Add(newProgramer);
-                db.Timovi.Add(tim);
+                //assign a team lead to every team that has atleast 1 member
+                AssignTeamLeads(db);
 
                 db.SaveChanges();
                 Console.WriteLine("Success");
             }
         }
+
+        private void AssignTeamLeads(ProjectModelContainer db)
+        {
+            var teams = db.Timovi.Where(x => x.Programeri.Count > 0);
+            
+            foreach(Tim team in teams)
+            {
+                var programeri = team.Programeri.ToList();
+                team.VodjaTima = programeri.First();
+            }
+        }
+
+        private void AddProgramerToTeam(ProjectModelContainer db, string programerId, string teamId)
+        {
+            Programer prog = (Programer)db.Zaposleni.Find(programerId);
+            prog.ClanTima = db.Timovi.Find(teamId);
+
+            db.SaveChanges();   
+        }
+
+        private void GenerateProgramer(ProjectModelContainer db, string programerID)
+        {
+            Programer newProgramer = new Programer
+            {
+                Id = programerID,
+                D_ZAP = DateTime.Now,
+                O_PROD = 13,
+                PLAT = 13000
+            };
+
+            db.Zaposleni.Add(newProgramer);
+        }
+
+        private void GenerateTim(ProjectModelContainer db, string teamId)
+        {
+            Tim tim = new Tim
+            {
+                ST = teamId,
+                PR = "Research&Development",
+            };
+
+            db.Timovi.Add(tim);  
+        }
+
+        private void GeneratePoslovniProstor(ProjectModelContainer db, string roomId)
+        {
+            PoslovniProstor poslovniProstor = new PoslovniProstor
+            {
+                SP = roomId,
+                DIM = 80.0M,
+                BRM = 10
+            };
+
+            db.PoslovniProstori.Add(poslovniProstor);
+        }
+
     }
 }

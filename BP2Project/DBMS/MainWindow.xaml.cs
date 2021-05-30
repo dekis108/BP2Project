@@ -29,7 +29,7 @@ namespace DBMS
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             TestScript ts = new TestScript();
-            ts.GenerateProgramer();
+            ts.Run();
         }
     }
 }
