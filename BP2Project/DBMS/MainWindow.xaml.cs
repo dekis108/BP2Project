@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DatabaseModel.Model;
 
 namespace DBMS
 {
@@ -23,6 +24,12 @@ namespace DBMS
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TestScript ts = new TestScript();
+            ts.GenerateProgramer();
         }
     }
 }
