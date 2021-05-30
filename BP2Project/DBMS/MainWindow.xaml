@@ -15,7 +15,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <DataGrid Name="GridZaposleni" />
+                    <DataGrid Name="GridZaposleni" Height="250" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem>

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DatabaseModel;
 using DatabaseModel.Model;
+using DBMS.ViewModel;
 
 namespace DBMS
 {
@@ -22,25 +23,22 @@ namespace DBMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Zaposleni> DataZaposleni;
+        MainWindowViewModel mainWindowViewModel;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            DataZaposleni = new List<Zaposleni>();
-            GridZaposleni.ItemsSource = DataZaposleni;
+            mainWindowViewModel = new MainWindowViewModel();
+     
+            GridZaposleni.ItemsSource = mainWindowViewModel.DataZaposleni;
 
             LoadZaposleni();
         }
 
         private void LoadZaposleni()
         {
-            using (var db = new ProjectModelContainer())
-            {
-                DataZaposleni = db.Zaposleni.ToList();
-                GridZaposleni.ItemsSource = DataZaposleni;
-            }
+            mainWindowViewModel.LoadZaposleni(GridZaposleni);
         }
 
         private void tabZaposleni_Clicked(object sender, MouseButtonEventArgs e)
