@@ -18,9 +18,9 @@
         <InheritanceConnector EntityType="ProjectModel.Programer" />
         <EntityTypeShape EntityType="ProjectModel.Menadzer" Width="1.5" PointX="7.875" PointY="4" />
         <InheritanceConnector EntityType="ProjectModel.Menadzer" />
-        <EntityTypeShape EntityType="ProjectModel.Racunar" Width="1.5" PointX="7" PointY="11.75" />
+        <EntityTypeShape EntityType="ProjectModel.Racunar" Width="1.5" PointX="6.75" PointY="11.625" />
         <InheritanceConnector EntityType="ProjectModel.Racunar" />
-        <EntityTypeShape EntityType="ProjectModel.Mobilni" Width="1.5" PointX="7" PointY="13.25" />
+        <EntityTypeShape EntityType="ProjectModel.Mobilni" Width="1.5" PointX="7.125" PointY="13.875" />
         <InheritanceConnector EntityType="ProjectModel.Mobilni" />
         <EntityTypeShape EntityType="ProjectModel.TimRadiNaProjektu" Width="1.5" PointX="11.125" PointY="3.375" />
         <AssociationConnector Association="ProjectModel.ProjekatTimRadiNaProjektu" />
@@ -32,6 +32,7 @@
         <AssociationConnector Association="ProjectModel.MenadzerNadgledaRad" />
         <AssociationConnector Association="ProjectModel.PoslovniProstorRacunar" />
         <AssociationConnector Association="ProjectModel.DispecerMobilni" />
+        <AssociationConnector Association="ProjectModel.NadredjenNad" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

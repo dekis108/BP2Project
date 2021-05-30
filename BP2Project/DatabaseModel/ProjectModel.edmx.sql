@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/30/2021 12:50:41
+-- Date Created: 05/30/2021 13:24:28
 -- Generated from EDMX file: C:\Users\Dejan\Desktop\Karantin\4.2 godina\Baze2\Projekat\Projekat\BP2Project\DatabaseModel\ProjectModel.edmx
 -- --------------------------------------------------
 
@@ -44,6 +44,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_PoslovniProstorRacunar]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PoslovniProstori] DROP CONSTRAINT [FK_PoslovniProstorRacunar];
 GO
+IF OBJECT_ID(N'[dbo].[FK_DispecerMobilni]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Zaposleni_Dispecer] DROP CONSTRAINT [FK_DispecerMobilni];
+GO
 IF OBJECT_ID(N'[dbo].[FK_Programer_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Programer] DROP CONSTRAINT [FK_Programer_inherits_Zaposleni];
 GO
@@ -53,14 +56,14 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_Racunar_inherits_Hardver]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Hardveri_Racunar] DROP CONSTRAINT [FK_Racunar_inherits_Hardver];
 GO
-IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_Zaposleni]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Zaposleni_Admin] DROP CONSTRAINT [FK_Admin_inherits_Zaposleni];
-GO
 IF OBJECT_ID(N'[dbo].[FK_Dispecer_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Dispecer] DROP CONSTRAINT [FK_Dispecer_inherits_Zaposleni];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Mobilni_inherits_Hardver]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Hardveri_Mobilni] DROP CONSTRAINT [FK_Mobilni_inherits_Hardver];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_Zaposleni]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Zaposleni_Admin] DROP CONSTRAINT [FK_Admin_inherits_Zaposleni];
 GO
 
 -- --------------------------------------------------
@@ -94,14 +97,14 @@ GO
 IF OBJECT_ID(N'[dbo].[Hardveri_Racunar]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Hardveri_Racunar];
 GO
-IF OBJECT_ID(N'[dbo].[Zaposleni_Admin]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Zaposleni_Admin];
-GO
 IF OBJECT_ID(N'[dbo].[Zaposleni_Dispecer]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Zaposleni_Dispecer];
 GO
 IF OBJECT_ID(N'[dbo].[Hardveri_Mobilni]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Hardveri_Mobilni];
+GO
+IF OBJECT_ID(N'[dbo].[Zaposleni_Admin]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Zaposleni_Admin];
 GO
 IF OBJECT_ID(N'[dbo].[TimRadiNaProjektuTim]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TimRadiNaProjektuTim];
@@ -127,8 +130,7 @@ GO
 CREATE TABLE [dbo].[PoslovniProstori] (
     [SP] nchar(100)  NOT NULL,
     [DIM] decimal(18,0)  NOT NULL,
-    [BRM] int  NULL,
-    [Racunars_SH] nchar(100)  NULL
+    [BRM] int  NULL
 );
 GO
 
@@ -145,7 +147,8 @@ GO
 CREATE TABLE [dbo].[Timovi] (
     [ST] nchar(100)  NOT NULL,
     [PR] nvarchar(max)  NULL,
-    [Programer_Id] nchar(100)  NOT NULL
+    [VodjaTima_Id] nchar(100)  NOT NULL,
+    [Nadredjeni_ST] nchar(100)  NULL
 );
 GO
 
@@ -172,7 +175,7 @@ GO
 CREATE TABLE [dbo].[Zaposleni_Programer] (
     [O_PROD] int  NULL,
     [Id] nchar(100)  NOT NULL,
-    [Tims1_ST] nchar(100)  NOT NULL
+    [ClanTima_ST] nchar(100)  NOT NULL
 );
 GO
 
@@ -185,14 +188,14 @@ GO
 -- Creating table 'Hardveri_Racunar'
 CREATE TABLE [dbo].[Hardveri_Racunar] (
     [VM] nvarchar(max)  NULL,
-    [SH] nchar(100)  NOT NULL
+    [SH] nchar(100)  NOT NULL,
+    [PoslovniProstor_SP] nchar(100)  NULL
 );
 GO
 
 -- Creating table 'Zaposleni_Dispecer'
 CREATE TABLE [dbo].[Zaposleni_Dispecer] (
-    [Id] nchar(100)  NOT NULL,
-    [Mobilnis_SH] nchar(100)  NULL
+    [Id] nchar(100)  NOT NULL
 );
 GO
 
@@ -200,7 +203,8 @@ GO
 CREATE TABLE [dbo].[Hardveri_Mobilni] (
     [MDIM] decimal(18,0)  NOT NULL,
     [OS] nvarchar(max)  NULL,
-    [SH] nchar(100)  NOT NULL
+    [SH] nchar(100)  NOT NULL,
+    [Dispecer_Id] nchar(100)  NULL
 );
 GO
 
@@ -371,34 +375,34 @@ ON [dbo].[Zaposleni]
     ([PoslovniProstor_SP]);
 GO
 
--- Creating foreign key on [Programer_Id] in table 'Timovi'
-ALTER TABLE [dbo].[Timovi]
-ADD CONSTRAINT [FK_ProgramerJeClanTima]
-    FOREIGN KEY ([Programer_Id])
-    REFERENCES [dbo].[Zaposleni_Programer]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ProgramerJeClanTima'
-CREATE INDEX [IX_FK_ProgramerJeClanTima]
-ON [dbo].[Timovi]
-    ([Programer_Id]);
-GO
-
--- Creating foreign key on [Tims1_ST] in table 'Zaposleni_Programer'
+-- Creating foreign key on [ClanTima_ST] in table 'Zaposleni_Programer'
 ALTER TABLE [dbo].[Zaposleni_Programer]
-ADD CONSTRAINT [FK_PogramerVodiTim]
-    FOREIGN KEY ([Tims1_ST])
+ADD CONSTRAINT [FK_ProgramerJeClanTima]
+    FOREIGN KEY ([ClanTima_ST])
     REFERENCES [dbo].[Timovi]
         ([ST])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProgramerJeClanTima'
+CREATE INDEX [IX_FK_ProgramerJeClanTima]
+ON [dbo].[Zaposleni_Programer]
+    ([ClanTima_ST]);
+GO
+
+-- Creating foreign key on [VodjaTima_Id] in table 'Timovi'
+ALTER TABLE [dbo].[Timovi]
+ADD CONSTRAINT [FK_PogramerVodiTim]
+    FOREIGN KEY ([VodjaTima_Id])
+    REFERENCES [dbo].[Zaposleni_Programer]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
 -- Creating non-clustered index for FOREIGN KEY 'FK_PogramerVodiTim'
 CREATE INDEX [IX_FK_PogramerVodiTim]
-ON [dbo].[Zaposleni_Programer]
-    ([Tims1_ST]);
+ON [dbo].[Timovi]
+    ([VodjaTima_Id]);
 GO
 
 -- Creating foreign key on [Menadzer_Id] in table 'MenadzerTimRadiNaProjektu'
@@ -425,34 +429,49 @@ ON [dbo].[MenadzerTimRadiNaProjektu]
     ([TimRadiNaProjektus_Id]);
 GO
 
--- Creating foreign key on [Racunars_SH] in table 'PoslovniProstori'
-ALTER TABLE [dbo].[PoslovniProstori]
+-- Creating foreign key on [PoslovniProstor_SP] in table 'Hardveri_Racunar'
+ALTER TABLE [dbo].[Hardveri_Racunar]
 ADD CONSTRAINT [FK_PoslovniProstorRacunar]
-    FOREIGN KEY ([Racunars_SH])
-    REFERENCES [dbo].[Hardveri_Racunar]
-        ([SH])
+    FOREIGN KEY ([PoslovniProstor_SP])
+    REFERENCES [dbo].[PoslovniProstori]
+        ([SP])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_PoslovniProstorRacunar'
 CREATE INDEX [IX_FK_PoslovniProstorRacunar]
-ON [dbo].[PoslovniProstori]
-    ([Racunars_SH]);
+ON [dbo].[Hardveri_Racunar]
+    ([PoslovniProstor_SP]);
 GO
 
--- Creating foreign key on [Mobilnis_SH] in table 'Zaposleni_Dispecer'
-ALTER TABLE [dbo].[Zaposleni_Dispecer]
+-- Creating foreign key on [Dispecer_Id] in table 'Hardveri_Mobilni'
+ALTER TABLE [dbo].[Hardveri_Mobilni]
 ADD CONSTRAINT [FK_DispecerMobilni]
-    FOREIGN KEY ([Mobilnis_SH])
-    REFERENCES [dbo].[Hardveri_Mobilni]
-        ([SH])
+    FOREIGN KEY ([Dispecer_Id])
+    REFERENCES [dbo].[Zaposleni_Dispecer]
+        ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_DispecerMobilni'
 CREATE INDEX [IX_FK_DispecerMobilni]
-ON [dbo].[Zaposleni_Dispecer]
-    ([Mobilnis_SH]);
+ON [dbo].[Hardveri_Mobilni]
+    ([Dispecer_Id]);
+GO
+
+-- Creating foreign key on [Nadredjeni_ST] in table 'Timovi'
+ALTER TABLE [dbo].[Timovi]
+ADD CONSTRAINT [FK_NadredjenNad]
+    FOREIGN KEY ([Nadredjeni_ST])
+    REFERENCES [dbo].[Timovi]
+        ([ST])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_NadredjenNad'
+CREATE INDEX [IX_FK_NadredjenNad]
+ON [dbo].[Timovi]
+    ([Nadredjeni_ST]);
 GO
 
 -- Creating foreign key on [Id] in table 'Zaposleni_Programer'

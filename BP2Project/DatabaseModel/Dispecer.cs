@@ -14,7 +14,14 @@ namespace DatabaseModel
     
     public partial class Dispecer : Zaposleni
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Dispecer()
+        {
+            this.Mobilni = new HashSet<Mobilni>();
+        }
     
-        public virtual Mobilni Mobilnis { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mobilni> Mobilni { get; set; }
     }
 }

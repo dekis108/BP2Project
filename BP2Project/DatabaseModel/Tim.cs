@@ -18,6 +18,8 @@ namespace DatabaseModel
         public Tim()
         {
             this.TimRadiNaProjektu = new HashSet<TimRadiNaProjektu>();
+            this.Programeri = new HashSet<Programer>();
+            this.PodredjeniTimovi = new HashSet<Tim>();
         }
     
         public string ST { get; set; }
@@ -25,7 +27,11 @@ namespace DatabaseModel
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TimRadiNaProjektu> TimRadiNaProjektu { get; set; }
-        public virtual Programer Programer { get; set; }
-        public virtual Programer Programer1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Programer> Programeri { get; set; }
+        public virtual Programer VodjaTima { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tim> PodredjeniTimovi { get; set; }
+        public virtual Tim Nadredjeni { get; set; }
     }
 }

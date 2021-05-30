@@ -60,6 +60,10 @@
       <End Role="Dispecer" EntitySet="Zaposleni_Dispecer" />
       <End Role="Mobilni" EntitySet="Hardveri_Mobilni" />
     </AssociationSet>
+    <AssociationSet Name="TimTim" Association="ProjectModel.Store.NadredjenNad">
+      <End Role="Tim" EntitySet="Timovi" />
+      <End Role="Tim1" EntitySet="Timovi" />
+    </AssociationSet>
     <AssociationSet Name="FK_Programer_inherits_Zaposleni" Association="ProjectModel.Store.FK_Programer_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Programer" EntitySet="Zaposleni_Programer" />
@@ -101,7 +105,6 @@
     <Property Name="SP" Type="nchar" Nullable="false" MaxLength="100" />
     <Property Name="DIM" Type="decimal" Nullable="false" />
     <Property Name="BRM" Type="int" Nullable="true" />
-    <Property Name="Racunars_SH" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
   <EntityType Name="Hardveri">
     <Key>
@@ -118,7 +121,8 @@
     </Key>
     <Property Name="ST" Type="nchar" Nullable="false" MaxLength="100" />
     <Property Name="PR" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Programer_Id" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="VodjaTima_Id" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="Nadredjeni_ST" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
   <EntityType Name="Projekati">
     <Key>
@@ -145,7 +149,7 @@
     </Key>
     <Property Name="O_PROD" Type="int" Nullable="true" />
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
-    <Property Name="Tims1_ST" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="ClanTima_ST" Type="nchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="Zaposleni_Menadzer">
     <Key>
@@ -159,13 +163,13 @@
     </Key>
     <Property Name="VM" Type="nvarchar(max)" Nullable="true" />
     <Property Name="SH" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="PoslovniProstor_SP" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
   <EntityType Name="Zaposleni_Dispecer">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
-    <Property Name="Mobilnis_SH" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
   <EntityType Name="Hardveri_Mobilni">
     <Key>
@@ -174,6 +178,7 @@
     <Property Name="MDIM" Type="decimal" Nullable="false" />
     <Property Name="OS" Type="nvarchar(max)" Nullable="true" />
     <Property Name="SH" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="Dispecer_Id" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
   <EntityType Name="Zaposleni_Admin">
     <Key>
@@ -223,18 +228,6 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ProgramerJeClanTima">
-    <End Role="Programer" Type="ProjectModel.Store.Zaposleni_Programer" Multiplicity="1" />
-    <End Role="Tim" Type="ProjectModel.Store.Timovi" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Programer">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Tim">
-        <PropertyRef Name="Programer_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="PogramerVodiTim">
     <End Role="Programer" Type="ProjectModel.Store.Zaposleni_Programer" Multiplicity="*" />
     <End Role="Tim" Type="ProjectModel.Store.Timovi" Multiplicity="1" />
     <ReferentialConstraint>
@@ -242,31 +235,55 @@
         <PropertyRef Name="ST" />
       </Principal>
       <Dependent Role="Programer">
-        <PropertyRef Name="Tims1_ST" />
+        <PropertyRef Name="ClanTima_ST" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PogramerVodiTim">
+    <End Role="Programer" Type="ProjectModel.Store.Zaposleni_Programer" Multiplicity="1" />
+    <End Role="Tim" Type="ProjectModel.Store.Timovi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Programer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tim">
+        <PropertyRef Name="VodjaTima_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="PoslovniProstorRacunar">
-    <End Role="PoslovniProstor" Type="ProjectModel.Store.PoslovniProstori" Multiplicity="*" />
-    <End Role="Racunar" Type="ProjectModel.Store.Hardveri_Racunar" Multiplicity="0..1" />
+    <End Role="PoslovniProstor" Type="ProjectModel.Store.PoslovniProstori" Multiplicity="0..1" />
+    <End Role="Racunar" Type="ProjectModel.Store.Hardveri_Racunar" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Racunar">
-        <PropertyRef Name="SH" />
+      <Principal Role="PoslovniProstor">
+        <PropertyRef Name="SP" />
       </Principal>
-      <Dependent Role="PoslovniProstor">
-        <PropertyRef Name="Racunars_SH" />
+      <Dependent Role="Racunar">
+        <PropertyRef Name="PoslovniProstor_SP" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="DispecerMobilni">
-    <End Role="Dispecer" Type="ProjectModel.Store.Zaposleni_Dispecer" Multiplicity="*" />
-    <End Role="Mobilni" Type="ProjectModel.Store.Hardveri_Mobilni" Multiplicity="0..1" />
+    <End Role="Dispecer" Type="ProjectModel.Store.Zaposleni_Dispecer" Multiplicity="0..1" />
+    <End Role="Mobilni" Type="ProjectModel.Store.Hardveri_Mobilni" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Mobilni">
-        <PropertyRef Name="SH" />
+      <Principal Role="Dispecer">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Dispecer">
-        <PropertyRef Name="Mobilnis_SH" />
+      <Dependent Role="Mobilni">
+        <PropertyRef Name="Dispecer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="NadredjenNad">
+    <End Role="Tim" Type="ProjectModel.Store.Timovi" Multiplicity="0..1" />
+    <End Role="Tim1" Type="ProjectModel.Store.Timovi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tim">
+        <PropertyRef Name="ST" />
+      </Principal>
+      <Dependent Role="Tim1">
+        <PropertyRef Name="Nadredjeni_ST" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -445,6 +462,10 @@
             <End Role="Dispecer" EntitySet="Zaposleni" />
             <End Role="Mobilni" EntitySet="Hardveri" />
           </AssociationSet>
+          <AssociationSet Name="TimTim" Association="ProjectModel.NadredjenNad">
+            <End Role="Tim" EntitySet="Timovi" />
+            <End Role="Tim1" EntitySet="Timovi" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Zaposleni">
           <Key>
@@ -463,7 +484,7 @@
           <Property Name="DIM" Type="Decimal" Nullable="false" />
           <Property Name="BRM" Type="Int32" Nullable="true" />
           <NavigationProperty Name="Zaposleni" Relationship="ProjectModel.ZaposleniPoslovniProstor" FromRole="PoslovniProstor" ToRole="Zaposleni" />
-          <NavigationProperty Name="Racunars" Relationship="ProjectModel.PoslovniProstorRacunar" FromRole="PoslovniProstor" ToRole="Racunar" />
+          <NavigationProperty Name="Racunari" Relationship="ProjectModel.PoslovniProstorRacunar" FromRole="PoslovniProstor" ToRole="Racunar" />
         </EntityType>
         <EntityType Name="Hardver">
           <Key>
@@ -481,8 +502,10 @@
           <Property Name="ST" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" FixedLength="true" MaxLength="100" />
           <Property Name="PR" Type="String" Nullable="true" />
           <NavigationProperty Name="TimRadiNaProjektu" Relationship="ProjectModel.TimRadiNaProjektuTim" FromRole="Tim" ToRole="TimRadiNaProjektu" />
-          <NavigationProperty Name="Programer" Relationship="ProjectModel.ProgramerJeClanTima" FromRole="Tim" ToRole="Programer" />
-          <NavigationProperty Name="Programer1" Relationship="ProjectModel.PogramerVodiTim" FromRole="Tim" ToRole="Programer" />
+          <NavigationProperty Name="Programeri" Relationship="ProjectModel.ProgramerJeClanTima" FromRole="Tim" ToRole="Programer" />
+          <NavigationProperty Name="VodjaTima" Relationship="ProjectModel.PogramerVodiTim" FromRole="Tim" ToRole="Programer" />
+          <NavigationProperty Name="PodredjeniTimovi" Relationship="ProjectModel.NadredjenNad" FromRole="Tim" ToRole="Tim1" />
+          <NavigationProperty Name="Nadredjeni" Relationship="ProjectModel.NadredjenNad" FromRole="Tim1" ToRole="Tim" />
         </EntityType>
         <EntityType Name="Projekat">
           <Key>
@@ -500,12 +523,12 @@
           <Property Name="NPR" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="Dispecer" BaseType="ProjectModel.Zaposleni" >
-          <NavigationProperty Name="Mobilnis" Relationship="ProjectModel.DispecerMobilni" FromRole="Dispecer" ToRole="Mobilni" />
+          <NavigationProperty Name="Mobilni" Relationship="ProjectModel.DispecerMobilni" FromRole="Dispecer" ToRole="Mobilni" />
         </EntityType>
         <EntityType Name="Programer" BaseType="ProjectModel.Zaposleni" >
           <Property Name="O_PROD" Type="Int32" Nullable="true" />
-          <NavigationProperty Name="Tims" Relationship="ProjectModel.ProgramerJeClanTima" FromRole="Programer" ToRole="Tim" />
-          <NavigationProperty Name="Tims1" Relationship="ProjectModel.PogramerVodiTim" FromRole="Programer" ToRole="Tim" />
+          <NavigationProperty Name="ClanTima" Relationship="ProjectModel.ProgramerJeClanTima" FromRole="Programer" ToRole="Tim" />
+          <NavigationProperty Name="VodiTim" Relationship="ProjectModel.PogramerVodiTim" FromRole="Programer" ToRole="Tim" />
         </EntityType>
         <EntityType Name="Menadzer" BaseType="ProjectModel.Zaposleni" >
           <NavigationProperty Name="TimRadiNaProjektus" Relationship="ProjectModel.MenadzerNadgledaRad" FromRole="Menadzer" ToRole="TimRadiNaProjektu" />
@@ -542,24 +565,28 @@
           <End Type="ProjectModel.PoslovniProstor" Role="PoslovniProstor" Multiplicity="1" />
         </Association>
         <Association Name="ProgramerJeClanTima">
-          <End Type="ProjectModel.Programer" Role="Programer" Multiplicity="1" />
-          <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="*" />
+          <End Type="ProjectModel.Programer" Role="Programer" Multiplicity="*" />
+          <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="1" />
         </Association>
         <Association Name="PogramerVodiTim">
-          <End Type="ProjectModel.Programer" Role="Programer" Multiplicity="0..1" />
-          <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="1" />
+          <End Type="ProjectModel.Programer" Role="Programer" Multiplicity="1" />
+          <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="0..1" />
         </Association>
         <Association Name="MenadzerNadgledaRad">
           <End Type="ProjectModel.Menadzer" Role="Menadzer" Multiplicity="*" />
           <End Type="ProjectModel.TimRadiNaProjektu" Role="TimRadiNaProjektu" Multiplicity="*" />
         </Association>
         <Association Name="PoslovniProstorRacunar">
-          <End Type="ProjectModel.PoslovniProstor" Role="PoslovniProstor" Multiplicity="*" />
-          <End Type="ProjectModel.Racunar" Role="Racunar" Multiplicity="0..1" />
+          <End Type="ProjectModel.PoslovniProstor" Role="PoslovniProstor" Multiplicity="0..1" />
+          <End Type="ProjectModel.Racunar" Role="Racunar" Multiplicity="*" />
         </Association>
         <Association Name="DispecerMobilni">
-          <End Type="ProjectModel.Dispecer" Role="Dispecer" Multiplicity="*" />
-          <End Type="ProjectModel.Mobilni" Role="Mobilni" Multiplicity="0..1" />
+          <End Type="ProjectModel.Dispecer" Role="Dispecer" Multiplicity="0..1" />
+          <End Type="ProjectModel.Mobilni" Role="Mobilni" Multiplicity="*" />
+        </Association>
+        <Association Name="NadredjenNad">
+          <End Type="ProjectModel.Tim" Role="Tim" Multiplicity="0..1" />
+          <End Type="ProjectModel.Tim" Role="Tim1" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -682,20 +709,20 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ProgramerTim" TypeName="ProjectModel.ProgramerJeClanTima" StoreEntitySet="Timovi">
-      <EndProperty Name="Programer">
-        <ScalarProperty Name="Id" ColumnName="Programer_Id" />
-      </EndProperty>
+    <AssociationSetMapping Name="ProgramerTim" TypeName="ProjectModel.ProgramerJeClanTima" StoreEntitySet="Zaposleni_Programer">
       <EndProperty Name="Tim">
-        <ScalarProperty Name="ST" ColumnName="ST" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="ProgramerTim1" TypeName="ProjectModel.PogramerVodiTim" StoreEntitySet="Zaposleni_Programer">
-      <EndProperty Name="Tim">
-        <ScalarProperty Name="ST" ColumnName="Tims1_ST" />
+        <ScalarProperty Name="ST" ColumnName="ClanTima_ST" />
       </EndProperty>
       <EndProperty Name="Programer">
         <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProgramerTim1" TypeName="ProjectModel.PogramerVodiTim" StoreEntitySet="Timovi">
+      <EndProperty Name="Programer">
+        <ScalarProperty Name="Id" ColumnName="VodjaTima_Id" />
+      </EndProperty>
+      <EndProperty Name="Tim">
+        <ScalarProperty Name="ST" ColumnName="ST" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="MenadzerTimRadiNaProjektu" TypeName="ProjectModel.MenadzerNadgledaRad" StoreEntitySet="MenadzerTimRadiNaProjektu">
@@ -706,23 +733,32 @@
         <ScalarProperty Name="Id" ColumnName="TimRadiNaProjektus_Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="PoslovniProstorRacunar" TypeName="ProjectModel.PoslovniProstorRacunar" StoreEntitySet="PoslovniProstori">
-      <EndProperty Name="Racunar">
-        <ScalarProperty Name="SH" ColumnName="Racunars_SH" />
-      </EndProperty>
+    <AssociationSetMapping Name="PoslovniProstorRacunar" TypeName="ProjectModel.PoslovniProstorRacunar" StoreEntitySet="Hardveri_Racunar">
       <EndProperty Name="PoslovniProstor">
-        <ScalarProperty Name="SP" ColumnName="SP" />
+        <ScalarProperty Name="SP" ColumnName="PoslovniProstor_SP" />
       </EndProperty>
-      <Condition ColumnName="Racunars_SH" IsNull="false" />
+      <EndProperty Name="Racunar">
+        <ScalarProperty Name="SH" ColumnName="SH" />
+      </EndProperty>
+      <Condition ColumnName="PoslovniProstor_SP" IsNull="false" />
     </AssociationSetMapping>
-    <AssociationSetMapping Name="DispecerMobilni" TypeName="ProjectModel.DispecerMobilni" StoreEntitySet="Zaposleni_Dispecer">
-      <EndProperty Name="Mobilni">
-        <ScalarProperty Name="SH" ColumnName="Mobilnis_SH" />
-      </EndProperty>
+    <AssociationSetMapping Name="DispecerMobilni" TypeName="ProjectModel.DispecerMobilni" StoreEntitySet="Hardveri_Mobilni">
       <EndProperty Name="Dispecer">
-        <ScalarProperty Name="Id" ColumnName="Id" />
+        <ScalarProperty Name="Id" ColumnName="Dispecer_Id" />
       </EndProperty>
-      <Condition ColumnName="Mobilnis_SH" IsNull="false" />
+      <EndProperty Name="Mobilni">
+        <ScalarProperty Name="SH" ColumnName="SH" />
+      </EndProperty>
+      <Condition ColumnName="Dispecer_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TimTim" TypeName="ProjectModel.NadredjenNad" StoreEntitySet="Timovi">
+      <EndProperty Name="Tim">
+        <ScalarProperty Name="ST" ColumnName="Nadredjeni_ST" />
+      </EndProperty>
+      <EndProperty Name="Tim1">
+        <ScalarProperty Name="ST" ColumnName="ST" />
+      </EndProperty>
+      <Condition ColumnName="Nadredjeni_ST" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

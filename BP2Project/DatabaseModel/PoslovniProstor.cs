@@ -18,6 +18,7 @@ namespace DatabaseModel
         public PoslovniProstor()
         {
             this.Zaposleni = new HashSet<Zaposleni>();
+            this.Racunari = new HashSet<Racunar>();
         }
     
         public string SP { get; set; }
@@ -26,6 +27,7 @@ namespace DatabaseModel
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zaposleni> Zaposleni { get; set; }
-        public virtual Racunar Racunars { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Racunar> Racunari { get; set; }
     }
 }

@@ -14,16 +14,9 @@ namespace DatabaseModel
     
     public partial class Mobilni : Hardver
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Mobilni()
-        {
-            this.Dispecer = new HashSet<Dispecer>();
-        }
-    
         public decimal MDIM { get; set; }
         public string OS { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Dispecer> Dispecer { get; set; }
+        public virtual Dispecer Dispecer { get; set; }
     }
 }
