@@ -30,6 +30,7 @@
         <AssociationConnector Association="ProjectModel.ProgramerJeClanTima" />
         <AssociationConnector Association="ProjectModel.PogramerVodiTim" />
         <AssociationConnector Association="ProjectModel.MenadzerNadgledaRad" />
+        <AssociationConnector Association="ProjectModel.PoslovniProstorRacunar" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

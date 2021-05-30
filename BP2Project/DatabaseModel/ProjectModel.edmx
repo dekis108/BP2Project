@@ -14,9 +14,9 @@
     <EntitySet Name="TimRadiNaProjektu" EntityType="ProjectModel.Store.TimRadiNaProjektu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Programer" EntityType="ProjectModel.Store.Zaposleni_Programer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Menadzer" EntityType="ProjectModel.Store.Zaposleni_Menadzer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Hardveri_Racunar" EntityType="ProjectModel.Store.Hardveri_Racunar" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Admin" EntityType="ProjectModel.Store.Zaposleni_Admin" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Dispecer" EntityType="ProjectModel.Store.Zaposleni_Dispecer" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Hardveri_Racunar" EntityType="ProjectModel.Store.Hardveri_Racunar" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Hardveri_Mobilni" EntityType="ProjectModel.Store.Hardveri_Mobilni" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TimRadiNaProjektuTim" EntityType="ProjectModel.Store.TimRadiNaProjektuTim" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MenadzerTimRadiNaProjektu" EntityType="ProjectModel.Store.MenadzerNadgledaRad" store:Type="Tables" Schema="dbo" />
@@ -52,6 +52,10 @@
       <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
       <End Role="MenadzerNadgledaRad" EntitySet="MenadzerTimRadiNaProjektu" />
     </AssociationSet>
+    <AssociationSet Name="PoslovniProstorRacunar" Association="ProjectModel.Store.PoslovniProstorRacunar">
+      <End Role="PoslovniProstor" EntitySet="PoslovniProstori" />
+      <End Role="Racunar" EntitySet="Hardveri_Racunar" />
+    </AssociationSet>
     <AssociationSet Name="FK_Programer_inherits_Zaposleni" Association="ProjectModel.Store.FK_Programer_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Programer" EntitySet="Zaposleni_Programer" />
@@ -60,6 +64,10 @@
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Menadzer" EntitySet="Zaposleni_Menadzer" />
     </AssociationSet>
+    <AssociationSet Name="FK_Racunar_inherits_Hardver" Association="ProjectModel.Store.FK_Racunar_inherits_Hardver">
+      <End Role="Hardver" EntitySet="Hardveri" />
+      <End Role="Racunar" EntitySet="Hardveri_Racunar" />
+    </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_Zaposleni" Association="ProjectModel.Store.FK_Admin_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Admin" EntitySet="Zaposleni_Admin" />
@@ -67,10 +75,6 @@
     <AssociationSet Name="FK_Dispecer_inherits_Zaposleni" Association="ProjectModel.Store.FK_Dispecer_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Dispecer" EntitySet="Zaposleni_Dispecer" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Racunar_inherits_Hardver" Association="ProjectModel.Store.FK_Racunar_inherits_Hardver">
-      <End Role="Hardver" EntitySet="Hardveri" />
-      <End Role="Racunar" EntitySet="Hardveri_Racunar" />
     </AssociationSet>
     <AssociationSet Name="FK_Mobilni_inherits_Hardver" Association="ProjectModel.Store.FK_Mobilni_inherits_Hardver">
       <End Role="Hardver" EntitySet="Hardveri" />
@@ -93,6 +97,7 @@
     <Property Name="SP" Type="nchar" Nullable="false" MaxLength="100" />
     <Property Name="DIM" Type="decimal" Nullable="false" />
     <Property Name="BRM" Type="int" Nullable="true" />
+    <Property Name="Racunars_SH" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
   <EntityType Name="Hardveri">
     <Key>
@@ -144,6 +149,13 @@
     </Key>
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
   </EntityType>
+  <EntityType Name="Hardveri_Racunar">
+    <Key>
+      <PropertyRef Name="SH" />
+    </Key>
+    <Property Name="VM" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="SH" Type="nchar" Nullable="false" MaxLength="100" />
+  </EntityType>
   <EntityType Name="Zaposleni_Admin">
     <Key>
       <PropertyRef Name="Id" />
@@ -156,13 +168,6 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="Hardveri_Racunar">
-    <Key>
-      <PropertyRef Name="SH" />
-    </Key>
-    <Property Name="VM" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="SH" Type="nchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <EntityType Name="Hardveri_Mobilni">
     <Key>
@@ -233,6 +238,18 @@
       </Principal>
       <Dependent Role="Programer">
         <PropertyRef Name="Tims1_ST" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PoslovniProstorRacunar">
+    <End Role="PoslovniProstor" Type="ProjectModel.Store.PoslovniProstori" Multiplicity="*" />
+    <End Role="Racunar" Type="ProjectModel.Store.Hardveri_Racunar" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Racunar">
+        <PropertyRef Name="SH" />
+      </Principal>
+      <Dependent Role="PoslovniProstor">
+        <PropertyRef Name="Racunars_SH" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -312,6 +329,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Racunar_inherits_Hardver">
+    <End Role="Hardver" Type="ProjectModel.Store.Hardveri" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Racunar" Type="ProjectModel.Store.Hardveri_Racunar" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Hardver">
+        <PropertyRef Name="SH" />
+      </Principal>
+      <Dependent Role="Racunar">
+        <PropertyRef Name="SH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Admin_inherits_Zaposleni">
     <End Role="Zaposleni" Type="ProjectModel.Store.Zaposleni" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -337,20 +368,6 @@
       </Principal>
       <Dependent Role="Dispecer">
         <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Racunar_inherits_Hardver">
-    <End Role="Hardver" Type="ProjectModel.Store.Hardveri" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Racunar" Type="ProjectModel.Store.Hardveri_Racunar" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Hardver">
-        <PropertyRef Name="SH" />
-      </Principal>
-      <Dependent Role="Racunar">
-        <PropertyRef Name="SH" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -403,6 +420,10 @@
             <End Role="Menadzer" EntitySet="Zaposleni" />
             <End Role="TimRadiNaProjektu" EntitySet="TimRadiNaProjektu" />
           </AssociationSet>
+          <AssociationSet Name="PoslovniProstorRacunar" Association="ProjectModel.PoslovniProstorRacunar">
+            <End Role="PoslovniProstor" EntitySet="PoslovniProstori" />
+            <End Role="Racunar" EntitySet="Hardveri" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Zaposleni">
           <Key>
@@ -421,6 +442,7 @@
           <Property Name="DIM" Type="Decimal" Nullable="false" />
           <Property Name="BRM" Type="Int32" Nullable="true" />
           <NavigationProperty Name="Zaposleni" Relationship="ProjectModel.ZaposleniPoslovniProstor" FromRole="PoslovniProstor" ToRole="Zaposleni" />
+          <NavigationProperty Name="Racunars" Relationship="ProjectModel.PoslovniProstorRacunar" FromRole="PoslovniProstor" ToRole="Racunar" />
         </EntityType>
         <EntityType Name="Hardver">
           <Key>
@@ -467,6 +489,7 @@
         </EntityType>
         <EntityType Name="Racunar" BaseType="ProjectModel.Hardver" >
           <Property Name="VM" Type="String" Nullable="true" />
+          <NavigationProperty Name="PoslovniProstor" Relationship="ProjectModel.PoslovniProstorRacunar" FromRole="Racunar" ToRole="PoslovniProstor" />
         </EntityType>
         <EntityType Name="Mobilni" BaseType="ProjectModel.Hardver" >
           <Property Name="MDIM" Type="Decimal" Nullable="false" />
@@ -505,6 +528,10 @@
         <Association Name="MenadzerNadgledaRad">
           <End Type="ProjectModel.Menadzer" Role="Menadzer" Multiplicity="*" />
           <End Type="ProjectModel.TimRadiNaProjektu" Role="TimRadiNaProjektu" Multiplicity="*" />
+        </Association>
+        <Association Name="PoslovniProstorRacunar">
+          <End Type="ProjectModel.PoslovniProstor" Role="PoslovniProstor" Multiplicity="*" />
+          <End Type="ProjectModel.Racunar" Role="Racunar" Multiplicity="0..1" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -650,6 +677,15 @@
       <EndProperty Name="TimRadiNaProjektu">
         <ScalarProperty Name="Id" ColumnName="TimRadiNaProjektus_Id" />
       </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PoslovniProstorRacunar" TypeName="ProjectModel.PoslovniProstorRacunar" StoreEntitySet="PoslovniProstori">
+      <EndProperty Name="Racunar">
+        <ScalarProperty Name="SH" ColumnName="Racunars_SH" />
+      </EndProperty>
+      <EndProperty Name="PoslovniProstor">
+        <ScalarProperty Name="SP" ColumnName="SP" />
+      </EndProperty>
+      <Condition ColumnName="Racunars_SH" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
