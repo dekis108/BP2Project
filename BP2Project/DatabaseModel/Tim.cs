@@ -25,5 +25,7 @@ namespace DatabaseModel
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TimRadiNaProjektu> TimRadiNaProjektu { get; set; }
+        public virtual Programer Programer { get; set; }
+        public virtual Programer Programer1 { get; set; }
     }
 }

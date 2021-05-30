@@ -4,29 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="292fcf9f67e7473296b3eb7876d351e3" Name="Diagram1" ZoomLevel="94" >
-        <EntityTypeShape EntityType="ProjectModel.Zaposleni" Width="1.5" PointX="4.5" PointY="4.625" />
-        <EntityTypeShape EntityType="ProjectModel.PoslovniProstor" Width="1.5" PointX="2.125" PointY="6.875" />
+      <Diagram DiagramId="292fcf9f67e7473296b3eb7876d351e3" Name="Diagram1" ZoomLevel="92" >
+        <EntityTypeShape EntityType="ProjectModel.Zaposleni" Width="1.5" PointX="5" PointY="6.5" />
+        <EntityTypeShape EntityType="ProjectModel.PoslovniProstor" Width="1.5" PointX="2.625" PointY="8.75" />
         <EntityTypeShape EntityType="ProjectModel.Hardver" Width="1.5" PointX="6.25" PointY="9.875" />
-        <EntityTypeShape EntityType="ProjectModel.Tim" Width="1.5" PointX="11.625" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.Projekat" Width="1.5" PointX="11.375" PointY="1.125" />
-        <EntityTypeShape EntityType="ProjectModel.Admin" Width="1.5" PointX="7.375" PointY="5.125" />
+        <EntityTypeShape EntityType="ProjectModel.Tim" Width="1.5" PointX="11.125" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Projekat" Width="1.5" PointX="11.125" PointY="0.5" />
+        <EntityTypeShape EntityType="ProjectModel.Admin" Width="1.5" PointX="7.875" PointY="7" />
         <InheritanceConnector EntityType="ProjectModel.Admin" />
-        <EntityTypeShape EntityType="ProjectModel.Dispecer" Width="1.5" PointX="7.375" PointY="6.5" />
+        <EntityTypeShape EntityType="ProjectModel.Dispecer" Width="1.5" PointX="7.875" PointY="8.375" />
         <InheritanceConnector EntityType="ProjectModel.Dispecer" />
-        <EntityTypeShape EntityType="ProjectModel.Programer" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ProjectModel.Programer" Width="1.5" PointX="7.875" PointY="5.625" />
         <InheritanceConnector EntityType="ProjectModel.Programer" />
-        <EntityTypeShape EntityType="ProjectModel.Menadzer" Width="1.5" PointX="7.375" PointY="2.5" />
+        <EntityTypeShape EntityType="ProjectModel.Menadzer" Width="1.5" PointX="7.875" PointY="4.375" />
         <InheritanceConnector EntityType="ProjectModel.Menadzer" />
         <EntityTypeShape EntityType="ProjectModel.Racunar" Width="1.5" PointX="8.75" PointY="9.625" />
         <InheritanceConnector EntityType="ProjectModel.Racunar" />
         <EntityTypeShape EntityType="ProjectModel.Mobilni" Width="1.5" PointX="8.75" PointY="11.125" />
         <InheritanceConnector EntityType="ProjectModel.Mobilni" />
-        <EntityTypeShape EntityType="ProjectModel.TimRadiNaProjektu" Width="1.5" PointX="11.5" PointY="4.625" />
+        <EntityTypeShape EntityType="ProjectModel.TimRadiNaProjektu" Width="1.5" PointX="11.125" PointY="3.375" />
         <AssociationConnector Association="ProjectModel.ProjekatTimRadiNaProjektu" />
         <AssociationConnector Association="ProjectModel.TimRadiNaProjektuTim" />
         <AssociationConnector Association="ProjectModel.ZaposleniPoslovniProstor" ManuallyRouted="false" >
         </AssociationConnector>
+        <AssociationConnector Association="ProjectModel.ProgramerJeClanTima" />
+        <AssociationConnector Association="ProjectModel.PogramerVodiTim" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

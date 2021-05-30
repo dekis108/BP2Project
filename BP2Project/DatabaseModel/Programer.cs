@@ -14,6 +14,16 @@ namespace DatabaseModel
     
     public partial class Programer : Zaposleni
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Programer()
+        {
+            this.Tims = new HashSet<Tim>();
+        }
+    
         public Nullable<int> O_PROD { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tim> Tims { get; set; }
+        public virtual Tim Tims1 { get; set; }
     }
 }

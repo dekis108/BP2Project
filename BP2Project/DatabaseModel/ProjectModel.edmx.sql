@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/29/2021 19:46:39
+-- Date Created: 05/30/2021 12:39:41
 -- Generated from EDMX file: C:\Users\Dejan\Desktop\Karantin\4.2 godina\Baze2\Projekat\Projekat\BP2Project\DatabaseModel\ProjectModel.edmx
 -- --------------------------------------------------
 
@@ -125,7 +125,8 @@ GO
 -- Creating table 'Timovi'
 CREATE TABLE [dbo].[Timovi] (
     [ST] nchar(100)  NOT NULL,
-    [PR] nvarchar(max)  NULL
+    [PR] nvarchar(max)  NULL,
+    [Programer_Id] nchar(100)  NOT NULL
 );
 GO
 
@@ -148,6 +149,14 @@ CREATE TABLE [dbo].[TimRadiNaProjektu] (
 );
 GO
 
+-- Creating table 'Zaposleni_Programer'
+CREATE TABLE [dbo].[Zaposleni_Programer] (
+    [O_PROD] int  NULL,
+    [Id] nchar(100)  NOT NULL,
+    [Tims1_ST] nchar(100)  NOT NULL
+);
+GO
+
 -- Creating table 'Zaposleni_Admin'
 CREATE TABLE [dbo].[Zaposleni_Admin] (
     [NPR] nvarchar(max)  NULL,
@@ -157,13 +166,6 @@ GO
 
 -- Creating table 'Zaposleni_Dispecer'
 CREATE TABLE [dbo].[Zaposleni_Dispecer] (
-    [Id] nchar(100)  NOT NULL
-);
-GO
-
--- Creating table 'Zaposleni_Programer'
-CREATE TABLE [dbo].[Zaposleni_Programer] (
-    [O_PROD] int  NULL,
     [Id] nchar(100)  NOT NULL
 );
 GO
@@ -236,6 +238,12 @@ ADD CONSTRAINT [PK_TimRadiNaProjektu]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'Zaposleni_Programer'
+ALTER TABLE [dbo].[Zaposleni_Programer]
+ADD CONSTRAINT [PK_Zaposleni_Programer]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [Id] in table 'Zaposleni_Admin'
 ALTER TABLE [dbo].[Zaposleni_Admin]
 ADD CONSTRAINT [PK_Zaposleni_Admin]
@@ -245,12 +253,6 @@ GO
 -- Creating primary key on [Id] in table 'Zaposleni_Dispecer'
 ALTER TABLE [dbo].[Zaposleni_Dispecer]
 ADD CONSTRAINT [PK_Zaposleni_Dispecer]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'Zaposleni_Programer'
-ALTER TABLE [dbo].[Zaposleni_Programer]
-ADD CONSTRAINT [PK_Zaposleni_Programer]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -336,6 +338,45 @@ ON [dbo].[Zaposleni]
     ([PoslovniProstor_SP]);
 GO
 
+-- Creating foreign key on [Programer_Id] in table 'Timovi'
+ALTER TABLE [dbo].[Timovi]
+ADD CONSTRAINT [FK_ProgramerJeClanTima]
+    FOREIGN KEY ([Programer_Id])
+    REFERENCES [dbo].[Zaposleni_Programer]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProgramerJeClanTima'
+CREATE INDEX [IX_FK_ProgramerJeClanTima]
+ON [dbo].[Timovi]
+    ([Programer_Id]);
+GO
+
+-- Creating foreign key on [Tims1_ST] in table 'Zaposleni_Programer'
+ALTER TABLE [dbo].[Zaposleni_Programer]
+ADD CONSTRAINT [FK_PogramerVodiTim]
+    FOREIGN KEY ([Tims1_ST])
+    REFERENCES [dbo].[Timovi]
+        ([ST])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PogramerVodiTim'
+CREATE INDEX [IX_FK_PogramerVodiTim]
+ON [dbo].[Zaposleni_Programer]
+    ([Tims1_ST]);
+GO
+
+-- Creating foreign key on [Id] in table 'Zaposleni_Programer'
+ALTER TABLE [dbo].[Zaposleni_Programer]
+ADD CONSTRAINT [FK_Programer_inherits_Zaposleni]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[Zaposleni]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
 -- Creating foreign key on [Id] in table 'Zaposleni_Admin'
 ALTER TABLE [dbo].[Zaposleni_Admin]
 ADD CONSTRAINT [FK_Admin_inherits_Zaposleni]
@@ -348,15 +389,6 @@ GO
 -- Creating foreign key on [Id] in table 'Zaposleni_Dispecer'
 ALTER TABLE [dbo].[Zaposleni_Dispecer]
 ADD CONSTRAINT [FK_Dispecer_inherits_Zaposleni]
-    FOREIGN KEY ([Id])
-    REFERENCES [dbo].[Zaposleni]
-        ([Id])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Id] in table 'Zaposleni_Programer'
-ALTER TABLE [dbo].[Zaposleni_Programer]
-ADD CONSTRAINT [FK_Programer_inherits_Zaposleni]
     FOREIGN KEY ([Id])
     REFERENCES [dbo].[Zaposleni]
         ([Id])
