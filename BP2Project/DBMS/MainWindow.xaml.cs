@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DatabaseModel;
 using DatabaseModel.Model;
 
 namespace DBMS
@@ -21,15 +22,30 @@ namespace DBMS
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Zaposleni> DataZaposleni;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            DataZaposleni = new List<Zaposleni>();
+            GridZaposleni.ItemsSource = DataZaposleni;
+
+            LoadZaposleni();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void LoadZaposleni()
         {
-            TestScript ts = new TestScript();
-            ts.Run();
+            using (var db = new ProjectModelContainer())
+            {
+                DataZaposleni = db.Zaposleni.ToList();
+                GridZaposleni.ItemsSource = DataZaposleni;
+            }
+        }
+
+        private void tabZaposleni_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            LoadZaposleni();
         }
     }
 }

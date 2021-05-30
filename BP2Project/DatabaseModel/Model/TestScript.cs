@@ -34,8 +34,25 @@ namespace DatabaseModel.Model
                 //assign a team lead to every team that has atleast 1 member
                 AssignTeamLeads(db);
 
+                //assign work room to every team member
+                AssignRooms(db);
+
                 db.SaveChanges();
                 Console.WriteLine("Success");
+            }
+        }
+
+        private void AssignRooms(ProjectModelContainer db)
+        {
+            var teams = db.Timovi.Where(x => x.Programeri.Count > 0).ToList();
+
+            for(int i = 0; i < teams.Count; ++i)
+            {
+                var programeri = teams[i].Programeri.ToList();
+                foreach(var programer in programeri)
+                {
+                    programer.PoslovniProstor = db.PoslovniProstori.Find("PP" + i);
+                }
             }
         }
 

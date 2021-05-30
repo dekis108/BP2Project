@@ -7,7 +7,24 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="353,76,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-
+        <TabControl>
+            <TabItem Name="tabZaposleni">
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="Zaposleni" MouseLeftButtonDown="tabZaposleni_Clicked" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid Name="GridZaposleni" />
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="Poslovni Prostor"></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
