@@ -15,9 +15,9 @@
     <EntitySet Name="Zaposleni_Programer" EntityType="ProjectModel.Store.Zaposleni_Programer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Menadzer" EntityType="ProjectModel.Store.Zaposleni_Menadzer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Hardveri_Racunar" EntityType="ProjectModel.Store.Hardveri_Racunar" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Zaposleni_Admin" EntityType="ProjectModel.Store.Zaposleni_Admin" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Zaposleni_Dispecer" EntityType="ProjectModel.Store.Zaposleni_Dispecer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Hardveri_Mobilni" EntityType="ProjectModel.Store.Hardveri_Mobilni" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Zaposleni_Admin" EntityType="ProjectModel.Store.Zaposleni_Admin" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TimRadiNaProjektuTim" EntityType="ProjectModel.Store.TimRadiNaProjektuTim" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MenadzerTimRadiNaProjektu" EntityType="ProjectModel.Store.MenadzerNadgledaRad" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="ProjekatTimRadiNaProjektu" Association="ProjectModel.Store.ProjekatTimRadiNaProjektu">
@@ -56,6 +56,10 @@
       <End Role="PoslovniProstor" EntitySet="PoslovniProstori" />
       <End Role="Racunar" EntitySet="Hardveri_Racunar" />
     </AssociationSet>
+    <AssociationSet Name="DispecerMobilni" Association="ProjectModel.Store.DispecerMobilni">
+      <End Role="Dispecer" EntitySet="Zaposleni_Dispecer" />
+      <End Role="Mobilni" EntitySet="Hardveri_Mobilni" />
+    </AssociationSet>
     <AssociationSet Name="FK_Programer_inherits_Zaposleni" Association="ProjectModel.Store.FK_Programer_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Programer" EntitySet="Zaposleni_Programer" />
@@ -68,10 +72,6 @@
       <End Role="Hardver" EntitySet="Hardveri" />
       <End Role="Racunar" EntitySet="Hardveri_Racunar" />
     </AssociationSet>
-    <AssociationSet Name="FK_Admin_inherits_Zaposleni" Association="ProjectModel.Store.FK_Admin_inherits_Zaposleni">
-      <End Role="Zaposleni" EntitySet="Zaposleni" />
-      <End Role="Admin" EntitySet="Zaposleni_Admin" />
-    </AssociationSet>
     <AssociationSet Name="FK_Dispecer_inherits_Zaposleni" Association="ProjectModel.Store.FK_Dispecer_inherits_Zaposleni">
       <End Role="Zaposleni" EntitySet="Zaposleni" />
       <End Role="Dispecer" EntitySet="Zaposleni_Dispecer" />
@@ -79,6 +79,10 @@
     <AssociationSet Name="FK_Mobilni_inherits_Hardver" Association="ProjectModel.Store.FK_Mobilni_inherits_Hardver">
       <End Role="Hardver" EntitySet="Hardveri" />
       <End Role="Mobilni" EntitySet="Hardveri_Mobilni" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Admin_inherits_Zaposleni" Association="ProjectModel.Store.FK_Admin_inherits_Zaposleni">
+      <End Role="Zaposleni" EntitySet="Zaposleni" />
+      <End Role="Admin" EntitySet="Zaposleni_Admin" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Zaposleni">
@@ -156,18 +160,12 @@
     <Property Name="VM" Type="nvarchar(max)" Nullable="true" />
     <Property Name="SH" Type="nchar" Nullable="false" MaxLength="100" />
   </EntityType>
-  <EntityType Name="Zaposleni_Admin">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="NPR" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
-  </EntityType>
   <EntityType Name="Zaposleni_Dispecer">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="Mobilnis_SH" Type="nchar" MaxLength="100" Nullable="true" />
   </EntityType>
   <EntityType Name="Hardveri_Mobilni">
     <Key>
@@ -176,6 +174,13 @@
     <Property Name="MDIM" Type="decimal" Nullable="false" />
     <Property Name="OS" Type="nvarchar(max)" Nullable="true" />
     <Property Name="SH" Type="nchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Zaposleni_Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="NPR" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Id" Type="nchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <EntityType Name="TimRadiNaProjektuTim">
     <Key>
@@ -250,6 +255,18 @@
       </Principal>
       <Dependent Role="PoslovniProstor">
         <PropertyRef Name="Racunars_SH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DispecerMobilni">
+    <End Role="Dispecer" Type="ProjectModel.Store.Zaposleni_Dispecer" Multiplicity="*" />
+    <End Role="Mobilni" Type="ProjectModel.Store.Hardveri_Mobilni" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Mobilni">
+        <PropertyRef Name="SH" />
+      </Principal>
+      <Dependent Role="Dispecer">
+        <PropertyRef Name="Mobilnis_SH" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -343,20 +360,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Admin_inherits_Zaposleni">
-    <End Role="Zaposleni" Type="ProjectModel.Store.Zaposleni" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Admin" Type="ProjectModel.Store.Zaposleni_Admin" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Zaposleni">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Admin">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Dispecer_inherits_Zaposleni">
     <End Role="Zaposleni" Type="ProjectModel.Store.Zaposleni" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -382,6 +385,20 @@
       </Principal>
       <Dependent Role="Mobilni">
         <PropertyRef Name="SH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Admin_inherits_Zaposleni">
+    <End Role="Zaposleni" Type="ProjectModel.Store.Zaposleni" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Admin" Type="ProjectModel.Store.Zaposleni_Admin" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Zaposleni">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Admin">
+        <PropertyRef Name="Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -423,6 +440,10 @@
           <AssociationSet Name="PoslovniProstorRacunar" Association="ProjectModel.PoslovniProstorRacunar">
             <End Role="PoslovniProstor" EntitySet="PoslovniProstori" />
             <End Role="Racunar" EntitySet="Hardveri" />
+          </AssociationSet>
+          <AssociationSet Name="DispecerMobilni" Association="ProjectModel.DispecerMobilni">
+            <End Role="Dispecer" EntitySet="Zaposleni" />
+            <End Role="Mobilni" EntitySet="Hardveri" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Zaposleni">
@@ -478,7 +499,9 @@
         <EntityType Name="Admin" BaseType="ProjectModel.Zaposleni">
           <Property Name="NPR" Type="String" Nullable="true" />
         </EntityType>
-        <EntityType Name="Dispecer" BaseType="ProjectModel.Zaposleni" />
+        <EntityType Name="Dispecer" BaseType="ProjectModel.Zaposleni" >
+          <NavigationProperty Name="Mobilnis" Relationship="ProjectModel.DispecerMobilni" FromRole="Dispecer" ToRole="Mobilni" />
+        </EntityType>
         <EntityType Name="Programer" BaseType="ProjectModel.Zaposleni" >
           <Property Name="O_PROD" Type="Int32" Nullable="true" />
           <NavigationProperty Name="Tims" Relationship="ProjectModel.ProgramerJeClanTima" FromRole="Programer" ToRole="Tim" />
@@ -494,6 +517,7 @@
         <EntityType Name="Mobilni" BaseType="ProjectModel.Hardver" >
           <Property Name="MDIM" Type="Decimal" Nullable="false" />
           <Property Name="OS" Type="String" Nullable="true" />
+          <NavigationProperty Name="Dispecer" Relationship="ProjectModel.DispecerMobilni" FromRole="Mobilni" ToRole="Dispecer" />
         </EntityType>
         <EntityType Name="TimRadiNaProjektu" >
           <Key>
@@ -533,6 +557,10 @@
           <End Type="ProjectModel.PoslovniProstor" Role="PoslovniProstor" Multiplicity="*" />
           <End Type="ProjectModel.Racunar" Role="Racunar" Multiplicity="0..1" />
         </Association>
+        <Association Name="DispecerMobilni">
+          <End Type="ProjectModel.Dispecer" Role="Dispecer" Multiplicity="*" />
+          <End Type="ProjectModel.Mobilni" Role="Mobilni" Multiplicity="0..1" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -558,15 +586,15 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Dispecer)">
+        <MappingFragment StoreEntitySet="Zaposleni_Dispecer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Admin)">
         <MappingFragment StoreEntitySet="Zaposleni_Admin">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="NPR" ColumnName="NPR" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(ProjectModel.Dispecer)">
-        <MappingFragment StoreEntitySet="Zaposleni_Dispecer">
-          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -686,6 +714,15 @@
         <ScalarProperty Name="SP" ColumnName="SP" />
       </EndProperty>
       <Condition ColumnName="Racunars_SH" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DispecerMobilni" TypeName="ProjectModel.DispecerMobilni" StoreEntitySet="Zaposleni_Dispecer">
+      <EndProperty Name="Mobilni">
+        <ScalarProperty Name="SH" ColumnName="Mobilnis_SH" />
+      </EndProperty>
+      <EndProperty Name="Dispecer">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Mobilnis_SH" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

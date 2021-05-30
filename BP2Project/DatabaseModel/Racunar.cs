@@ -14,6 +14,15 @@ namespace DatabaseModel
     
     public partial class Racunar : Hardver
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Racunar()
+        {
+            this.PoslovniProstor = new HashSet<PoslovniProstor>();
+        }
+    
         public string VM { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PoslovniProstor> PoslovniProstor { get; set; }
     }
 }

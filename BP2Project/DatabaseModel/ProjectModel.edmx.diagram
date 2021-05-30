@@ -31,6 +31,7 @@
         <AssociationConnector Association="ProjectModel.PogramerVodiTim" />
         <AssociationConnector Association="ProjectModel.MenadzerNadgledaRad" />
         <AssociationConnector Association="ProjectModel.PoslovniProstorRacunar" />
+        <AssociationConnector Association="ProjectModel.DispecerMobilni" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

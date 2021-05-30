@@ -14,5 +14,7 @@ namespace DatabaseModel
     
     public partial class Dispecer : Zaposleni
     {
+    
+        public virtual Mobilni Mobilnis { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/30/2021 12:49:18
+-- Date Created: 05/30/2021 12:50:41
 -- Generated from EDMX file: C:\Users\Dejan\Desktop\Karantin\4.2 godina\Baze2\Projekat\Projekat\BP2Project\DatabaseModel\ProjectModel.edmx
 -- --------------------------------------------------
 
@@ -41,20 +41,23 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_MenadzerNadgledaRad_TimRadiNaProjektu]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[MenadzerTimRadiNaProjektu] DROP CONSTRAINT [FK_MenadzerNadgledaRad_TimRadiNaProjektu];
 GO
+IF OBJECT_ID(N'[dbo].[FK_PoslovniProstorRacunar]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PoslovniProstori] DROP CONSTRAINT [FK_PoslovniProstorRacunar];
+GO
 IF OBJECT_ID(N'[dbo].[FK_Programer_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Programer] DROP CONSTRAINT [FK_Programer_inherits_Zaposleni];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Menadzer_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Menadzer] DROP CONSTRAINT [FK_Menadzer_inherits_Zaposleni];
 GO
+IF OBJECT_ID(N'[dbo].[FK_Racunar_inherits_Hardver]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Hardveri_Racunar] DROP CONSTRAINT [FK_Racunar_inherits_Hardver];
+GO
 IF OBJECT_ID(N'[dbo].[FK_Admin_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Admin] DROP CONSTRAINT [FK_Admin_inherits_Zaposleni];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Dispecer_inherits_Zaposleni]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Zaposleni_Dispecer] DROP CONSTRAINT [FK_Dispecer_inherits_Zaposleni];
-GO
-IF OBJECT_ID(N'[dbo].[FK_Racunar_inherits_Hardver]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Hardveri_Racunar] DROP CONSTRAINT [FK_Racunar_inherits_Hardver];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Mobilni_inherits_Hardver]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Hardveri_Mobilni] DROP CONSTRAINT [FK_Mobilni_inherits_Hardver];
@@ -88,14 +91,14 @@ GO
 IF OBJECT_ID(N'[dbo].[Zaposleni_Menadzer]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Zaposleni_Menadzer];
 GO
+IF OBJECT_ID(N'[dbo].[Hardveri_Racunar]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Hardveri_Racunar];
+GO
 IF OBJECT_ID(N'[dbo].[Zaposleni_Admin]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Zaposleni_Admin];
 GO
 IF OBJECT_ID(N'[dbo].[Zaposleni_Dispecer]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Zaposleni_Dispecer];
-GO
-IF OBJECT_ID(N'[dbo].[Hardveri_Racunar]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Hardveri_Racunar];
 GO
 IF OBJECT_ID(N'[dbo].[Hardveri_Mobilni]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Hardveri_Mobilni];
@@ -186,16 +189,10 @@ CREATE TABLE [dbo].[Hardveri_Racunar] (
 );
 GO
 
--- Creating table 'Zaposleni_Admin'
-CREATE TABLE [dbo].[Zaposleni_Admin] (
-    [NPR] nvarchar(max)  NULL,
-    [Id] nchar(100)  NOT NULL
-);
-GO
-
 -- Creating table 'Zaposleni_Dispecer'
 CREATE TABLE [dbo].[Zaposleni_Dispecer] (
-    [Id] nchar(100)  NOT NULL
+    [Id] nchar(100)  NOT NULL,
+    [Mobilnis_SH] nchar(100)  NULL
 );
 GO
 
@@ -204,6 +201,13 @@ CREATE TABLE [dbo].[Hardveri_Mobilni] (
     [MDIM] decimal(18,0)  NOT NULL,
     [OS] nvarchar(max)  NULL,
     [SH] nchar(100)  NOT NULL
+);
+GO
+
+-- Creating table 'Zaposleni_Admin'
+CREATE TABLE [dbo].[Zaposleni_Admin] (
+    [NPR] nvarchar(max)  NULL,
+    [Id] nchar(100)  NOT NULL
 );
 GO
 
@@ -279,12 +283,6 @@ ADD CONSTRAINT [PK_Hardveri_Racunar]
     PRIMARY KEY CLUSTERED ([SH] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Zaposleni_Admin'
-ALTER TABLE [dbo].[Zaposleni_Admin]
-ADD CONSTRAINT [PK_Zaposleni_Admin]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'Zaposleni_Dispecer'
 ALTER TABLE [dbo].[Zaposleni_Dispecer]
 ADD CONSTRAINT [PK_Zaposleni_Dispecer]
@@ -295,6 +293,12 @@ GO
 ALTER TABLE [dbo].[Hardveri_Mobilni]
 ADD CONSTRAINT [PK_Hardveri_Mobilni]
     PRIMARY KEY CLUSTERED ([SH] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Zaposleni_Admin'
+ALTER TABLE [dbo].[Zaposleni_Admin]
+ADD CONSTRAINT [PK_Zaposleni_Admin]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- Creating primary key on [TimRadiNaProjektu_Id], [Tim_ST] in table 'TimRadiNaProjektuTim'
@@ -436,6 +440,21 @@ ON [dbo].[PoslovniProstori]
     ([Racunars_SH]);
 GO
 
+-- Creating foreign key on [Mobilnis_SH] in table 'Zaposleni_Dispecer'
+ALTER TABLE [dbo].[Zaposleni_Dispecer]
+ADD CONSTRAINT [FK_DispecerMobilni]
+    FOREIGN KEY ([Mobilnis_SH])
+    REFERENCES [dbo].[Hardveri_Mobilni]
+        ([SH])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DispecerMobilni'
+CREATE INDEX [IX_FK_DispecerMobilni]
+ON [dbo].[Zaposleni_Dispecer]
+    ([Mobilnis_SH]);
+GO
+
 -- Creating foreign key on [Id] in table 'Zaposleni_Programer'
 ALTER TABLE [dbo].[Zaposleni_Programer]
 ADD CONSTRAINT [FK_Programer_inherits_Zaposleni]
@@ -463,15 +482,6 @@ ADD CONSTRAINT [FK_Racunar_inherits_Hardver]
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [Id] in table 'Zaposleni_Admin'
-ALTER TABLE [dbo].[Zaposleni_Admin]
-ADD CONSTRAINT [FK_Admin_inherits_Zaposleni]
-    FOREIGN KEY ([Id])
-    REFERENCES [dbo].[Zaposleni]
-        ([Id])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
 -- Creating foreign key on [Id] in table 'Zaposleni_Dispecer'
 ALTER TABLE [dbo].[Zaposleni_Dispecer]
 ADD CONSTRAINT [FK_Dispecer_inherits_Zaposleni]
@@ -487,6 +497,15 @@ ADD CONSTRAINT [FK_Mobilni_inherits_Hardver]
     FOREIGN KEY ([SH])
     REFERENCES [dbo].[Hardveri]
         ([SH])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'Zaposleni_Admin'
+ALTER TABLE [dbo].[Zaposleni_Admin]
+ADD CONSTRAINT [FK_Admin_inherits_Zaposleni]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[Zaposleni]
+        ([Id])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
