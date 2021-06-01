@@ -17,7 +17,7 @@ namespace DBMS.ViewModel
 
         public List<HardverViewModel> DataHardver { get; private set; }
 
-        public List<Tim> DataTim { get; private set; }
+        public List<TimViewModel> DataTim { get; private set; }
 
         public List<Projekat> DataProjekat { get; private set; }
 
@@ -73,7 +73,12 @@ namespace DBMS.ViewModel
         {
             using (var db = new ProjectModelContainer())
             {
-                DataTim = db.Timovi.ToList();
+                DataTim = new List<TimViewModel>();
+                foreach (var item in db.Timovi)
+                {
+                    DataTim.Add(new TimViewModel(item));
+                }
+
                 grid.ItemsSource = DataTim;
             }
         }
