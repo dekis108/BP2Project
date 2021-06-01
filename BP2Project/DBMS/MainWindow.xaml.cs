@@ -77,5 +77,15 @@ namespace DBMS
         {
             mainWindowViewModel.LoadHardver(GridHardver);
         }
+
+        private void tabTim_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            LoadTim();
+        }
+
+        private void LoadTim()
+        {
+            mainWindowViewModel.LoadTim(GridTim);
+        }
     }
 }

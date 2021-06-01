@@ -40,6 +40,16 @@
                     <Button  Name="hardverChildButton" Content="Show Child entities" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,255,664,107" Click="hardverChildButton_Click"/>
                 </Grid>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="Tim" MouseLeftButtonDown="tabTim_Clicked" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid Name="GridTim" Height="250" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

@@ -16,6 +16,8 @@ namespace DBMS.ViewModel
 
         public List<Hardver> DataHardver { get; private set; }
 
+        public List<Tim> DataTim { get; private set; }
+
         public MainWindowViewModel() {}
 
 
@@ -44,6 +46,15 @@ namespace DBMS.ViewModel
             {
                 DataHardver = db.Hardveri.ToList();
                 grid.ItemsSource = DataHardver;
+            }
+        }
+
+        internal void LoadTim(DataGrid grid)
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                DataTim = db.Timovi.ToList();
+                grid.ItemsSource = DataTim;
             }
         }
     }
