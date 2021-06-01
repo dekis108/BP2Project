@@ -29,7 +29,7 @@ namespace DBMS.ViewModel
                 DataRacunar = new List<RacunarViewModel>();
                 foreach (Racunar item in list)
                 {
-                    DataRacunar.Add(new RacunarViewModel(item.SH, item.VM));
+                    DataRacunar.Add(new RacunarViewModel(item));
                 }
 
                 grid.ItemsSource = DataRacunar;

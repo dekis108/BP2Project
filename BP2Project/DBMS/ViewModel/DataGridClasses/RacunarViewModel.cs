@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,13 @@ namespace DBMS.ViewModel.DataGridClasses
         public string SH { get; set; }
         public string VM { get; set; }
 
-        public RacunarViewModel(string SH, string VM)
+        public string PoslovniProstor_SP { get; set; }
+
+        public RacunarViewModel(Racunar og)
         {
-            this.SH = SH;
-            this.VM = VM;
+            SH = og.SH;
+            VM = og.VM;
+            PoslovniProstor_SP = og.PoslovniProstor.SP;
         }
     }
 }
