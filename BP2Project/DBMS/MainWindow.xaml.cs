@@ -29,7 +29,7 @@ namespace DBMS
         {
             InitializeComponent();
 
-            //TestScript testScript = new TestScript();
+            TestScript testScript = new TestScript();
             //testScript.Run();
 
             mainWindowViewModel = new MainWindowViewModel();
@@ -146,6 +146,13 @@ namespace DBMS
         private void ProjDelete_Click(object sender, RoutedEventArgs e)
         {
             mainWindowViewModel.ProjekatDelete(GridProjekat);
+        }
+
+        private void zaposleniCreate_Click(object sender, RoutedEventArgs e)
+        {
+            CreateZaposleni createZaposleni = new CreateZaposleni();
+            createZaposleni.ShowDialog();
+            LoadZaposleni();
         }
     }
 }

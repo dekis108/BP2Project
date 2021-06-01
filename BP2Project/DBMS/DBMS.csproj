@@ -65,8 +65,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CreateZaposleni.xaml.cs">
+      <DependentUpon>CreateZaposleni.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HardverChildren.xaml.cs">
       <DependentUpon>HardverChildren.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MobilniPicker.xaml.cs">
+      <DependentUpon>MobilniPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DataGridClasses\AdminViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\DispecerViewModel.cs" />
@@ -74,6 +80,8 @@
     <Compile Include="ViewModel\DataGridClasses\MapTimRadNaProjektu.cs" />
     <Compile Include="ViewModel\DataGridClasses\MenadzerMapViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\MenadzerViewModel.cs" />
+    <Compile Include="ViewModel\DataGridClasses\MobilniCreateViewModel.cs" />
+    <Compile Include="ViewModel\MobilniPickerViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\MobilniViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\PoslovniProstorViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\ProgramerViewModel.cs" />
@@ -88,6 +96,10 @@
     <Compile Include="ZaposleniChildren.xaml.cs">
       <DependentUpon>ZaposleniChildren.xaml</DependentUpon>
     </Compile>
+    <Page Include="CreateZaposleni.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HardverChildren.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -104,6 +116,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MobilniPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ZaposleniChildren.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

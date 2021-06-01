@@ -1,0 +1,13 @@
+﻿<Window x:Class="DBMS.MobilniPicker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DBMS"
+        mc:Ignorable="d"
+        Title="MobilniPicker" Height="497.5" Width="903.75">
+    <Grid>
+        <DataGrid Name="dataGridMobilni"  Height="250" VerticalAlignment="Top"/>
+        <Button Content="Select" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
+    </Grid>
+</Window>
