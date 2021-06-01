@@ -72,6 +72,7 @@
     <Compile Include="ViewModel\DataGridClasses\DispecerViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\HardverViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\MapTimRadNaProjektu.cs" />
+    <Compile Include="ViewModel\DataGridClasses\MenadzerMapViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\MenadzerViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\MobilniViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\PoslovniProstorViewModel.cs" />

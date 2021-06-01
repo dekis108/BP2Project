@@ -90,5 +90,20 @@ namespace DBMS
         {
             zaposleniChildrenViewModel.MenadzerDelete(GridDispecer);
         }
+
+        private void tabMap_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            LoadMap();
+        }
+
+        private void LoadMap()
+        {
+            zaposleniChildrenViewModel.LoadMap(GridMap);
+        }
+
+        private void MapDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

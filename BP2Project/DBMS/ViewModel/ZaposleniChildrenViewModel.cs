@@ -18,6 +18,8 @@ namespace DBMS.ViewModel
 
         public List<MenadzerViewModel> DataMenadzer { get; private set; }
 
+        public List<MenadzerMapViewModel> DataMap { get; private set; }
+
         public ZaposleniChildrenViewModel()
         {
         }
@@ -94,6 +96,24 @@ namespace DBMS.ViewModel
                     db.SaveChanges();
                 }
                 LoadDispecer(grid);
+            }
+        }
+
+        internal void LoadMap(DataGrid grid)
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                DataMap = new List<MenadzerMapViewModel>();
+                var list = db.Zaposleni.Where(x => x is Menadzer);
+
+                foreach (Menadzer item in list)
+                {
+                    foreach (var projekti in item.TimRadiNaProjektus)
+                    {
+                        DataMap.Add(new MenadzerMapViewModel(item.Id, projekti.Id));
+                    }
+                }
+                grid.ItemsSource = DataMap;
             }
         }
 

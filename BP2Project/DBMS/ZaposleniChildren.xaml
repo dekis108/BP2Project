@@ -33,6 +33,17 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel>
+                        <TextBlock Text="Dispecer" MouseLeftButtonDown="tabDispecer_Clicked" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid Name="GridDispecer" Height="250" VerticalAlignment="Top"/>
+                    <Button  Name="DispecerDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="DispecerDelete_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
                         <TextBlock Text="Menadzer" MouseLeftButtonDown="tabMenadzer_Clicked" HorizontalAlignment="Stretch"/>
                     </StackPanel>
                 </TabItem.Header>
@@ -44,15 +55,14 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel>
-                        <TextBlock Text="Dispecer" MouseLeftButtonDown="tabDispecer_Clicked" HorizontalAlignment="Stretch"/>
+                        <TextBlock Text="Map Menadzer i Tim radi na Projektu" MouseLeftButtonDown="tabMap_Clicked" HorizontalAlignment="Stretch"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <DataGrid Name="GridDispecer" Height="250" VerticalAlignment="Top"/>
-                    <Button  Name="DispecerDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="DispecerDelete_Click"/>
+                    <DataGrid Name="GridMap" Height="250" VerticalAlignment="Top"/>
+                    <Button  Name="MapDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="MapDelete_Click"/>
                 </Grid>
             </TabItem>
-
         </TabControl>
     </Grid>
 </Window>
