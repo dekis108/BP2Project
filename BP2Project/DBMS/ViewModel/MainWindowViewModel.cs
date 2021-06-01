@@ -190,13 +190,28 @@ namespace DBMS.ViewModel
                     //db.Zaposleni.Attach(item);
 
                     //skloni ga da nije sef timu
-                    var teams = db.Timovi.Where(x => x.VodjaTima.Id == item.Id); //vraca jedan svakako
-                    foreach(Tim team in teams)
+                    if (item is Programer)
                     {
-                        if (team != null)
+                        var teams = db.Timovi.Where(x => x.VodjaTima.Id == item.Id);
+                        foreach (Tim team in teams)
                         {
-                            team.VodjaTima = null;
+                            if (team != null)
+                            {
+                                team.VodjaTima = null;
+                            }
                         }
+                    }
+                    else if (item is Dispecer) //remove reference from Mobilni
+                    {
+                        var mobilni = ((Dispecer)item).Mobilni.ToList();
+                        for(int i = 0; i < mobilni.Count; ++i)
+                        {
+                            mobilni[i].Dispecer = null;
+                        }
+                    }
+                    else if (item is Menadzer) //remove from overlook
+                    {
+                        ((Menadzer)item).TimRadiNaProjektus.Clear();
                     }
 
 
