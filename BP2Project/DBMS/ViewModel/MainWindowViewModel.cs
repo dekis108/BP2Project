@@ -21,7 +21,7 @@ namespace DBMS.ViewModel
 
         public List<ProjekatViewModel> DataProjekat { get; private set; }
 
-        public List<TimRadiNaProjektu> DataTimRadiNaProjektu { get; private set; }
+        public List<TimRadiNaProjektuViewModel> DataTimRadiNaProjektu { get; private set; }
 
         public MainWindowViewModel() {}
 
@@ -101,7 +101,12 @@ namespace DBMS.ViewModel
         {
             using (var db = new ProjectModelContainer())
             {
-                DataTimRadiNaProjektu = db.TimRadiNaProjektu.ToList();
+                DataTimRadiNaProjektu = new List<TimRadiNaProjektuViewModel>();
+                foreach (var item in db.TimRadiNaProjektu)
+                {
+                    DataTimRadiNaProjektu.Add(new TimRadiNaProjektuViewModel(item));
+                }
+
                 grid.ItemsSource = DataTimRadiNaProjektu;
             }
         }
