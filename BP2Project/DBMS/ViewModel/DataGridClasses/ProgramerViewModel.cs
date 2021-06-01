@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,11 @@ namespace DBMS.ViewModel.DataGridClasses
         public string Id { get; set; }
         public int? O_PROD { get; set; }
         public string ClanTima_ST { get; set; }
-        public ProgramerViewModel(string id, int? O_PROD, string ClanTima_ST) 
+        public ProgramerViewModel(Programer og) 
         {
-            Id = id;
-            this.O_PROD = O_PROD;
-            this.ClanTima_ST = ClanTima_ST;
+            Id = og.Id;
+            this.O_PROD = og.O_PROD;
+            this.ClanTima_ST = og.ClanTima?.ST;
         }
     }
 }

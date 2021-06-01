@@ -33,7 +33,7 @@ namespace DBMS.ViewModel
 
                 foreach (Programer item in list)
                 {
-                    DataProgramer.Add(new ProgramerViewModel(item.Id, item.O_PROD, item.ClanTima.ST));
+                    DataProgramer.Add(new ProgramerViewModel(item));
                 }
 
                 grid.ItemsSource = DataProgramer;
@@ -83,14 +83,7 @@ namespace DBMS.ViewModel
                     //db.Zaposleni.Attach(item);
 
                     //skloni moblnima da ne pripadaju ovom dispeceru
-                    var list = db.Hardveri.Where(x => x is Mobilni);
-                    foreach(Mobilni mobilni in list)
-                    {
-                        if (mobilni != null && mobilni.Dispecer.Id == item.Id)
-                        {
-                            mobilni.Dispecer = null;
-                        }
-                    }
+                    ((Dispecer)item).Mobilni.Clear();
 
                     db.Zaposleni.Remove(item);
                     db.SaveChanges();

@@ -83,7 +83,7 @@ namespace DBMS
 
         private void AdminDelete_Click(object sender, RoutedEventArgs e)
         {
-            zaposleniChildrenViewModel.AdminDelete(GridDispecer);
+            zaposleniChildrenViewModel.AdminDelete(GridAdmin);
         }
 
         private void MenadzerDelete_Click(object sender, RoutedEventArgs e)
