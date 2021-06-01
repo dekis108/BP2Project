@@ -14,7 +14,7 @@ namespace DBMS.ViewModel
         public List<ProgramerViewModel> DataProgramer { get; private set; }
 
         public List<Dispecer> DataDispecer { get; private set; }
-        public List<Admin> DataAdmin { get; private set; }
+        public List<AdminViewModel> DataAdmin { get; private set; }
 
         public List<Menadzer> DataMenadzer { get; private set; }
 
@@ -35,6 +35,22 @@ namespace DBMS.ViewModel
                 }
 
                 grid.ItemsSource = DataProgramer;
+            }
+        }
+
+        internal void LoadAdmin(DataGrid grid)
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                DataAdmin = new List<AdminViewModel>();
+                var list = db.Zaposleni.Where(x => x is Admin);
+
+                foreach (Admin item in list)
+                {
+                    DataAdmin.Add(new AdminViewModel(item.Id, item.NPR));
+                }
+
+                grid.ItemsSource = DataAdmin;
             }
         }
     }

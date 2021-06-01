@@ -38,7 +38,12 @@ namespace DBMS
 
         private void tabAdmin_Clicked(object sender, MouseButtonEventArgs e)
         {
+            LoadAdmin();
+        }
 
+        private void LoadAdmin()
+        {
+            zaposleniChildrenViewModel.LoadAdmin(GridAdmin);
         }
 
         private void tabMenadzer_Clicked(object sender, MouseButtonEventArgs e)
