@@ -19,7 +19,7 @@ namespace DBMS.ViewModel
 
         public List<TimViewModel> DataTim { get; private set; }
 
-        public List<Projekat> DataProjekat { get; private set; }
+        public List<ProjekatViewModel> DataProjekat { get; private set; }
 
         public List<TimRadiNaProjektu> DataTimRadiNaProjektu { get; private set; }
 
@@ -87,7 +87,12 @@ namespace DBMS.ViewModel
         {
             using (var db = new ProjectModelContainer())
             {
-                DataProjekat = db.Projekti.ToList();
+                DataProjekat = new List<ProjekatViewModel>();
+                foreach (var item in db.Projekti)
+                {
+                    DataProjekat.Add(new ProjekatViewModel(item));
+                }
+
                 grid.ItemsSource = DataProjekat;
             }
         }
