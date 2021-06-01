@@ -64,7 +64,8 @@ namespace DBMS
 
         private void hardverChildButton_Click(object sender, RoutedEventArgs e)
         {
-
+            HardverChildren child = new HardverChildren();
+            child.Show();
         }
 
         private void tabHardver_Clicked(object sender, MouseButtonEventArgs e)

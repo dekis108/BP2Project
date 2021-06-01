@@ -65,11 +65,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HardverChildren.xaml.cs">
+      <DependentUpon>HardverChildren.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\HardverChildrenViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\ZaposleniChildrenViewModel.cs" />
     <Compile Include="ZaposleniChildren.xaml.cs">
       <DependentUpon>ZaposleniChildren.xaml</DependentUpon>
     </Compile>
+    <Page Include="HardverChildren.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
