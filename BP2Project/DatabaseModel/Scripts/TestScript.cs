@@ -27,14 +27,17 @@ namespace DatabaseModel.Model
                     GenerateMenadzer(db, "M" + i);
                     GenerateRacunar(db, "RAC" + i);
                     GenerateMobilni(db, "MOB" + i);
+                    GenerateProjekat(db, "P" + i, i);
+
                 }
 
 
                 //assign all programers to random teams
                 for (int i = 0; i < 10; ++i)
                 {
-                    AddProgramerToTeam(db, "PR" + i, "T" + rand.Next(0,10));
+                    AssignProgramerToTeam(db, "PR" + i, "T" + rand.Next(0,10));
                 }
+
 
                 db.SaveChanges(); //have to save now for other code to work
 
@@ -56,6 +59,35 @@ namespace DatabaseModel.Model
                 db.SaveChanges();
                 Console.WriteLine("Success");
             }
+        }
+
+
+        private TimRadiNaProjektu GenerateTimRadinaProjektu(ProjectModelContainer db, string v)
+        {
+            TimRadiNaProjektu newTRNP = new TimRadiNaProjektu
+            {
+                Id = v,
+                OZ = 0M
+            };
+            db.TimRadiNaProjektu.Add(newTRNP);
+            return newTRNP;
+        }
+
+        private void GenerateProjekat(ProjectModelContainer db, string v, int i)
+        {
+            Projekat newP = new Projekat
+            {
+                SP = v,
+                DD = DateTime.Now,
+                DP = DateTime.Now,
+                RI = DateTime.Now.AddDays(7),
+                KI = 7,
+                SZ = "Losa specifikacija",
+            };
+            
+            TimRadiNaProjektu proj = GenerateTimRadinaProjektu(db, "TRNP" + i);
+            newP.TimRadiNaProjektus = proj;
+            db.Projekti.Add(newP);
         }
 
         private void AssignTimHiearchy(ProjectModelContainer db)
@@ -179,7 +211,7 @@ namespace DatabaseModel.Model
             }
         }
 
-        private void AddProgramerToTeam(ProjectModelContainer db, string programerId, string teamId)
+        private void AssignProgramerToTeam(ProjectModelContainer db, string programerId, string teamId)
         {
             Programer prog = (Programer)db.Zaposleni.Find(programerId);
             prog.ClanTima = db.Timovi.Find(teamId);
