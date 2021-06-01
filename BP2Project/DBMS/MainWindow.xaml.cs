@@ -51,5 +51,15 @@ namespace DBMS
             ZaposleniChildren children = new ZaposleniChildren();
             children.Show();
         }
+
+        private void tabProstor_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            LoadProstor();
+        }
+
+        private void LoadProstor()
+        {
+            mainWindowViewModel.LoadProstor(GridProstor);
+        }
     }
 }

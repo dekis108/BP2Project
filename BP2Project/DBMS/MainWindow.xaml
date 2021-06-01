@@ -22,9 +22,12 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel>
-                        <TextBlock Text="Poslovni Prostor"></TextBlock>
+                        <TextBlock Text="Poslovni Prostor" MouseLeftButtonDown="tabProstor_Clicked" HorizontalAlignment="Stretch"/>
                     </StackPanel>
                 </TabItem.Header>
+                <Grid>
+                    <DataGrid Name="GridProstor" Height="250" VerticalAlignment="Top"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

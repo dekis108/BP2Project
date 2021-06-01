@@ -12,6 +12,8 @@ namespace DBMS.ViewModel
     {
         public List<Zaposleni> DataZaposleni { get; private set;}
 
+        public List<PoslovniProstor> DataProstor { get; private set; }
+
         public MainWindowViewModel()
         {
             DataZaposleni = new List<Zaposleni>();
@@ -25,6 +27,15 @@ namespace DBMS.ViewModel
             {
                 DataZaposleni = db.Zaposleni.ToList();
                 gridZaposleni.ItemsSource = DataZaposleni;
+            }
+        }
+
+        internal void LoadProstor(DataGrid grid)
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                DataProstor = db.PoslovniProstori.ToList();
+                grid.ItemsSource = DataProstor;
             }
         }
     }
