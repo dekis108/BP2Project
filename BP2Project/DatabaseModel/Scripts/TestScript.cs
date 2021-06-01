@@ -50,9 +50,22 @@ namespace DatabaseModel.Model
                 //assign pc's to workrooms
                 AssignPCRoom(db);
 
+                //arrange team 1->2->3
+                AssignTimHiearchy(db);
+
                 db.SaveChanges();
                 Console.WriteLine("Success");
             }
+        }
+
+        private void AssignTimHiearchy(ProjectModelContainer db)
+        {
+            Tim tim1 = db.Timovi.Find("T1");
+            Tim tim2 = db.Timovi.Find("T2");
+            Tim tim3 = db.Timovi.Find("T3");
+
+            tim3.Nadredjeni = tim2;
+            tim2.Nadredjeni = tim1;
         }
 
         private void AssignPCRoom(ProjectModelContainer db)
