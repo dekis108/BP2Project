@@ -76,6 +76,7 @@
     <Compile Include="ViewModel\DataGridClasses\PoslovniProstorViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\ProgramerViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\ProjekatViewModel.cs" />
+    <Compile Include="ViewModel\DataGridClasses\RacunarViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\TimRadiNaProjektuViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\TimViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\ZaposleniViewModel.cs" />

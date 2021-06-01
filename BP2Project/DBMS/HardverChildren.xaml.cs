@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBMS.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +20,24 @@ namespace DBMS
     /// </summary>
     public partial class HardverChildren : Window
     {
+        HardverChildrenViewModel hardverChildrenViewModel;  
+
         public HardverChildren()
         {
             InitializeComponent();
+            hardverChildrenViewModel = new HardverChildrenViewModel();
+
+            LoadRacunar();
         }
 
         private void tabRacunar_Clicked(object sender, MouseButtonEventArgs e)
         {
+            LoadRacunar();
+        }
 
+        private void LoadRacunar()
+        {
+            hardverChildrenViewModel.LoadRacunar(GridRacunar);
         }
 
         private void tabMobilni_Clicked(object sender, MouseButtonEventArgs e)

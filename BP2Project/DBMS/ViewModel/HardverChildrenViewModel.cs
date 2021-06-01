@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using DatabaseModel.Model;
 using DatabaseModel;
 using System.Windows.Controls;
+using DBMS.ViewModel.DataGridClasses;
 
 namespace DBMS.ViewModel
 {
     class HardverChildrenViewModel
     {
-        public List<Racunar> DataRacunar { get; private set; }
+        public List<RacunarViewModel> DataRacunar { get; private set; }
         public List<Mobilni> DataMobilni { get; private set; }
 
         public HardverChildrenViewModel()
@@ -23,12 +24,12 @@ namespace DBMS.ViewModel
         {
             using (var db = new ProjectModelContainer())
             {
-                var list = db.Hardveri.Where(x => x is Racunar).ToList();
+                var list = db.Hardveri.Where(x => x is Racunar);
 
-                DataRacunar.Clear();
-                foreach (var x in list)
+                DataRacunar = new List<RacunarViewModel>();
+                foreach (Racunar item in list)
                 {
-                    DataRacunar.Add((Racunar)x);
+                    DataRacunar.Add(new RacunarViewModel(item.SH, item.VM));
                 }
 
                 grid.ItemsSource = DataRacunar;
