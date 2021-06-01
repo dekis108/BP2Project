@@ -47,8 +47,21 @@ namespace DatabaseModel.Model
                 //Assign a dispatcher to every mobile device
                 AssignDispecer(db);
 
+                //assign pc's to workrooms
+                AssignPCRoom(db);
+
                 db.SaveChanges();
                 Console.WriteLine("Success");
+            }
+        }
+
+        private void AssignPCRoom(ProjectModelContainer db)
+        {
+            foreach (Racunar pc in db.Hardveri.Where(x => x is Racunar))
+            {
+                int rndInt = rand.Next(0, 10);
+                var rnd = db.PoslovniProstori.Where(x => x.SP == "PP" + rndInt).ToList();
+                pc.PoslovniProstor = (PoslovniProstor)rnd.First();
             }
         }
 
