@@ -142,7 +142,7 @@ namespace DBMS.ViewModel
                     //db.Zaposleni.Attach(item);
 
                     //skloni ga da nije sef timu
-                    var teams = db.Timovi.Where(x => x.VodjaTima.Id == item.Id).ToList(); //vraca jedan svakako
+                    var teams = db.Timovi.Where(x => x.VodjaTima.Id == item.Id); //vraca jedan svakako
                     foreach(Tim team in teams)
                     {
                         if (team != null)

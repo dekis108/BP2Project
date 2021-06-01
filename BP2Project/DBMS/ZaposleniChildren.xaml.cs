@@ -28,13 +28,7 @@ namespace DBMS
 
             zaposleniChildrenViewModel = new ZaposleniChildrenViewModel();
 
-            GridAdmin.ItemsSource = zaposleniChildrenViewModel.DataAdmin;
-            GridMenadzer.ItemsSource = zaposleniChildrenViewModel.DataMenadzer;
-            GridProgramer.ItemsSource = zaposleniChildrenViewModel.DataProgramer;
-            GridDispecer.ItemsSource = zaposleniChildrenViewModel.DataDispecer;
-
             LoadProgramer();
-
         }
 
         private void LoadProgramer()

@@ -1,4 +1,5 @@
 ﻿using DatabaseModel;
+using DBMS.ViewModel.DataGridClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace DBMS.ViewModel
 {
     public class ZaposleniChildrenViewModel
     {
-        public List<Programer> DataProgramer { get; private set; }
+        public List<ProgramerViewModel> DataProgramer { get; private set; }
 
         public List<Dispecer> DataDispecer { get; private set; }
         public List<Admin> DataAdmin { get; private set; }
@@ -19,22 +20,18 @@ namespace DBMS.ViewModel
 
         public ZaposleniChildrenViewModel()
         {
-            DataAdmin = new List<Admin>();
-            DataDispecer = new List<Dispecer>();
-            DataProgramer = new List<Programer>();
-            DataMenadzer = new List<Menadzer>();
         }
 
         internal void LoadProgramer(DataGrid grid)
         {
             using (var db = new ProjectModelContainer())
             {
-                var list = db.Zaposleni.Where(x => x is Programer).ToList();
+                DataProgramer = new List<ProgramerViewModel>();
+                var list = db.Zaposleni.Where(x => x is Programer);
 
-                DataProgramer.Clear();
-                foreach( var programer in list)
+                foreach (Programer item in list)
                 {
-                    DataProgramer.Add((Programer)programer);
+                    DataProgramer.Add(new ProgramerViewModel(item.Id, item.O_PROD, item.ClanTima.ST));
                 }
 
                 grid.ItemsSource = DataProgramer;
