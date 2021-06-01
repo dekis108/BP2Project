@@ -72,5 +72,24 @@ namespace DBMS.ViewModel
                 LoadMobilni(grid);
             }
         }
+
+        internal void DeleteRacunar(DataGrid grid)
+        {
+            RacunarViewModel itemViewModel = (RacunarViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    Hardver item = db.Hardveri.Find(itemViewModel.SH);
+                    //db.Zaposleni.Attach(item);
+
+                    ((Racunar)item).PoslovniProstor = null;
+
+                    db.Hardveri.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadRacunar(grid);
+            }
+        }
     }
 }

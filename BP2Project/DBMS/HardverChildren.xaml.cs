@@ -54,5 +54,10 @@ namespace DBMS
         {
             hardverChildrenViewModel.DeleteMobilni(GridMobilni);
         }
+
+        private void RacunarDelete_Click(object sender, RoutedEventArgs e)
+        {
+            hardverChildrenViewModel.DeleteRacunar(GridRacunar);
+        }
     }
 }

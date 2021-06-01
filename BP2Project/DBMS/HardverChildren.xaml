@@ -16,6 +16,7 @@
                 </TabItem.Header>
                 <Grid>
                     <DataGrid Name="GridRacunar" Height="250" VerticalAlignment="Top"/>
+                    <Button  Name="RacunarDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="RacunarDelete_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>
