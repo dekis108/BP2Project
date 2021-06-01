@@ -16,7 +16,7 @@
                 </TabItem.Header>
                 <Grid>
                     <DataGrid Name="GridZaposleni" Height="250" VerticalAlignment="Top"/>
-                    <Button  Name="zaposleniChildButton" Content="Show Child entities" Margin="0,255,664,107" Click="zaposleniChildButton_Click"/>
+                    <Button  Name="zaposleniChildButton" Content="Show Child entities" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,255,664,107" Click="zaposleniChildButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>
