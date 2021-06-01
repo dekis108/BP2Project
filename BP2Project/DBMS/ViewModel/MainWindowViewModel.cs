@@ -143,6 +143,27 @@ namespace DBMS.ViewModel
             }
         }
 
+        internal void TimDelete(DataGrid grid)
+        {
+            TimViewModel itemViewModel = (TimViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    Tim item = db.Timovi.Find(itemViewModel.ST);
+                    //db.Hardveri.Attach(item);
+
+                    item.Programeri.Clear();
+                    item.TimRadiNaProjektu.Clear();
+                    item.PodredjeniTimovi.Clear();
+
+                    db.Timovi.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadTim(grid);
+            }
+        }
+
         internal void HardverDelete(DataGrid grid)
         {
             HardverViewModel itemViewModel = (HardverViewModel)grid.SelectedItem;

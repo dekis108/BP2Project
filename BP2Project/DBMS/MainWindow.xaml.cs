@@ -137,5 +137,10 @@ namespace DBMS
         {
             mainWindowViewModel.HardverDelete(GridHardver);
         }
+
+        private void TimDelete_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindowViewModel.TimDelete(GridTim);
+        }
     }
 }
