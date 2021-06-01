@@ -28,7 +28,6 @@ namespace DatabaseModel.Model
                     GenerateRacunar(db, "RAC" + i);
                     GenerateMobilni(db, "MOB" + i);
                     GenerateProjekat(db, "P" + i, i);
-
                 }
 
 
@@ -56,18 +55,31 @@ namespace DatabaseModel.Model
                 //arrange team 1->2->3
                 AssignTimHiearchy(db);
 
+                //assign projects to teams
+                AssignProjekatToTims(db);
+
                 db.SaveChanges();
                 Console.WriteLine("Success");
             }
         }
 
+        private void AssignProjekatToTims(ProjectModelContainer db)
+        {
+            var listTimova = db.Timovi.ToList();
+            var listGerund = db.TimRadiNaProjektu.ToList();
+
+            for(int i = 0; i < 10; ++i)
+            {
+                listTimova[i].TimRadiNaProjektu.Add(listGerund[i]); 
+            }
+        }
 
         private TimRadiNaProjektu GenerateTimRadinaProjektu(ProjectModelContainer db, string v)
         {
             TimRadiNaProjektu newTRNP = new TimRadiNaProjektu
             {
                 Id = v,
-                OZ = 0M
+                OZ = 0M,
             };
             db.TimRadiNaProjektu.Add(newTRNP);
             return newTRNP;

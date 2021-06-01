@@ -8,8 +8,8 @@ namespace DBMS.ViewModel.DataGridClasses
 {
     public class MapTimRadNaProjektu
     {
-        public string TimRadiNaProjektu;
-        public string Tim;
+        public string TimRadiNaProjektu { get; set; }
+        public string Tim { get; set; }
 
         public MapTimRadNaProjektu(string radiNa, string tim)
         {
