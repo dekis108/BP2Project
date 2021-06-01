@@ -143,6 +143,31 @@ namespace DBMS.ViewModel
             }
         }
 
+        internal void ProjekatDelete(DataGrid grid)
+        {
+            ProjekatViewModel itemViewModel = (ProjekatViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    Projekat item = db.Projekti.Find(itemViewModel.SP);
+                    //db.Hardveri.Attach(item);
+
+                    var temp = item.TimRadiNaProjektus;
+                    temp.Tim.Clear();
+                    temp.Projekat = null;
+                    temp.Menadzer.Clear();
+                    db.TimRadiNaProjektu.Remove(temp);
+                    //item.TimRadiNaProjektus = null;
+
+
+                    db.Projekti.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadProjekat(grid);
+            }
+        }
+
         internal void TimDelete(DataGrid grid)
         {
             TimViewModel itemViewModel = (TimViewModel)grid.SelectedItem;

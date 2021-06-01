@@ -142,5 +142,10 @@ namespace DBMS
         {
             mainWindowViewModel.TimDelete(GridTim);
         }
+
+        private void ProjDelete_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindowViewModel.ProjekatDelete(GridProjekat);
+        }
     }
 }
