@@ -115,5 +115,15 @@ namespace DBMS
         {
             mainWindowViewModel.ZaposleniDelete(GridZaposleni);
         }
+
+        private void tabMapTimRadiNaProjektu_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            LoadMap();
+        }
+
+        private void LoadMap()
+        {
+            mainWindowViewModel.LoadMap(GridMap);
+        }
     }
 }

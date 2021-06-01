@@ -71,6 +71,16 @@
                     <DataGrid Name="GridRadiNa" Height="250" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="Mapa Tim i RadiNaProjektu" MouseLeftButtonDown="tabMapTimRadiNaProjektu_Clicked" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid Name="GridMap" Height="250" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

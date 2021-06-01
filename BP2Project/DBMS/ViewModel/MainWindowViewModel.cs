@@ -23,6 +23,8 @@ namespace DBMS.ViewModel
 
         public List<TimRadiNaProjektuViewModel> DataTimRadiNaProjektu { get; private set; }
 
+        public List<MapTimRadNaProjektu> DataMap { get; private set; }
+
         public MainWindowViewModel() {}
 
 
@@ -108,6 +110,24 @@ namespace DBMS.ViewModel
                 }
 
                 grid.ItemsSource = DataTimRadiNaProjektu;
+            }
+        }
+
+        internal void LoadMap(DataGrid grid)
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                DataMap = new List<MapTimRadNaProjektu>();
+
+                foreach(var team in db.Timovi)
+                {
+                    foreach(var radiNa in team.TimRadiNaProjektu)
+                    {
+                        DataMap.Add(new MapTimRadNaProjektu(radiNa.Id, team.ST));
+                    }
+                }
+
+                grid.ItemsSource = DataMap;
             }
         }
 
