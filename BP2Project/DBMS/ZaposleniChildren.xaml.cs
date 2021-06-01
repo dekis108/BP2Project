@@ -48,12 +48,22 @@ namespace DBMS
 
         private void tabMenadzer_Clicked(object sender, MouseButtonEventArgs e)
         {
+            LoadMenadzer();
+        }
 
+        private void LoadMenadzer()
+        {
+            zaposleniChildrenViewModel.LoadMenadzer(GridMenadzer);
         }
 
         private void tabDispecer_Clicked(object sender, MouseButtonEventArgs e)
         {
+            LoadDispecer();
+        }
 
+        private void LoadDispecer()
+        {
+            zaposleniChildrenViewModel.LoadDispecer(GridDispecer);
         }
 
         private void tabProgramer_Clicked(object sender, MouseButtonEventArgs e)

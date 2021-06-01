@@ -69,8 +69,10 @@
       <DependentUpon>HardverChildren.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DataGridClasses\AdminViewModel.cs" />
+    <Compile Include="ViewModel\DataGridClasses\DispecerViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\HardverViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\MapTimRadNaProjektu.cs" />
+    <Compile Include="ViewModel\DataGridClasses\MenadzerViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\PoslovniProstorViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\ProgramerViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\ProjekatViewModel.cs" />

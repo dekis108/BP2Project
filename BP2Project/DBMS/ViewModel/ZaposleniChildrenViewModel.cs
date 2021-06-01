@@ -13,10 +13,10 @@ namespace DBMS.ViewModel
     {
         public List<ProgramerViewModel> DataProgramer { get; private set; }
 
-        public List<Dispecer> DataDispecer { get; private set; }
+        public List<DispecerViewModel> DataDispecer { get; private set; }
         public List<AdminViewModel> DataAdmin { get; private set; }
 
-        public List<Menadzer> DataMenadzer { get; private set; }
+        public List<MenadzerViewModel> DataMenadzer { get; private set; }
 
         public ZaposleniChildrenViewModel()
         {
@@ -51,6 +51,38 @@ namespace DBMS.ViewModel
                 }
 
                 grid.ItemsSource = DataAdmin;
+            }
+        }
+
+        internal void LoadMenadzer(DataGrid grid)
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                DataMenadzer = new List<MenadzerViewModel>();
+                var list = db.Zaposleni.Where(x => x is Menadzer);
+
+                foreach (Menadzer item in list)
+                {
+                    DataMenadzer.Add(new MenadzerViewModel(item.Id));
+                }
+
+                grid.ItemsSource = DataMenadzer;
+            }
+        }
+
+        internal void LoadDispecer(DataGrid grid)
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                DataDispecer = new List<DispecerViewModel>();
+                var list = db.Zaposleni.Where(x => x is Dispecer);
+
+                foreach (Admin item in list)
+                {
+                    DataDispecer.Add(new DispecerViewModel(item.Id));
+                }
+
+                grid.ItemsSource = DataDispecer;
             }
         }
     }
