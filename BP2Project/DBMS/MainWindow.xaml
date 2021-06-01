@@ -50,6 +50,16 @@
                     <DataGrid Name="GridTim" Height="250" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="Projekat" MouseLeftButtonDown="tabProjekat_Clicked" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid Name="GridProjekat" Height="250" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

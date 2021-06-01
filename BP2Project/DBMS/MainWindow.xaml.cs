@@ -87,5 +87,15 @@ namespace DBMS
         {
             mainWindowViewModel.LoadTim(GridTim);
         }
+
+        private void tabProjekat_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            LoadProjekat();
+        }
+
+        private void LoadProjekat()
+        {
+            mainWindowViewModel.LoadProjekat(GridProjekat);
+        }
     }
 }
