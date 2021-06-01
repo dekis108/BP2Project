@@ -58,8 +58,25 @@ namespace DatabaseModel.Model
                 //assign projects to teams
                 AssignProjekatToTims(db);
 
+                //Assign Menadzer to look over a team working on a project
+                //first five overlook three each
+                AssignMenadzer(db);
+
                 db.SaveChanges();
                 Console.WriteLine("Success");
+            }
+        }
+
+        private void AssignMenadzer(ProjectModelContainer db)
+        {
+            var listMenadzer = db.Zaposleni.Where(x => x is Menadzer).ToList();
+            var listGerund = db.TimRadiNaProjektu.ToList();
+
+            for (int i = 0; i < 5; ++i)
+            {
+                ((Menadzer)listMenadzer[i]).TimRadiNaProjektus.Add(listGerund[i]);
+                ((Menadzer)listMenadzer[i]).TimRadiNaProjektus.Add(listGerund[(i + 1)%10]);
+                ((Menadzer)listMenadzer[i]).TimRadiNaProjektus.Add(listGerund[(i + 2) % 10]);
             }
         }
 

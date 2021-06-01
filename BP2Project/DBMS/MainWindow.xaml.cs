@@ -29,8 +29,8 @@ namespace DBMS
         {
             InitializeComponent();
 
-            //TestScript testScript = new TestScript();
-            //testScript.Run();
+            TestScript testScript = new TestScript();
+            testScript.Run();
 
             mainWindowViewModel = new MainWindowViewModel();
      
