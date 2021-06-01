@@ -70,6 +70,50 @@ namespace DBMS.ViewModel
             }
         }
 
+        internal void DispecerDelete(DataGrid grid)
+        {
+            DispecerViewModel itemViewModel = (DispecerViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    Zaposleni item = db.Zaposleni.Find(itemViewModel.Id);
+                    //db.Zaposleni.Attach(item);
+
+                    //skloni moblnima da ne pripadaju ovom dispeceru
+                    var list = db.Hardveri.Where(x => x is Mobilni);
+                    foreach(Mobilni mobilni in list)
+                    {
+                        if (mobilni != null && mobilni.Dispecer.Id == item.Id)
+                        {
+                            mobilni.Dispecer = null;
+                        }
+                    }
+
+                    db.Zaposleni.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadDispecer(grid);
+            }
+        }
+
+        internal void AdminDelete(DataGrid grid)
+        {
+            AdminViewModel itemViewModel = (AdminViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    Zaposleni item = db.Zaposleni.Find(itemViewModel.Id);
+                    db.Zaposleni.Attach(item);
+
+                    db.Zaposleni.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadAdmin(grid);
+            }
+        }
+
         internal void LoadDispecer(DataGrid grid)
         {
             using (var db = new ProjectModelContainer())
@@ -83,6 +127,53 @@ namespace DBMS.ViewModel
                 }
 
                 grid.ItemsSource = DataDispecer;
+            }
+        }
+
+        internal void MenadzerDelete(DataGrid grid)
+        {
+            MenadzerViewModel itemViewModel = (MenadzerViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    Zaposleni item = db.Zaposleni.Find(itemViewModel.Id);
+                    db.Zaposleni.Attach(item);
+                    //TODO iz mape menadzer <-> gerund izbaci
+
+
+                    db.Zaposleni.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadDispecer(grid);
+            }
+        }
+
+        internal void ProgramerDelete(DataGrid grid)
+        {
+            ProgramerViewModel itemViewModel = (ProgramerViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    Zaposleni item = db.Zaposleni.Find(itemViewModel.Id);
+                    //db.Zaposleni.Attach(item);
+
+                    //skloni ga da nije sef timu
+                    var teams = db.Timovi.Where(x => x.VodjaTima.Id == item.Id); //vraca jedan svakako
+                    foreach (Tim team in teams)
+                    {
+                        if (team != null)
+                        {
+                            team.VodjaTima = null;
+                        }
+                    }
+
+
+                    db.Zaposleni.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadProgramer(grid);
             }
         }
     }

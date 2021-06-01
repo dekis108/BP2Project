@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="ProjectModel.Zaposleni" Width="1.5" PointX="5" PointY="6.5" />
         <EntityTypeShape EntityType="ProjectModel.PoslovniProstor" Width="1.5" PointX="2.625" PointY="8.75" />
         <EntityTypeShape EntityType="ProjectModel.Hardver" Width="1.5" PointX="4.5" PointY="12" />
-        <EntityTypeShape EntityType="ProjectModel.Tim" Width="1.5" PointX="11.125" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Tim" Width="1.5" PointX="11" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.Projekat" Width="1.5" PointX="11.125" PointY="0.5" />
         <EntityTypeShape EntityType="ProjectModel.Admin" Width="1.5" PointX="7.875" PointY="7.75" />
         <InheritanceConnector EntityType="ProjectModel.Admin" />
@@ -22,7 +22,7 @@
         <InheritanceConnector EntityType="ProjectModel.Racunar" />
         <EntityTypeShape EntityType="ProjectModel.Mobilni" Width="1.5" PointX="7.125" PointY="13.875" />
         <InheritanceConnector EntityType="ProjectModel.Mobilni" />
-        <EntityTypeShape EntityType="ProjectModel.TimRadiNaProjektu" Width="1.5" PointX="11.125" PointY="3.375" />
+        <EntityTypeShape EntityType="ProjectModel.TimRadiNaProjektu" Width="1.5" PointX="11.125" PointY="3.25" />
         <AssociationConnector Association="ProjectModel.ProjekatTimRadiNaProjektu" />
         <AssociationConnector Association="ProjectModel.TimRadiNaProjektuTim" />
         <AssociationConnector Association="ProjectModel.ZaposleniPoslovniProstor" ManuallyRouted="false" >

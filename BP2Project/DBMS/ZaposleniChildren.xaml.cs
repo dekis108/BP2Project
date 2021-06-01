@@ -70,5 +70,25 @@ namespace DBMS
         {
             LoadProgramer();
         }
+
+        private void DispecerDelete_Click(object sender, RoutedEventArgs e)
+        {
+            zaposleniChildrenViewModel.DispecerDelete(GridDispecer);
+        }
+
+        private void ProgramerDelete_Click(object sender, RoutedEventArgs e)
+        {
+            zaposleniChildrenViewModel.ProgramerDelete(GridProgramer);
+        }
+
+        private void AdminDelete_Click(object sender, RoutedEventArgs e)
+        {
+            zaposleniChildrenViewModel.AdminDelete(GridDispecer);
+        }
+
+        private void MenadzerDelete_Click(object sender, RoutedEventArgs e)
+        {
+            zaposleniChildrenViewModel.MenadzerDelete(GridDispecer);
+        }
     }
 }

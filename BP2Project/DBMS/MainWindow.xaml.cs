@@ -52,7 +52,8 @@ namespace DBMS
         private void zaposleniChildButton_Click(object sender, RoutedEventArgs e)
         {
             ZaposleniChildren children = new ZaposleniChildren();
-            children.Show();
+            children.ShowDialog();
+            LoadZaposleni();
         }
 
         private void tabProstor_Clicked(object sender, MouseButtonEventArgs e)
@@ -68,7 +69,8 @@ namespace DBMS
         private void hardverChildButton_Click(object sender, RoutedEventArgs e)
         {
             HardverChildren child = new HardverChildren();
-            child.Show();
+            child.ShowDialog();
+            LoadHardver();
         }
 
         private void tabHardver_Clicked(object sender, MouseButtonEventArgs e)

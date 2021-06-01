@@ -16,6 +16,7 @@
                 </TabItem.Header>
                 <Grid>
                     <DataGrid Name="GridProgramer" Height="250" VerticalAlignment="Top"/>
+                    <Button  Name="ProgramerDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="ProgramerDelete_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -26,6 +27,7 @@
                 </TabItem.Header>
                 <Grid>
                     <DataGrid Name="GridAdmin" Height="250" VerticalAlignment="Top"/>
+                    <Button  Name="AdminDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="AdminDelete_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -36,6 +38,7 @@
                 </TabItem.Header>
                 <Grid>
                     <DataGrid Name="GridMenadzer" Height="250" VerticalAlignment="Top"/>
+                    <Button  Name="MenadzerDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="MenadzerDelete_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -46,6 +49,7 @@
                 </TabItem.Header>
                 <Grid>
                     <DataGrid Name="GridDispecer" Height="250" VerticalAlignment="Top"/>
+                    <Button  Name="DispecerDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="DispecerDelete_Click"/>
                 </Grid>
             </TabItem>
 
