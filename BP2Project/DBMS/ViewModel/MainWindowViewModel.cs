@@ -89,6 +89,18 @@ namespace DBMS.ViewModel
                 using (var db = new ProjectModelContainer())
                 {
                     db.Zaposleni.Attach(item);
+
+                    //skloni ga da nije sef timu
+                    var teams = db.Timovi.Where(x => x.VodjaTima.Id == item.Id).ToList(); //vraca jedan svakako
+                    foreach(Tim team in teams)
+                    {
+                        if (team != null)
+                        {
+                            team.VodjaTima = null;
+                        }
+                    }
+
+
                     db.Zaposleni.Remove(item);
                     db.SaveChanges();
                 }

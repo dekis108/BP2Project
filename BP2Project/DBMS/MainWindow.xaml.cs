@@ -29,6 +29,9 @@ namespace DBMS
         {
             InitializeComponent();
 
+            //TestScript testScript = new TestScript();
+            //testScript.Run();
+
             mainWindowViewModel = new MainWindowViewModel();
      
             GridZaposleni.ItemsSource = mainWindowViewModel.DataZaposleni;
