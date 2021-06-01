@@ -13,7 +13,7 @@ namespace DBMS.ViewModel
     {
         public List<ZaposleniViewModel> DataZaposleni { get; private set;}
 
-        public List<PoslovniProstor> DataProstor { get; private set; }
+        public List<PoslovniProstorViewModel> DataProstor { get; private set; }
 
         public List<Hardver> DataHardver { get; private set; }
 
@@ -45,7 +45,12 @@ namespace DBMS.ViewModel
         {
             using (var db = new ProjectModelContainer())
             {
-                DataProstor = db.PoslovniProstori.ToList();
+                DataProstor = new List<PoslovniProstorViewModel>();
+                foreach (var item in db.PoslovniProstori)
+                {
+                    DataProstor.Add(new PoslovniProstorViewModel(item));
+                }
+
                 grid.ItemsSource = DataProstor;
             }
         }

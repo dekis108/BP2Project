@@ -68,6 +68,7 @@
     <Compile Include="HardverChildren.xaml.cs">
       <DependentUpon>HardverChildren.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\DataGridClasses\PoslovniProstorViewModel.cs" />
     <Compile Include="ViewModel\DataGridClasses\ZaposleniViewModel.cs" />
     <Compile Include="ViewModel\HardverChildrenViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
