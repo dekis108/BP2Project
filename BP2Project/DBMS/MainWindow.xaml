@@ -17,6 +17,7 @@
                 <Grid>
                     <DataGrid Name="GridZaposleni" Height="250" VerticalAlignment="Top"/>
                     <Button  Name="zaposleniChildButton" Content="Show Child entities" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,255,664,107" Click="zaposleniChildButton_Click"/>
+                    <Button  Name="zaposleniDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="124,255,0,0" Click="zaposleniDelete_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>

@@ -79,5 +79,31 @@ namespace DBMS.ViewModel
                 grid.ItemsSource = DataTimRadiNaProjektu;
             }
         }
+
+        internal void ZaposleniDelete(DataGrid grid)
+        {
+            Zaposleni item = (Zaposleni)grid.SelectedItem;
+            //if (DeleteFromData(grid))
+            if (grid.SelectedItem != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    db.Zaposleni.Attach(item);
+                    db.Zaposleni.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadZaposleni(grid);
+            }
+        }
+
+        private bool DeleteFromData(DataGrid grid)
+        {
+            if (grid.SelectedItem != null)
+            {
+                grid.Items.Remove(grid.SelectedItem);
+                return true;
+            }
+            return false;
+        }
     }
 }

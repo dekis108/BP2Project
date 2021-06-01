@@ -107,5 +107,10 @@ namespace DBMS
         {
             mainWindowViewModel.LoadTimRadiNaProjektu(GridRadiNa);
         }
+
+        private void zaposleniDelete_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindowViewModel.ZaposleniDelete(GridZaposleni);
+        }
     }
 }
