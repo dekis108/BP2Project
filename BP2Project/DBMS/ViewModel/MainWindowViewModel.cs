@@ -15,7 +15,7 @@ namespace DBMS.ViewModel
 
         public List<PoslovniProstorViewModel> DataProstor { get; private set; }
 
-        public List<Hardver> DataHardver { get; private set; }
+        public List<HardverViewModel> DataHardver { get; private set; }
 
         public List<Tim> DataTim { get; private set; }
 
@@ -59,7 +59,12 @@ namespace DBMS.ViewModel
         {
             using (var db = new ProjectModelContainer())
             {
-                DataHardver = db.Hardveri.ToList();
+                DataHardver = new List<HardverViewModel>();
+                foreach (var item in db.Hardveri)
+                {
+                    DataHardver.Add(new HardverViewModel(item));
+                }
+
                 grid.ItemsSource = DataHardver;
             }
         }
