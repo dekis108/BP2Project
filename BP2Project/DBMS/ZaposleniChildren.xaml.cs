@@ -88,7 +88,7 @@ namespace DBMS
 
         private void MenadzerDelete_Click(object sender, RoutedEventArgs e)
         {
-            zaposleniChildrenViewModel.MenadzerDelete(GridDispecer);
+            zaposleniChildrenViewModel.MenadzerDelete(GridMenadzer);
         }
 
         private void tabMap_Clicked(object sender, MouseButtonEventArgs e)

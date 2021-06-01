@@ -184,13 +184,13 @@ namespace DBMS.ViewModel
                 {
                     Zaposleni item = db.Zaposleni.Find(itemViewModel.Id);
                     db.Zaposleni.Attach(item);
-                    //TODO iz mape menadzer <-> gerund izbaci
-
+                    //mapa menadzer <-> gerund izbaci
+                    ((Menadzer)item).TimRadiNaProjektus.Clear();
 
                     db.Zaposleni.Remove(item);
                     db.SaveChanges();
                 }
-                LoadDispecer(grid);
+                LoadMenadzer(grid);
             }
         }
 

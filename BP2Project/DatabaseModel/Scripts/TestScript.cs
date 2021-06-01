@@ -30,7 +30,6 @@ namespace DatabaseModel.Model
                     GenerateProjekat(db, "P" + i, i);
                 }
 
-
                 //assign all programers to random teams
                 for (int i = 0; i < 10; ++i)
                 {
