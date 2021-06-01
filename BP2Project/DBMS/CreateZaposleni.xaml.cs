@@ -1,4 +1,5 @@
-﻿using DBMS.ViewModel.DataGridClasses;
+﻿using DatabaseModel;
+using DBMS.ViewModel.DataGridClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,11 @@ namespace DBMS
             comboTip.ItemsSource = typeEnums;
             comboTip.SelectedItem = comboTip.Items[0];
 
+            txtBoxProstorija.Text = "PP1";
+
             dateDZAP.SelectedDate = DateTime.Now;
+
+            txtBoxProgramerOcena.Text = "1";
 
             txtBoxId.Text = "ID_N";
 
@@ -75,6 +80,8 @@ namespace DBMS
             labelProgramerCheckBox.Visibility = Visibility.Hidden;
             checkBoxProgramer.Visibility = Visibility.Hidden;
             txtBoxProgramerTim.Visibility = Visibility.Hidden;
+            labelProgramerOcena.Visibility = Visibility.Hidden;
+            txtBoxProgramerOcena.Visibility = Visibility.Hidden;
 
             txtBoxMenadzer.Visibility = Visibility.Hidden;
             labelMenadzer.Visibility = Visibility.Hidden;
@@ -95,6 +102,9 @@ namespace DBMS
                 labelProgramerCheckBox.Visibility = Visibility.Visible;
                 checkBoxProgramer.Visibility = Visibility.Visible;
                 txtBoxProgramerTim.Visibility = Visibility.Visible;
+                labelProgramerOcena.Visibility = Visibility.Visible;
+                txtBoxProgramerOcena.Visibility = Visibility.Visible;
+
             }
             else if (comboTip.SelectedItem is TypeEnum.Menadzer)
             {
@@ -112,12 +122,134 @@ namespace DBMS
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            //TODO dodaj poslovni prostor na ovaj window
+            if (comboTip.SelectedItem is TypeEnum.Admin)
+            {
+                try
+                {
+                    Admin admin = new Admin
+                    {
+                        Id = txtBoxId.Text,
+                        PLAT = Int32.Parse(txtBoxPlata.Text),
+                        D_ZAP = dateDZAP.SelectedDate,
+                        NPR = comboAdminNPR.SelectedItem.ToString(),
+                    };
+
+                    using (var db = new ProjectModelContainer())
+                    {
+                        admin.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
+
+                        db.Zaposleni.Add(admin);
+                        db.SaveChanges();
+                    }
+
+                    this.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else if (comboTip.SelectedItem is TypeEnum.Dispecer)
+            {
+                try
+                {
+                    Dispecer disp = new Dispecer
+                    {
+                        Id = txtBoxId.Text,
+                        PLAT = Int32.Parse(txtBoxPlata.Text),
+                        D_ZAP = dateDZAP.SelectedDate,
+                    };
+
+                    using (var db = new ProjectModelContainer())
+                    {
+                        var listaMobilnih = db.Hardveri.ToList();
+                        var list = listaMobilnih.Where(x => listaMobilni.Where(y => y.SH == x.SH).Any()).ToList();
+                        foreach (Mobilni mobilni in list)
+                        {
+                            disp.Mobilni.Add(mobilni);
+                        }
+
+                        disp.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
+
+                        db.Zaposleni.Add(disp);
+                        db.SaveChanges();
+                    }
+                    this.Close();
+
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else if (comboTip.SelectedItem is TypeEnum.Programer)
+            {
+                try
+                {
+                    Programer prog = new Programer
+                    {
+                        Id = txtBoxId.Text,
+                        PLAT = Int32.Parse(txtBoxPlata.Text),
+                        D_ZAP = dateDZAP.SelectedDate,
+                        O_PROD = Int32.Parse(txtBoxProgramerOcena.Text),
+                    };
+
+                    using (var db = new ProjectModelContainer())
+                    {
+                        prog.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
+
+                        prog.ClanTima = db.Timovi.Find(txtBoxProgramerTim.Text);
+                        if (checkBoxProgramer?.IsChecked == true && prog.ClanTima.VodjaTima == null)
+                        {
+                            prog.ClanTima.VodjaTima = prog;
+                        }
+
+                        db.Zaposleni.Add(prog);
+                        db.SaveChanges();
+                    }
+                    this.Close();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
+            else if (comboTip.SelectedItem is TypeEnum.Menadzer)
+            {
+                try
+                {
+                    Menadzer men = new Menadzer
+                    {
+                        Id = txtBoxId.Text,
+                        PLAT = Int32.Parse(txtBoxPlata.Text),
+                        D_ZAP = dateDZAP.SelectedDate,
+                    };
+
+                    using (var db = new ProjectModelContainer())
+                    {
+                        men.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
+
+                        men.TimRadiNaProjektus.Add(db.TimRadiNaProjektu.Find(txtBoxMenadzer.Text)); //TODO treba da moze da ih uzme vise
+
+                        db.Zaposleni.Add(men);
+                        db.SaveChanges();
+                    }
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            this.Close();
         }
     }
 }
