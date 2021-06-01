@@ -20,7 +20,7 @@ namespace DBMS.ViewModel.DataGridClasses
             Id = og.Id;
             D_ZAP = og.D_ZAP;
             PLAT = og.PLAT;
-            PoslovniProstor = og.PoslovniProstor.SP;
+            PoslovniProstor = og.PoslovniProstor?.SP;
         }
     }
 }

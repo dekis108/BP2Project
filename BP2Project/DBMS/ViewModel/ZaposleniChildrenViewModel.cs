@@ -166,7 +166,7 @@ namespace DBMS.ViewModel
                 DataDispecer = new List<DispecerViewModel>();
                 var list = db.Zaposleni.Where(x => x is Dispecer);
 
-                foreach (Admin item in list)
+                foreach (Dispecer item in list)
                 {
                     DataDispecer.Add(new DispecerViewModel(item.Id));
                 }

@@ -22,6 +22,11 @@ namespace DatabaseModel.Model
                     GeneratePoslovniProstor(db, "PP" + i);
                     GenerateTim(db, "T" + i);
                     GenerateProgramer(db, "PR" + i);
+                    GenerateAdmin(db, "A" + i);
+                    GenerateDispecer(db, "D" + i);
+                    GenerateMenadzer(db, "M" + i);
+                    GenerateRacunar(db, "RAC" + i);
+                    GenerateMobilni(db, "MOB" + i);
                 }
 
 
@@ -40,6 +45,72 @@ namespace DatabaseModel.Model
                 db.SaveChanges();
                 Console.WriteLine("Success");
             }
+        }
+
+        private void GenerateMobilni(ProjectModelContainer db, string v)
+        {
+            Mobilni newM = new Mobilni
+            {
+                SH = v,
+                CPU = "CPU2",
+                HDD = 64,
+                RAM = 8,
+                MDIM = 21.47M,
+                OS = "OS1"
+            };
+
+            db.Hardveri.Add(newM);
+        }
+
+        private void GenerateRacunar(ProjectModelContainer db, string v)
+        {
+            Racunar newR = new Racunar
+            {
+                SH = v,
+                CPU = "CPU1",
+                HDD = 500,
+                RAM = 32,
+                VM = "VM1"
+            };
+
+            db.Hardveri.Add(newR);
+        }
+
+        private void GenerateMenadzer(ProjectModelContainer db, string v)
+        {
+            Menadzer newM = new Menadzer
+            {
+                Id = v,
+                D_ZAP = DateTime.Now,
+                PLAT = 10000,
+            };
+
+            db.Zaposleni.Add(newM);
+        }
+
+        private void GenerateDispecer(ProjectModelContainer db, string v)
+        {
+            Dispecer newD = new Dispecer
+            {
+                Id = v,
+                D_ZAP = DateTime.Now,
+                PLAT = 10000,
+            };
+
+            db.Zaposleni.Add(newD);
+        }
+
+        private void GenerateAdmin(ProjectModelContainer db, string v)
+        {
+            Admin newA = new Admin
+            {
+                Id = v,
+                D_ZAP = DateTime.Now,
+                PLAT = 18000,
+                NPR = "A1"
+            };
+
+            db.Zaposleni.Add(newA);
         }
 
         private void AssignRooms(ProjectModelContainer db)
@@ -71,8 +142,6 @@ namespace DatabaseModel.Model
         {
             Programer prog = (Programer)db.Zaposleni.Find(programerId);
             prog.ClanTima = db.Timovi.Find(teamId);
-
-            db.SaveChanges();   
         }
 
         private void GenerateProgramer(ProjectModelContainer db, string programerID)

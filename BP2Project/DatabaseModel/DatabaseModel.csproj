@@ -65,7 +65,7 @@
     <Compile Include="Mobilni.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\TestScript.cs" />
+    <Compile Include="Scripts\TestScript.cs" />
     <Compile Include="PoslovniProstor.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>

@@ -18,7 +18,7 @@ namespace DBMS.ViewModel.DataGridClasses
         {
             SH = og.SH;
             VM = og.VM;
-            PoslovniProstor_SP = og.PoslovniProstor.SP;
+            PoslovniProstor_SP = og.PoslovniProstor?.SP;
         }
     }
 }

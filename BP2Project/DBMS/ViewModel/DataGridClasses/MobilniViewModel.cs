@@ -22,7 +22,7 @@ namespace DBMS.ViewModel.DataGridClasses
             SH = og.SH;
             MDIM = og.MDIM;
             OS = og.OS;
-            Dispecer_Id = og.Dispecer.Id;
+            Dispecer_Id = og.Dispecer?.Id;
         }
     }
 }
