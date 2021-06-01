@@ -20,6 +20,8 @@ namespace DBMS.ViewModel
 
         public List<Projekat> DataProjekat { get; private set; }
 
+        public List<TimRadiNaProjektu> DataTimRadiNaProjektu { get; private set; }
+
         public MainWindowViewModel() {}
 
 
@@ -66,6 +68,15 @@ namespace DBMS.ViewModel
             {
                 DataProjekat = db.Projekti.ToList();
                 grid.ItemsSource = DataProjekat;
+            }
+        }
+
+        internal void LoadTimRadiNaProjektu(DataGrid grid)
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                DataTimRadiNaProjektu = db.TimRadiNaProjektu.ToList();
+                grid.ItemsSource = DataTimRadiNaProjektu;
             }
         }
     }

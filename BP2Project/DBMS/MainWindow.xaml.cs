@@ -97,5 +97,15 @@ namespace DBMS
         {
             mainWindowViewModel.LoadProjekat(GridProjekat);
         }
+
+        private void tabTimRadiNaProjektu_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            LoadTimRadiNaProjektu();
+        }
+
+        private void LoadTimRadiNaProjektu()
+        {
+            mainWindowViewModel.LoadTimRadiNaProjektu(GridRadiNa);
+        }
     }
 }
