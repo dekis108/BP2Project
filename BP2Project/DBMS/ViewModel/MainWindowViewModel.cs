@@ -1,4 +1,5 @@
 ﻿using DatabaseModel;
+using DBMS.ViewModel.DataGridClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace DBMS.ViewModel
 {
     public class MainWindowViewModel
     {
-        public List<Zaposleni> DataZaposleni { get; private set;}
+        public List<ZaposleniViewModel> DataZaposleni { get; private set;}
 
         public List<PoslovniProstor> DataProstor { get; private set; }
 
@@ -30,7 +31,12 @@ namespace DBMS.ViewModel
         {
             using (var db = new ProjectModelContainer())
             {
-                DataZaposleni = db.Zaposleni.ToList();
+                DataZaposleni = new List<ZaposleniViewModel>();
+                foreach(var zaposleni in  db.Zaposleni)
+                {
+                    DataZaposleni.Add(new ZaposleniViewModel(zaposleni));
+                }
+                    
                 gridZaposleni.ItemsSource = DataZaposleni;
             }
         }
@@ -82,13 +88,13 @@ namespace DBMS.ViewModel
 
         internal void ZaposleniDelete(DataGrid grid)
         {
-            Zaposleni item = (Zaposleni)grid.SelectedItem;
-            //if (DeleteFromData(grid))
-            if (grid.SelectedItem != null)
+            ZaposleniViewModel itemViewModel = (ZaposleniViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
             {
                 using (var db = new ProjectModelContainer())
                 {
-                    db.Zaposleni.Attach(item);
+                    Zaposleni item = db.Zaposleni.Find(itemViewModel.Id);
+                    //db.Zaposleni.Attach(item);
 
                     //skloni ga da nije sef timu
                     var teams = db.Timovi.Where(x => x.VodjaTima.Id == item.Id).ToList(); //vraca jedan svakako
@@ -106,16 +112,6 @@ namespace DBMS.ViewModel
                 }
                 LoadZaposleni(grid);
             }
-        }
-
-        private bool DeleteFromData(DataGrid grid)
-        {
-            if (grid.SelectedItem != null)
-            {
-                grid.Items.Remove(grid.SelectedItem);
-                return true;
-            }
-            return false;
         }
     }
 }
