@@ -61,5 +61,20 @@ namespace DBMS
         {
             mainWindowViewModel.LoadProstor(GridProstor);
         }
+
+        private void hardverChildButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void tabHardver_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            LoadHardver();
+        }
+
+        private void LoadHardver()
+        {
+            mainWindowViewModel.LoadHardver(GridHardver);
+        }
     }
 }

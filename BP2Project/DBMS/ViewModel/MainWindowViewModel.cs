@@ -14,10 +14,9 @@ namespace DBMS.ViewModel
 
         public List<PoslovniProstor> DataProstor { get; private set; }
 
-        public MainWindowViewModel()
-        {
-            DataZaposleni = new List<Zaposleni>();
-        }
+        public List<Hardver> DataHardver { get; private set; }
+
+        public MainWindowViewModel() {}
 
 
 
@@ -36,6 +35,15 @@ namespace DBMS.ViewModel
             {
                 DataProstor = db.PoslovniProstori.ToList();
                 grid.ItemsSource = DataProstor;
+            }
+        }
+
+        internal void LoadHardver(DataGrid grid)
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                DataHardver = db.Hardveri.ToList();
+                grid.ItemsSource = DataHardver;
             }
         }
     }
