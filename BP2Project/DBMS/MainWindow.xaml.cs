@@ -127,5 +127,10 @@ namespace DBMS
         {
             mainWindowViewModel.LoadMap(GridMap);
         }
+
+        private void prostorDelete_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindowViewModel.ProstorDelete(GridProstor);
+        }
     }
 }

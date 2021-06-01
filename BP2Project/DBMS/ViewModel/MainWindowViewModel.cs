@@ -113,6 +113,37 @@ namespace DBMS.ViewModel
             }
         }
 
+        internal void ProstorDelete(DataGrid grid)
+        {
+            PoslovniProstorViewModel itemViewModel = (PoslovniProstorViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    PoslovniProstor item = db.PoslovniProstori.Find(itemViewModel.SP);
+                    //db.Zaposleni.Attach(item);
+
+                    //remove this room from zaposleni and racunari
+                    var zaposleni = item.Zaposleni.ToList();
+                    var racunari = item.Racunari.ToList();
+
+                    for(int i = 0; i < zaposleni.Count; ++i)
+                    {
+                        zaposleni[i].PoslovniProstor = null;
+                    }
+                    for(int i = 0; i < racunari.Count; ++i)
+                    {
+                        racunari[i].PoslovniProstor = null;
+                    }
+
+                    db.PoslovniProstori.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadProstor(grid);
+            }
+        }
+    
+
         internal void LoadMap(DataGrid grid)
         {
             using (var db = new ProjectModelContainer())

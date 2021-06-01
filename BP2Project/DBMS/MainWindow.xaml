@@ -28,6 +28,7 @@
                 </TabItem.Header>
                 <Grid>
                     <DataGrid Name="GridProstor" Height="250" VerticalAlignment="Top"/>
+                    <Button  Name="ProstorDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="prostorDelete_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>
