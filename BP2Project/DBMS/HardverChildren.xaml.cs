@@ -42,7 +42,12 @@ namespace DBMS
 
         private void tabMobilni_Clicked(object sender, MouseButtonEventArgs e)
         {
+            LoadMobilni();
+        }
 
+        private void LoadMobilni()
+        {
+            hardverChildrenViewModel.LoadMobilni(GridMobilni);
         }
     }
 }

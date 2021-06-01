@@ -13,7 +13,7 @@ namespace DBMS.ViewModel
     class HardverChildrenViewModel
     {
         public List<RacunarViewModel> DataRacunar { get; private set; }
-        public List<Mobilni> DataMobilni { get; private set; }
+        public List<MobilniViewModel> DataMobilni { get; private set; }
 
         public HardverChildrenViewModel()
         {
@@ -41,12 +41,12 @@ namespace DBMS.ViewModel
         {
             using (var db = new ProjectModelContainer())
             {
-                var list = db.Hardveri.Where(x => x is Mobilni).ToList();
+                var list = db.Hardveri.Where(x => x is Mobilni);
 
-                DataMobilni.Clear();
-                foreach (var x in list)
+                DataMobilni = new List<MobilniViewModel>();
+                foreach (Mobilni item in list)
                 {
-                    DataMobilni.Add((Mobilni)x);
+                    DataMobilni.Add(new MobilniViewModel(item));
                 }
 
                 grid.ItemsSource = DataMobilni;
