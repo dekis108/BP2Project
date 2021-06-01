@@ -36,14 +36,29 @@ namespace DatabaseModel.Model
                     AddProgramerToTeam(db, "PR" + i, "T" + rand.Next(0,10));
                 }
 
+                db.SaveChanges(); //have to save now for other code to work
+
                 //assign a team lead to every team that has atleast 1 member
                 AssignTeamLeads(db);
 
                 //assign work room to every team member
                 AssignRooms(db);
 
+                //Assign a dispatcher to every mobile device
+                AssignDispecer(db);
+
                 db.SaveChanges();
                 Console.WriteLine("Success");
+            }
+        }
+
+        private void AssignDispecer(ProjectModelContainer db)
+        {
+            foreach(Mobilni mobile in db.Hardveri.Where(x => x is Mobilni))
+            {
+                int rndInt = rand.Next(0, 10);
+                var rnd = db.Zaposleni.Where(x => x.Id == "D" + rndInt).ToList();
+                mobile.Dispecer = (Dispecer)rnd.First();
             }
         }
 
@@ -129,7 +144,7 @@ namespace DatabaseModel.Model
 
         private void AssignTeamLeads(ProjectModelContainer db)
         {
-            var teams = db.Timovi.Where(x => x.Programeri.Count > 0);
+            var teams = db.Timovi.Where(x => x.Programeri.Count > 0).ToList();
             
             foreach(Tim team in teams)
             {
