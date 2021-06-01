@@ -49,5 +49,10 @@ namespace DBMS
         {
             hardverChildrenViewModel.LoadMobilni(GridMobilni);
         }
+
+        private void MobilniDelete_Click(object sender, RoutedEventArgs e)
+        {
+            hardverChildrenViewModel.DeleteMobilni(GridMobilni);
+        }
     }
 }

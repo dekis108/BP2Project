@@ -52,5 +52,25 @@ namespace DBMS.ViewModel
                 grid.ItemsSource = DataMobilni;
             }
         }
+
+        internal void DeleteMobilni(DataGrid grid)
+        {
+            MobilniViewModel itemViewModel = (MobilniViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    Hardver item = db.Hardveri.Find(itemViewModel.SH);
+                    //db.Zaposleni.Attach(item);
+
+                    ((Mobilni)item).Dispecer = null;
+
+
+                    db.Hardveri.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadMobilni(grid);
+            }
+        }
     }
 }

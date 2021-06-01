@@ -26,6 +26,7 @@
                 </TabItem.Header>
                 <Grid>
                     <DataGrid Name="GridMobilni" Height="250" VerticalAlignment="Top"/>
+                    <Button  Name="MobilniDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="MobilniDelete_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
