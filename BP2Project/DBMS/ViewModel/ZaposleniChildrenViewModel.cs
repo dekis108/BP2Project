@@ -99,6 +99,31 @@ namespace DBMS.ViewModel
             }
         }
 
+        internal void MapDelete(DataGrid grid)
+        {
+            MenadzerMapViewModel itemViewModel = (MenadzerMapViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    Zaposleni item = db.Zaposleni.Find(itemViewModel.Menadzer_Id);
+                    if (item == null) return;
+                    //db.Zaposleni.Attach(item);
+                    Menadzer menadzer = (Menadzer)item;
+                    TimRadiNaProjektu gerund = (TimRadiNaProjektu)db.TimRadiNaProjektu.Find(itemViewModel.TimRadiNaProjektu_Id);
+                    db.TimRadiNaProjektu.Attach(gerund);
+                    menadzer.TimRadiNaProjektus.Remove(gerund);
+
+
+
+
+                    //db.Zaposleni.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadAdmin(grid);
+            }
+        }
+
         internal void LoadMap(DataGrid grid)
         {
             using (var db = new ProjectModelContainer())

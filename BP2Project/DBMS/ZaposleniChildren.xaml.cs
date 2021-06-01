@@ -103,7 +103,7 @@ namespace DBMS
 
         private void MapDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            zaposleniChildrenViewModel.MapDelete(GridMap);
         }
     }
 }
