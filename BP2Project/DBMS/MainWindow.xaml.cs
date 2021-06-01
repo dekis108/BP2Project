@@ -132,5 +132,10 @@ namespace DBMS
         {
             mainWindowViewModel.ProstorDelete(GridProstor);
         }
+
+        private void HardverDelete_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindowViewModel.HardverDelete(GridHardver);
+        }
     }
 }

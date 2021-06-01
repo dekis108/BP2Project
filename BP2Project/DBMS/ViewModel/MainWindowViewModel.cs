@@ -142,7 +142,24 @@ namespace DBMS.ViewModel
                 LoadProstor(grid);
             }
         }
-    
+
+        internal void HardverDelete(DataGrid grid)
+        {
+            HardverViewModel itemViewModel = (HardverViewModel)grid.SelectedItem;
+            if (itemViewModel != null)
+            {
+                using (var db = new ProjectModelContainer())
+                {
+                    Hardver item = db.Hardveri.Find(itemViewModel.SH);
+                    db.Hardveri.Attach(item);
+
+
+                    db.Hardveri.Remove(item);
+                    db.SaveChanges();
+                }
+                LoadHardver(grid);
+            }
+        }
 
         internal void LoadMap(DataGrid grid)
         {
