@@ -129,8 +129,11 @@
       <LastGenOutput>ProjectModel.cs</LastGenOutput>
       <DependentUpon>ProjectModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Scripts\AvgPlat.sql" />
+    <Content Include="Scripts\Count.sql" />
     <Content Include="Scripts\dbo.IncrementOZ.sql" />
     <Content Include="Scripts\dbo.PrintSobe.sql" />
+    <Content Include="Scripts\Indexes.sql" />
     <Content Include="Scripts\TrigerInsert.sql" />
     <Content Include="Scripts\TrigerOnDelete.sql" />
   </ItemGroup>

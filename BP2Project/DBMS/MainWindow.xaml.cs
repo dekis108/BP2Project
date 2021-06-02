@@ -174,5 +174,10 @@ namespace DBMS
         {
             mainWindowViewModel.AssignRoomsProcedure();
         }
+
+        private void func1BTN_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindowViewModel.CalcAvg();
+        }
     }
 }

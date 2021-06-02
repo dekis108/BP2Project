@@ -168,6 +168,14 @@ namespace DBMS.ViewModel
             }
         }
 
+        internal void CalcAvg()
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                var result = db.Database.ExecuteSqlCommand("FunctionCounting");
+            }
+        }
+
         internal void AssignRoomsProcedure()
         {
             using (var db = new ProjectModelContainer())
