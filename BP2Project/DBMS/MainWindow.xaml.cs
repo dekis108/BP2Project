@@ -209,5 +209,10 @@ namespace DBMS
             x.ShowDialog();
             LoadProstor();
         }
+
+        private void func2BTN_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindowViewModel.Count();
+        }
     }
 }

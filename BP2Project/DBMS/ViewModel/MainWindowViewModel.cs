@@ -192,6 +192,14 @@ namespace DBMS.ViewModel
             }
         }
 
+        internal void Count()
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                var result = db.Database.ExecuteSqlCommand("FunctionCounting");
+            }
+        }
+
         internal void TimDelete(DataGrid grid)
         {
             TimViewModel itemViewModel = (TimViewModel)grid.SelectedItem;

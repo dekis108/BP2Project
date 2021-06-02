@@ -55,9 +55,9 @@
                 </TabItem.Header>
                 <Grid>
                     <DataGrid Name="GridTim" Height="250" VerticalAlignment="Top"/>
-                    <Button  Name="TimDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="78,255,0,0" Click="TimDelete_Click"/>
+                    <Button  Name="TimDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="100,255,0,0" Click="TimDelete_Click"/>
                     <Button  Name="TimCreate" Content="Create new" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,255,713,0" Click="TimCreate_Click"/>
-                    <Button  Name="TimEdit" Content="Edit selected" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,255,547,0" Click="TimEdit_Click"/>
+                    <Button  Name="TimEdit" Content="Edit selected" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,255,516,0" Click="TimEdit_Click" RenderTransformOrigin="0.662,0.55"/>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -94,6 +94,7 @@
         </TabControl>
         <Button  Name="procedura1BTN" Content="Increment OZ" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,389,0,0" Click="procedura1BTN_Click"/>
         <Button  x:Name="procedura2BTN" Content="Assign rooms" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="91,389,0,0" Click="procedura2BTN_Click"/>
-        <Button  x:Name="func1BTN" Content="Izracunaj prosek" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="172,389,0,0" Click="func1BTN_Click"/>
+        <Button  x:Name="func1BTN" Content="Izracunaj prosek" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="228,389,0,0" Click="func1BTN_Click"/>
+        <Button  x:Name="func2BTN" Content="Prebroj" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="172,389,0,0" Click="func2BTN_Click"/>
     </Grid>
 </Window>
