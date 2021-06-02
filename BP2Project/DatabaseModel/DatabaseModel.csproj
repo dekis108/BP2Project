@@ -129,6 +129,8 @@
       <LastGenOutput>ProjectModel.cs</LastGenOutput>
       <DependentUpon>ProjectModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Scripts\dbo.Procedure.sql" />
+    <Content Include="Scripts\dbo.Procedure_2.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

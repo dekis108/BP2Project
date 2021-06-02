@@ -88,5 +88,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Button  Name="procedura1BTN" Content="TestProcedura1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,389,0,0" Click="procedura1BTN_Click"/>
     </Grid>
 </Window>

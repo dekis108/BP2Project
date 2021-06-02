@@ -164,5 +164,10 @@ namespace DBMS
             editZaposleni.ShowDialog();
             LoadZaposleni();
         }
+
+        private void procedura1BTN_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindowViewModel.TestProcedure1();
+        }
     }
 }

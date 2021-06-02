@@ -168,6 +168,14 @@ namespace DBMS.ViewModel
             }
         }
 
+        internal void TestProcedure1()
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                var result = db.Database.SqlQuery<int>("Procedure1").ToList();
+            }
+        }
+
         internal void TimDelete(DataGrid grid)
         {
             TimViewModel itemViewModel = (TimViewModel)grid.SelectedItem;
