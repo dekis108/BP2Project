@@ -232,7 +232,14 @@ namespace DBMS
                     {
                         men.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
 
-                        men.TimRadiNaProjektus.Add(db.TimRadiNaProjektu.Find(txtBoxMenadzer.Text)); //TODO treba da moze da ih uzme vise
+                        var ids = txtBoxMenadzer.Text.Split(',');
+
+                        foreach (string id in ids)
+                        {
+                            men.TimRadiNaProjektus.Add(db.TimRadiNaProjektu.Find(id));
+                        }
+
+                        
 
                         db.Zaposleni.Add(men);
                         db.SaveChanges();
