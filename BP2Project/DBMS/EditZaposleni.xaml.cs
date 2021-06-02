@@ -183,25 +183,19 @@ namespace DBMS
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
 
             if (comboTip.SelectedItem is TypeEnum.Admin)
             {
                 try
                 {
-                    Admin admin = new Admin
-                    {
-                        Id = txtBoxId.Text,
-                        PLAT = Int32.Parse(txtBoxPlata.Text),
-                        D_ZAP = dateDZAP.SelectedDate,
-                        NPR = comboAdminNPR.SelectedItem.ToString(),
-                    };
-
                     using (var db = new ProjectModelContainer())
                     {
-                        admin.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
+                        Admin admin = (Admin)db.Zaposleni.Find(zap.Id);
 
-                        db.Zaposleni.Add(admin);
+                        admin.PLAT = Int32.Parse(txtBoxPlata.Text);
+                        admin.D_ZAP = dateDZAP.SelectedDate;
+                        admin.NPR = comboAdminNPR.SelectedItem.ToString();
+                        admin.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
                         db.SaveChanges();
                     }
 
@@ -217,17 +211,15 @@ namespace DBMS
             {
                 try
                 {
-                    Dispecer disp = new Dispecer
-                    {
-                        Id = txtBoxId.Text,
-                        PLAT = Int32.Parse(txtBoxPlata.Text),
-                        D_ZAP = dateDZAP.SelectedDate,
-                    };
-
                     using (var db = new ProjectModelContainer())
                     {
+                        Dispecer disp = (Dispecer)db.Zaposleni.Find(zap.Id);
+
+                        disp.PLAT = Int32.Parse(txtBoxPlata.Text);
+                        disp.D_ZAP = dateDZAP.SelectedDate;
                         var mobilni = db.Hardveri.ToList();
                         var list = mobilni.Where(x => listaMobilni.Where(y => x.SH == y.SH && y.Selected).Any()).ToList();
+                        disp.Mobilni.Clear();
                         foreach (Mobilni mob in list)
                         {
                             disp.Mobilni.Add(mob);
@@ -235,7 +227,6 @@ namespace DBMS
 
                         disp.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
 
-                        db.Zaposleni.Add(disp);
                         db.SaveChanges();
                     }
                     this.Close();
@@ -250,25 +241,19 @@ namespace DBMS
             {
                 try
                 {
-                    Programer prog = new Programer
-                    {
-                        Id = txtBoxId.Text,
-                        PLAT = Int32.Parse(txtBoxPlata.Text),
-                        D_ZAP = dateDZAP.SelectedDate,
-                        O_PROD = Int32.Parse(txtBoxProgramerOcena.Text),
-                    };
-
                     using (var db = new ProjectModelContainer())
                     {
+                        Programer prog =(Programer)db.Zaposleni.Find(zap.Id);
+                      
                         prog.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
-
+                        prog.PLAT = Int32.Parse(txtBoxPlata.Text);
+                        prog.D_ZAP = dateDZAP.SelectedDate;
                         prog.ClanTima = db.Timovi.Find(txtBoxProgramerTim.Text);
                         if (checkBoxProgramer?.IsChecked == true && prog.ClanTima.VodjaTima == null)
                         {
                             prog.ClanTima.VodjaTima = prog;
                         }
 
-                        db.Zaposleni.Add(prog);
                         db.SaveChanges();
                     }
                     this.Close();
@@ -283,27 +268,21 @@ namespace DBMS
             {
                 try
                 {
-                    Menadzer men = new Menadzer
-                    {
-                        Id = txtBoxId.Text,
-                        PLAT = Int32.Parse(txtBoxPlata.Text),
-                        D_ZAP = dateDZAP.SelectedDate,
-                    };
-
                     using (var db = new ProjectModelContainer())
                     {
-                        men.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
+                        Menadzer men = (Menadzer)db.Zaposleni.Find(zap.Id);
 
+                        men.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
+                        men.PLAT = Int32.Parse(txtBoxPlata.Text);
+                        men.D_ZAP = dateDZAP.SelectedDate;
                         var ids = txtBoxMenadzer.Text.Split(',');
 
+                        men.TimRadiNaProjektus.Clear();
                         foreach (string id in ids)
                         {
                             men.TimRadiNaProjektus.Add(db.TimRadiNaProjektu.Find(id));
                         }
 
-
-
-                        db.Zaposleni.Add(men);
                         db.SaveChanges();
                     }
                     this.Close();

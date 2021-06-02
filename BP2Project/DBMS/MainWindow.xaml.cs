@@ -162,6 +162,7 @@ namespace DBMS
 
             EditZaposleni editZaposleni = new EditZaposleni((ZaposleniViewModel)GridZaposleni.SelectedItem);
             editZaposleni.ShowDialog();
+            LoadZaposleni();
         }
     }
 }

@@ -122,7 +122,6 @@ namespace DBMS
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            //TODO dodaj poslovni prostor na ovaj window
             if (comboTip.SelectedItem is TypeEnum.Admin)
             {
                 try
