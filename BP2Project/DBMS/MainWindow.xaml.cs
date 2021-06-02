@@ -236,5 +236,13 @@ namespace DBMS
             x.ShowDialog();
             LoadProjekat();
         }
+
+        private void ProjEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (GridProjekat.SelectedItem == null) return;
+            EditProjekat x = new EditProjekat((ProjekatViewModel)GridProjekat.SelectedItem);
+            x.ShowDialog();
+            LoadProjekat();
+        }
     }
 }

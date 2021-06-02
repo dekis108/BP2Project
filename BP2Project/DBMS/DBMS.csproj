@@ -80,6 +80,9 @@
     <Compile Include="EditHardver.xaml.cs">
       <DependentUpon>EditHardver.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditProjekat.xaml.cs">
+      <DependentUpon>EditProjekat.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditProstorija.xaml.cs">
       <DependentUpon>EditProstorija.xaml</DependentUpon>
     </Compile>
@@ -137,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditHardver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditProjekat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
