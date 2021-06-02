@@ -86,6 +86,9 @@
     <Compile Include="HardverChildren.xaml.cs">
       <DependentUpon>HardverChildren.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HardverCreate.xaml.cs">
+      <DependentUpon>HardverCreate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MobilniPicker.xaml.cs">
       <DependentUpon>MobilniPicker.xaml</DependentUpon>
     </Compile>
@@ -136,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HardverChildren.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HardverCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

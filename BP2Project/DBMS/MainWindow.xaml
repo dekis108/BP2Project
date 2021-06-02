@@ -45,6 +45,7 @@
                     <DataGrid Name="GridHardver" Height="250" VerticalAlignment="Top"/>
                     <Button  Name="hardverChildButton" Content="Show Child entities" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="hardverChildButton_Click"/>
                     <Button  Name="HardverDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="134,255,0,0" Click="HardverDelete_Click"/>
+                    <Button  Name="HardverCreate" Content="Create new" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="233,255,0,0" Click="HardverCreate_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>

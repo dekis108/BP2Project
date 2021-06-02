@@ -214,5 +214,12 @@ namespace DBMS
         {
             mainWindowViewModel.Count();
         }
+
+        private void HardverCreate_Click(object sender, RoutedEventArgs e)
+        {
+            HardverCreate hardver = new HardverCreate();
+            hardver.ShowDialog();
+            LoadHardver();
+        }
     }
 }
