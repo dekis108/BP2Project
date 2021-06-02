@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using DatabaseModel;
 using DatabaseModel.Model;
 using DBMS.ViewModel;
+using DBMS.ViewModel.DataGridClasses;
 
 namespace DBMS
 {
@@ -153,6 +154,14 @@ namespace DBMS
             CreateZaposleni createZaposleni = new CreateZaposleni();
             createZaposleni.ShowDialog();
             LoadZaposleni();
+        }
+
+        private void zaposleniEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (GridZaposleni.SelectedItem == null) return;
+
+            EditZaposleni editZaposleni = new EditZaposleni((ZaposleniViewModel)GridZaposleni.SelectedItem);
+            editZaposleni.ShowDialog();
         }
     }
 }

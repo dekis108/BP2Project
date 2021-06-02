@@ -114,6 +114,14 @@ namespace DBMS
                 else if (zaposleni is Dispecer)
                 {
                     comboTip.SelectedItem = TypeEnum.Dispecer;
+                    var mob = ((Dispecer)zaposleni).Mobilni;
+                    foreach(Mobilni m in mob)
+                    {
+                        var m1 = new MobilniCreateViewModel(m);
+                        m1.Selected = true;
+                        listaMobilni.Add(m1);
+                    }
+                    MobilniPickerViewModel.FillFreeMobilni(listaMobilni);
                 }
 
 

@@ -39,5 +39,22 @@ namespace DBMS.ViewModel.DataGridClasses
             }
         }
 
+        public static void FillFreeMobilni(List<MobilniCreateViewModel> listaM)
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                var list = db.Hardveri.Where(x => x is Mobilni);
+
+                foreach (Mobilni item in list)
+                {
+                    if (item.Dispecer != null || listaM.Where(x=>x.SH == item.SH).Any()) continue;
+
+
+
+                    listaM.Add(new MobilniCreateViewModel(item));
+                }
+
+            }
+        }
     }
 }
