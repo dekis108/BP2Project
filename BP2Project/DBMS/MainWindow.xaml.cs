@@ -186,5 +186,12 @@ namespace DBMS
             createProstorija.ShowDialog();
             LoadProstor();
         }
+
+        private void TimCreate_Click(object sender, RoutedEventArgs e)
+        {
+            CreateTim x = new CreateTim();
+            x.ShowDialog();
+            LoadTim();
+        }
     }
 }

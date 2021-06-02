@@ -68,6 +68,9 @@
     <Compile Include="CreateProstorija.xaml.cs">
       <DependentUpon>CreateProstorija.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreateTim.xaml.cs">
+      <DependentUpon>CreateTim.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreateZaposleni.xaml.cs">
       <DependentUpon>CreateZaposleni.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
       <DependentUpon>ZaposleniChildren.xaml</DependentUpon>
     </Compile>
     <Page Include="CreateProstorija.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateTim.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
