@@ -221,5 +221,13 @@ namespace DBMS
             hardver.ShowDialog();
             LoadHardver();
         }
+
+        private void HardverEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (GridHardver.SelectedItem == null) return;
+            EditHardver editHardver = new EditHardver((HardverViewModel)GridHardver.SelectedItem);
+            editHardver.ShowDialog();
+            LoadHardver();
+        }
     }
 }
