@@ -56,6 +56,7 @@
                     <DataGrid Name="GridTim" Height="250" VerticalAlignment="Top"/>
                     <Button  Name="TimDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="78,255,0,0" Click="TimDelete_Click"/>
                     <Button  Name="TimCreate" Content="Create new" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,255,713,0" Click="TimCreate_Click"/>
+                    <Button  Name="TimEdit" Content="Edit selected" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,255,547,0" Click="TimEdit_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>

@@ -193,5 +193,13 @@ namespace DBMS
             x.ShowDialog();
             LoadTim();
         }
+
+        private void TimEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (GridTim.SelectedItem == null) return;
+            EditTim x = new EditTim((TimViewModel)GridTim.SelectedItem);
+            x.ShowDialog();
+            LoadTim();
+        }
     }
 }
