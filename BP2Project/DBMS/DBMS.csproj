@@ -74,6 +74,9 @@
     <Compile Include="CreateZaposleni.xaml.cs">
       <DependentUpon>CreateZaposleni.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditProstorija.xaml.cs">
+      <DependentUpon>EditProstorija.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditTim.xaml.cs">
       <DependentUpon>EditTim.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateZaposleni.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditProstorija.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

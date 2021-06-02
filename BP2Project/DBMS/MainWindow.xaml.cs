@@ -201,5 +201,13 @@ namespace DBMS
             x.ShowDialog();
             LoadTim();
         }
+
+        private void prostorEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (GridProstor.SelectedItem == null) return;
+            EditProstorija x = new EditProstorija((PoslovniProstorViewModel)GridProstor.SelectedItem);
+            x.ShowDialog();
+            LoadProstor();
+        }
     }
 }
