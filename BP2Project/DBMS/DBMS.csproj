@@ -68,6 +68,9 @@
     <Compile Include="CreateZaposleni.xaml.cs">
       <DependentUpon>CreateZaposleni.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditZaposleni.xaml.cs">
+      <DependentUpon>EditZaposleni.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HardverChildren.xaml.cs">
       <DependentUpon>HardverChildren.xaml</DependentUpon>
     </Compile>
@@ -97,6 +100,10 @@
       <DependentUpon>ZaposleniChildren.xaml</DependentUpon>
     </Compile>
     <Page Include="CreateZaposleni.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditZaposleni.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
