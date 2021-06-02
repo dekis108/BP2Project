@@ -179,5 +179,12 @@ namespace DBMS
         {
             mainWindowViewModel.CalcAvg();
         }
+
+        private void prostorCreate_Click(object sender, RoutedEventArgs e)
+        {
+            CreateProstorija createProstorija = new CreateProstorija();
+            createProstorija.ShowDialog();
+            LoadProstor();
+        }
     }
 }

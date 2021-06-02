@@ -30,7 +30,8 @@
                 </TabItem.Header>
                 <Grid>
                     <DataGrid Name="GridProstor" Height="250" VerticalAlignment="Top"/>
-                    <Button  Name="ProstorDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="prostorDelete_Click"/>
+                    <Button  Name="ProstorDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="78,255,0,0" Click="prostorDelete_Click"/>
+                    <Button  Name="ProstorCreate" Content="Create new" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="prostorCreate_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>
