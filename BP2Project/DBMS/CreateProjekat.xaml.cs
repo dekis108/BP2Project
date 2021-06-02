@@ -33,6 +33,7 @@ namespace DBMS
             txtKI.Text = "7";
             txtOZ.Text = "0";
             txtSpec.Text = "Opis...";
+            txtTimovi.Text = "T1,T2,";
 
             dateDD.SelectedDate = DateTime.Now.AddDays(-7);
             datePR.SelectedDate = DateTime.Now;
@@ -62,6 +63,13 @@ namespace DBMS
                         OZ = decimal.Parse(txtOZ.Text),
                         Projekat = projekat,
                     };
+
+                    var timIds = txtTimovi.Text.Split(',');
+                    timRadiNaProjektu.Tim.Clear();
+                    foreach(var id in timIds)
+                    {
+                        timRadiNaProjektu.Tim.Add(db.Timovi.Find(id));
+                    }
 
                     db.TimRadiNaProjektu.Add(timRadiNaProjektu);
                     db.Projekti.Add(projekat);

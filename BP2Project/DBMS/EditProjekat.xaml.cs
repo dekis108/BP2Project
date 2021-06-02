@@ -51,6 +51,12 @@ namespace DBMS
             {
                 TimRadiNaProjektu trnp = db.TimRadiNaProjektu.Find(pvm.TimRadiNaProjektu);
 
+                txtTimovi.Text = "";
+                foreach(var tim in trnp.Tim)
+                {
+                    txtTimovi.Text += tim.ST.Trim() + ",";
+                }
+
                 txtSP.Text = pvm.SP;
                 txtNadgleda.Text = pvm.TimRadiNaProjektu;
                 txtKI.Text = pvm.KI.ToString();
@@ -82,7 +88,14 @@ namespace DBMS
 
                     timRadiNaProjektu.OZ = decimal.Parse(txtOZ.Text);
                     timRadiNaProjektu.Projekat = projekat;
-                
+
+                    var timIds = txtTimovi.Text.Split(',');
+                    timRadiNaProjektu.Tim.Clear();
+                    foreach (var id in timIds)
+                    {
+                        timRadiNaProjektu.Tim.Add(db.Timovi.Find(id));
+                    }
+
                     db.SaveChanges();
                 }
                 this.Close();

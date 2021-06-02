@@ -26,6 +26,11 @@
         <TextBox x:Name="txtOZ" HorizontalAlignment="Left" Height="23" Margin="455,346,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="102"/>
         <Button x:Name="btnConfirm" Content="Confirm" HorizontalAlignment="Left" Margin="107,427,0,0" VerticalAlignment="Top" Width="75" Click="btnConfirm_Click"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="417,427,0,0" VerticalAlignment="Top" Width="75" Click="btnCancel_Click"/>
+        
+        
+        
+        <Label Content="Timovi:" HorizontalAlignment="Left" Margin="45,377,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtTimovi" HorizontalAlignment="Left" Height="23" Margin="196,377,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="361"/>
 
     </Grid>
 </Window>
