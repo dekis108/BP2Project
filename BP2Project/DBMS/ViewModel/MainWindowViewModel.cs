@@ -172,7 +172,7 @@ namespace DBMS.ViewModel
         {
             using (var db = new ProjectModelContainer())
             {
-                var result = db.Database.SqlQuery<int>("Procedure1").ToList();
+                var result = db.Database.ExecuteSqlCommand("IncrementOZ");
             }
         }
 

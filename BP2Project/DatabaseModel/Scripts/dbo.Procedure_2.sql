@@ -1,5 +1,6 @@
-﻿CREATE PROCEDURE [dbo].[IncrementOZ]
+﻿CREATE OR ALTER PROCEDURE [dbo].[IncrementOZ]
 AS
+BEGIN
 	--svakom timu koji ima vodju nad svakim projektom povecati OZ za 10
 	UPDATE TimRadiNaProjektu
 	SET OZ = OZ + 10
@@ -8,4 +9,4 @@ AS
 	INNER JOIN TimRadiNaProjektu ON TimRadiNaProjektu.Id = TimRadiNaProjektuTim.TimRadiNaProjektu_Id
 	WHERE
 	VodjaTima_Id != ''
-GO;
+END
