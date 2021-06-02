@@ -10,8 +10,6 @@ namespace DBMS.ViewModel.DataGridClasses
 {
     public class MobilniPickerViewModel
     {
-        public List<MobilniCreateViewModel> DataMobilni { get; private set; }
-
         List<MobilniCreateViewModel> listaMobilni;
 
         public MobilniPickerViewModel(List<MobilniCreateViewModel> outList)
@@ -24,38 +22,20 @@ namespace DBMS.ViewModel.DataGridClasses
             {
                 var list = db.Hardveri.Where(x => x is Mobilni);
 
-                DataMobilni = new List<MobilniCreateViewModel>();
-                foreach (Mobilni item in list)
+
+                if (listaMobilni.Count == 0)
                 {
-                    if (item.Dispecer != null) continue;
-
-                   
-
-                    DataMobilni.Add(new MobilniCreateViewModel(item));
-                }
-
-                foreach(var item in listaMobilni)
-                {
-                    foreach(var mob in DataMobilni)
+                    foreach (Mobilni item in list)
                     {
-                        if (mob.SH == item.SH)
-                        {
-                            mob.Selected = true;
-                        }
+                        if (item.Dispecer != null) continue;
+
+
+
+                        listaMobilni.Add(new MobilniCreateViewModel(item));
                     }
                 }
 
-
-                grid.ItemsSource = DataMobilni;
-            }
-        }
-
-        internal void GetSelection()
-        {
-            var list = DataMobilni.Where(x => x.Selected).ToList();
-            foreach(var x in list)
-            {
-                listaMobilni.Add(x);
+                grid.ItemsSource = listaMobilni;
             }
         }
 

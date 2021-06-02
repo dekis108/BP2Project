@@ -34,7 +34,6 @@ namespace DBMS
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            mobilniPickerViewModel.GetSelection();
             this.Close();
         }
     }

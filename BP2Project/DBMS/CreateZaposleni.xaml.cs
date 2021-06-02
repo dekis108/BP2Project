@@ -164,11 +164,11 @@ namespace DBMS
 
                     using (var db = new ProjectModelContainer())
                     {
-                        var listaMobilnih = db.Hardveri.ToList();
-                        var list = listaMobilnih.Where(x => listaMobilni.Where(y => y.SH == x.SH).Any()).ToList();
-                        foreach (Mobilni mobilni in list)
+                        var mobilni = db.Hardveri.ToList();
+                        var list = mobilni.Where(x => listaMobilni.Where(y => x.SH == y.SH && y.Selected).Any()).ToList();
+                        foreach (Mobilni mob in list)
                         {
-                            disp.Mobilni.Add(mobilni);
+                            disp.Mobilni.Add(mob);
                         }
 
                         disp.PoslovniProstor = db.PoslovniProstori.Find(txtBoxProstorija.Text);
