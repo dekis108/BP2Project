@@ -167,7 +167,12 @@ namespace DBMS
 
         private void procedura1BTN_Click(object sender, RoutedEventArgs e)
         {
-            mainWindowViewModel.TestProcedure1();
+            mainWindowViewModel.IncrementOZ();
+        }
+
+        private void procedura2BTN_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindowViewModel.AssignRoomsProcedure();
         }
     }
 }

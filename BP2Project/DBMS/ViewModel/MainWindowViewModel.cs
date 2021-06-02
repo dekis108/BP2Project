@@ -168,7 +168,15 @@ namespace DBMS.ViewModel
             }
         }
 
-        internal void TestProcedure1()
+        internal void AssignRoomsProcedure()
+        {
+            using (var db = new ProjectModelContainer())
+            {
+                var result = db.Database.ExecuteSqlCommand("RoomCursor");            
+            }
+        }
+
+        internal void IncrementOZ()
         {
             using (var db = new ProjectModelContainer())
             {

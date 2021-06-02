@@ -89,5 +89,6 @@
             </TabItem>
         </TabControl>
         <Button  Name="procedura1BTN" Content="Increment OZ" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,389,0,0" Click="procedura1BTN_Click"/>
+        <Button  x:Name="procedura2BTN" Content="Assign rooms" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="91,389,0,0" Click="procedura2BTN_Click"/>
     </Grid>
 </Window>
