@@ -229,5 +229,12 @@ namespace DBMS
             editHardver.ShowDialog();
             LoadHardver();
         }
+
+        private void ProjCreate_Click(object sender, RoutedEventArgs e)
+        {
+            CreateProjekat x = new CreateProjekat();
+            x.ShowDialog();
+            LoadProjekat();
+        }
     }
 }

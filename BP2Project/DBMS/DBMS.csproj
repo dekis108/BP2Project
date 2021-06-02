@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CreateProjekat.xaml.cs">
+      <DependentUpon>CreateProjekat.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreateProstorija.xaml.cs">
       <DependentUpon>CreateProstorija.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
     <Compile Include="ZaposleniChildren.xaml.cs">
       <DependentUpon>ZaposleniChildren.xaml</DependentUpon>
     </Compile>
+    <Page Include="CreateProjekat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreateProstorija.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

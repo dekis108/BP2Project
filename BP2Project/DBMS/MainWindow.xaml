@@ -71,6 +71,7 @@
                 <Grid>
                     <DataGrid Name="GridProjekat" Height="250" VerticalAlignment="Top"/>
                     <Button  Name="ProjDelete" Content="Delete selected" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,255,0,0" Click="ProjDelete_Click"/>
+                    <Button  Name="ProjCreate" Content="Create new" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="115,255,0,0" Click="ProjCreate_Click"/>
                 </Grid>
             </TabItem>
             <TabItem>
